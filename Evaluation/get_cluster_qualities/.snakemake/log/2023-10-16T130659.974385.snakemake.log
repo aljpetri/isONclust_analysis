@@ -1,0 +1,51 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count    min threads    max threads
+---------------  -------  -------------  -------------
+all                    1              1              1
+index_alignment        1              1              1
+sort_alignment         1              1              1
+total                  3              1              1
+
+Select jobs to execute...
+
+[Mon Oct 16 13:07:00 2023]
+rule sort_alignment:
+    input: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.bam
+    output: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.sorted.bam
+    jobid: 3
+    reason: Missing output files: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.sorted.bam
+    resources: tmpdir=/tmp
+
+[Mon Oct 16 13:07:02 2023]
+Finished job 3.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Mon Oct 16 13:07:02 2023]
+rule index_alignment:
+    input: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.sorted.bam
+    output: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.sorted.bam.bai
+    jobid: 2
+    reason: Missing output files: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.sorted.bam.bai; Input files updated by another job: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.sorted.bam
+    resources: tmpdir=/tmp
+
+[Mon Oct 16 13:07:03 2023]
+Finished job 2.
+2 of 3 steps (67%) done
+Select jobs to execute...
+
+[Mon Oct 16 13:07:03 2023]
+localrule all:
+    input: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.bam, /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.sorted.bam.bai
+    jobid: 0
+    reason: Input files updated by another job: /home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/alignment.sorted.bam.bai
+    resources: tmpdir=/tmp
+
+[Mon Oct 16 13:07:03 2023]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2023-10-16T130659.974385.snakemake.log
