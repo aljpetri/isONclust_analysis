@@ -1,0 +1,3 @@
+NameError in line 62 of /home/alexanderpetri/isonclust_analysis/get_cluster_qualities/snakefile:
+name 'outfolder_root' is not defined
+  File "/home/alexanderpetri/isonclust_analysis/get_cluster_qualities/snakefile", line 62, in <module>
