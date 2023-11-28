@@ -2,10 +2,10 @@
     "DATASETS" : ["SIRV"],
     "RATTLE_SCRIPT_FOLDER" : "~/RATTLE/",
     "ISONCLUST_PY_OUT_FOLDER" :"/home/alexanderpetri/Rust/out/100kSIRV_Results/",
-    "ISONCLUST_OUT_FOLDER" : "/home/alexanderpetri/Rust/out/100kSIRV_Results/",
-    "MINIMAP_OUT_FOLDER" : "/home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/",
+    "ISONCLUST_OUT_FOLDER" : "/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities",
+    "MINIMAP_OUT_FOLDER" : "/home/alexanderpetri/isONclust_analysis/Results/Alignment/",
     "SCRIPT_FOLDER" : "/home/alexanderpetri/isonclust_analysis/get_cluster_qualities",
     "REFERENCE_FOLDER": "/home/alexanderpetri/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/",
-    "OUTPUT_FOLDER" : "/home/alexanderpetri/Rust/out/100kSIRV_Results/Analysis/",
+    "OUTPUT_FOLDER" : "/home/alexanderpetri/isonclust_analysis/get_cluster_qualities/Results/",
     "ISONFORM_LOCATION" :"/home/alexanderpetri/PHDProject1/"
 }

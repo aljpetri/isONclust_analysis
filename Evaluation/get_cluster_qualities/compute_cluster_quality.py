@@ -16,9 +16,9 @@ def parse_inferred_clusters_tsv(tsv_file, args):
         elif args.ont:
             read_acc = read_acc.split()[0].split("_runid")[0]
         elif args.modified_ont:
-            read_acc = read_acc
+            read_acc = read_acc.split("_")[0]
         else:
-            read_acc = read_acc.split("_strand")[0] 
+            read_acc = read_acc.split(" ")[0] 
 
         clusters[read_acc] = int(cluster_id)
     return clusters
