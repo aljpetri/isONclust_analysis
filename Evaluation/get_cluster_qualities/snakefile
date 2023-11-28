@@ -1,7 +1,7 @@
 #this snakemake pipeline is used to analyse the performance of isONform,
 #especially on bigger datasets (>1k reads)
 #This is done by aligning all isoforms to the reference as well as aligning all original reads to the reference. We than can compare the counts of isoforms by comparing nr_occs and 
-
+# first activate environment:   conda activate clustering
 #Runnable the script by using the following: snakemake --cores 1 --configfile configs.json
 #to change the isoform abundance: Change isONform call in full_pipeline.sh (this is located in the isONform folder itself)
 #The following variables represent the paths to the files required to run this pipeline
@@ -40,8 +40,39 @@ ref_folder=config["REFERENCE_FOLDER"]
 isonclust_out_folder=config["ISONCLUST_OUT_FOLDER"]
 output_folder = config["OUTPUT_FOLDER"]
 rule all:
-	input: output_folder+"result_py_isONclust.txt",output_folder+"result_rs_isONclust.txt",minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
+	input: output_folder+"result_py_isONclust.txt",output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt",minimap_out_folder +'alignment.bam'#,minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
 		#snakemake_out_folder+"clusters.out"
+
+###############################################################################################################################
+#                                                Clustering PIPELINE                                                           #
+###############################################################################################################################
+
+##Run the python version of isONclust
+rule cluster_python:
+    input:	fastq=ref_folder + 'full_length_output.fastq'
+    output: 	'/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_py/final_clusters.tsv'
+    run:
+        py_output_folder="/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_py",
+        outfolder="/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_py/clustering/fastq_files",
+        shell("isONclust  --t 8  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
+        shell("isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
+
+##Run the rust version of isONclust for annotation
+rule cluster_rs_annot:
+    input: fastq=ref_folder + 'full_length_output.fastq'
+    output: '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_annot/final_clusters.tsv'
+    run:	
+        outfolder="/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_annot",
+        initial_clustering="~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/non_redundant_SIRVTranscriptome.fasta",
+        shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder} --init-cl {initial_clustering}")
+
+##Run the rust version of isONclust for denovo
+rule cluster_rs_denovo:
+    input: fastq=ref_folder + 'full_length_output.fastq'
+    output: '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_denovo/final_clusters.tsv'
+    run:	
+        outfolder="/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_denovo",
+        shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder}")
 		
 ###############################################################################################################################
 #                                                Alignment PIPELINE                                                           #
@@ -50,11 +81,11 @@ rule all:
 
 ##Align the original reads to the reference via minimap2 
 rule align_original_reads_minimap2:
-    input: 	reference = ref_folder + 'non_redundant_SIRVTranscriptome.fasta',
+    input: 	reference = ref_folder + 'SIRV_isoforms_multi-fasta_170612a.fasta',
     	   	original_reads = ref_folder + 'full_length_output.fastq'	 #outfolder_root+'/data/full_length_output.fastq'
     output: 	alignment =  minimap_out_folder +'alignment.bam'
     run:
-            	shell("minimap2 --t 8 --ax splice --uf --k14 {input.reference} {input.original_reads} >{output.alignment} ")
+            	shell("minimap2 -t 8 -ax splice -uf -k 14 {input.reference} {input.original_reads} >{output.alignment} ")
 
 
 ##Sort the alignment
@@ -70,18 +101,28 @@ rule index_alignment:
 	shell: "samtools index {input}"	
 		
 rule compute_quality_py:
-	input: 	py_cluster = isonclust_out_folder + "final_clusters_py.tsv",
-			alignment = minimap_out_folder+"alignment.bam"
+	input: 	py_cluster = '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_py/final_clusters.tsv',
+			alignment = minimap_out_folder+"alignment.sorted.bam",
+			index = minimap_out_folder+"alignment.sorted.bam.bai"
 			#rs_cluster = isonclust_out_folder + "final_clusters_100k_annot.tsv"
-	output:	output_folder+"result_py_isONclust.txt"
-	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output}"
+	output:	output_folder + "result_py_isONclust.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
 		
-rule compute_quality_rs:
-	input: 	rs_cluster = isonclust_out_folder + "final_clusters_100k_annot.tsv",
-			alignment = minimap_out_folder+"alignment.bam"		
-	output:	output_folder+"result_rs_isONclust.txt"
-	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"		
+rule compute_quality_rs_annot:
+	input: 	rs_cluster = '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_annot/final_clusters.tsv',
+			alignment = minimap_out_folder+"alignment.sorted.bam",
+			index = minimap_out_folder+"alignment.sorted.bam.bai"		
+	output:	output_folder+"result_rs_isONclust_annot.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
 		
+
+rule compute_quality_rs_denovo:
+	input: 	rs_cluster = '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_denovo/final_clusters.tsv',
+			alignment = minimap_out_folder + "alignment.sorted.bam",
+			index = minimap_out_folder+"alignment.sorted.bam.bai"		
+	output:	output_folder+"result_rs_isONclust_denovo.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
+
 		
 #The following rules are used to get a minimap based isoform count of our inputfile
 #rule pychop:
