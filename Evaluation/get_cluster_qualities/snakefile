@@ -7,26 +7,22 @@
 #The following variables represent the paths to the files required to run this pipeline
 
 ###File_location: Gives the location of the files that we want to analyse:
-#file_location="/home/alexanderpetri/isONform_analysis/100kSIRV/0againer/"
+
 file_location=config["REFERENCE_FOLDER"]
 
 ###Script_input_folder: Equal to the folder the snakefile is located in. Should also contain all scripts needed for our analysis:
-#script_input_folder="/home/alexanderpetri/isONform_analysis/Evaluation/Evaluate_SIRV/"
 script_input_folder=config["SCRIPT_FOLDER"]
 
 ### Output_folder: The folder in which all intermediate datasets as well as all real outputs are stored:
-#output_folder="/home/alexanderpetri/isONform_analysis/Analysis/SIRVtest/"
 output_folder=config["OUTPUT_FOLDER"]
 
 ###ref_folder: Path to the reference which we use to analyse the data
-#ref_folder="/home/alexanderpetri/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/"
 ref_folder=config["REFERENCE_FOLDER"]
 
 minimap_out_folder=config["MINIMAP_OUT_FOLDER"]
 
 IDS, = glob_wildcards(file_location+'spoa{id}merged.fa')
-#python get_error_rates_original.py SIRVTranscriptome.fasta 100kvsOriginal.sam analyse_100k_reads.csv
-#python count_SIRV_id_occurrences.py analyse_100k_reads.csv out.csv
+
 isonform_location=config["ISONFORM_LOCATION"]
 #snakemake_out_folder=config["RATTLE_OUT_FOLDER"]
 #rattle_location=config["RATTLE_SCRIPT_FOLDER"]
@@ -40,38 +36,39 @@ ref_folder=config["REFERENCE_FOLDER"]
 isonclust_out_folder=config["ISONCLUST_OUT_FOLDER"]
 output_folder = config["OUTPUT_FOLDER"]
 rule all:
-	input: output_folder+"result_py_isONclust.txt",output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt",minimap_out_folder +'alignment.bam'#,minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
+	input: output_folder+"result_py_isONclust.txt",output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt"
+	#,minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
 		#snakemake_out_folder+"clusters.out"
 
 ###############################################################################################################################
-#                                                Clustering PIPELINE                                                           #
+#                                                Clustering steps                                                             #
 ###############################################################################################################################
 
 ##Run the python version of isONclust
 rule cluster_python:
     input:	fastq=ref_folder + 'full_length_output.fastq'
-    output: 	'/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_py/final_clusters.tsv'
+    output: 	output_folder+'output_py/final_clusters.tsv'
     run:
-        py_output_folder="/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_py",
-        outfolder="/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_py/clustering/fastq_files",
+        py_output_folder=output_folder+'output_py',
+        outfolder=output_folder+'output_py/clustering/fastq_files',
         shell("isONclust  --t 8  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
         shell("isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
 
 ##Run the rust version of isONclust for annotation
 rule cluster_rs_annot:
     input: fastq=ref_folder + 'full_length_output.fastq'
-    output: '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_annot/final_clusters.tsv'
+    output: output_folder+'output_rs_annot/final_clusters.tsv'
     run:	
-        outfolder="/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_annot",
-        initial_clustering="~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/non_redundant_SIRVTranscriptome.fasta",
+        outfolder=output_folder+'output_rs_annot',
+        initial_clustering="~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/SIRV_isoforms_multi-fasta_170612a.fasta",
         shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder} --init-cl {initial_clustering}")
 
 ##Run the rust version of isONclust for denovo
 rule cluster_rs_denovo:
     input: fastq=ref_folder + 'full_length_output.fastq'
-    output: '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_denovo/final_clusters.tsv'
+    output: output_folder+'output_rs_denovo/final_clusters.tsv'
     run:	
-        outfolder="/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_denovo",
+        outfolder=output_folder+'output_rs_denovo',
         shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder}")
 		
 ###############################################################################################################################
@@ -82,7 +79,7 @@ rule cluster_rs_denovo:
 ##Align the original reads to the reference via minimap2 
 rule align_original_reads_minimap2:
     input: 	reference = ref_folder + 'SIRV_isoforms_multi-fasta_170612a.fasta',
-    	   	original_reads = ref_folder + 'full_length_output.fastq'	 #outfolder_root+'/data/full_length_output.fastq'
+    	   	original_reads = ref_folder + 'full_length_output.fastq'	 
     output: 	alignment =  minimap_out_folder +'alignment.bam'
     run:
             	shell("minimap2 -t 8 -ax splice -uf -k 14 {input.reference} {input.original_reads} >{output.alignment} ")
@@ -100,8 +97,12 @@ rule index_alignment:
 	output: minimap_out_folder+"alignment.sorted.bam.bai"
 	shell: "samtools index {input}"	
 		
+###############################################################################################################################
+#                                                Cluster quality assessment                                                   #
+###############################################################################################################################		
+		
 rule compute_quality_py:
-	input: 	py_cluster = '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_py/final_clusters.tsv',
+	input: 	py_cluster = output_folder+'output_py/final_clusters.tsv',
 			alignment = minimap_out_folder+"alignment.sorted.bam",
 			index = minimap_out_folder+"alignment.sorted.bam.bai"
 			#rs_cluster = isonclust_out_folder + "final_clusters_100k_annot.tsv"
@@ -109,7 +110,7 @@ rule compute_quality_py:
 	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
 		
 rule compute_quality_rs_annot:
-	input: 	rs_cluster = '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_annot/final_clusters.tsv',
+	input: 	rs_cluster = output_folder+'output_rs_annot/final_clusters.tsv',
 			alignment = minimap_out_folder+"alignment.sorted.bam",
 			index = minimap_out_folder+"alignment.sorted.bam.bai"		
 	output:	output_folder+"result_rs_isONclust_annot.txt"
@@ -117,7 +118,7 @@ rule compute_quality_rs_annot:
 		
 
 rule compute_quality_rs_denovo:
-	input: 	rs_cluster = '/home/alexanderpetri/isONclust_analysis/Results/get_cluster_qualities/output_rs_denovo/final_clusters.tsv',
+	input: 	rs_cluster = output_folder+'output_rs_denovo/final_clusters.tsv',
 			alignment = minimap_out_folder + "alignment.sorted.bam",
 			index = minimap_out_folder+"alignment.sorted.bam.bai"		
 	output:	output_folder+"result_rs_isONclust_denovo.txt"
