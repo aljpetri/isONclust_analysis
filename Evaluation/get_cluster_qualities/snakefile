@@ -51,8 +51,8 @@ rule cluster_python:
     run:
         py_output_folder=output_folder+'output_py',
         outfolder=output_folder+'output_py/clustering/fastq_files',
-        shell("isONclust  --t 8  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
-        shell("isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
+        shell("time -p isONclust  --t 8  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
+        shell("time -p isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
 
 ##Run the rust version of isONclust for annotation
 rule cluster_rs_annot:
@@ -61,7 +61,7 @@ rule cluster_rs_annot:
     run:	
         outfolder=output_folder+'output_rs_annot',
         initial_clustering="~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/SIRV_isoforms_multi-fasta_170612a.fasta",
-        shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder} --init-cl {initial_clustering}")
+        shell("time -p cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder} --init-cl {initial_clustering}")
 
 ##Run the rust version of isONclust for denovo
 rule cluster_rs_denovo:
@@ -69,7 +69,7 @@ rule cluster_rs_denovo:
     output: output_folder+'output_rs_denovo/final_clusters.tsv'
     run:	
         outfolder=output_folder+'output_rs_denovo',
-        shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder}")
+        shell("time -p cargo run --release --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder}")
 		
 ###############################################################################################################################
 #                                                Alignment PIPELINE                                                           #

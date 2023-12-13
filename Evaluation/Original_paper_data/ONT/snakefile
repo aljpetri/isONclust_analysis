@@ -1,0 +1,73 @@
+#this snakemake pipeline is used to analyse the performance of isONform,
+#especially on bigger datasets (>1k reads)
+#This is done by aligning all isoforms to the reference as well as aligning all original reads to the reference. We than can compare the counts of isoforms by comparing nr_occs and 
+# first activate environment:   conda activate clustering
+#Runnable the script by using the following: snakemake --cores 1 --configfile configs.json
+#to change the isoform abundance: Change isONform call in full_pipeline.sh (this is located in the isONform folder itself)
+#The following variables represent the paths to the files required to run this pipeline
+
+###File_location: Gives the location of the files that we want to analyse:
+
+file_location=config["REFERENCE_FOLDER"]
+
+###Script_input_folder: Equal to the folder the snakefile is located in. Should also contain all scripts needed for our analysis:
+script_input_folder=config["SCRIPT_FOLDER"]
+
+### Output_folder: The folder in which all intermediate datasets as well as all real outputs are stored:
+output_folder=config["OUTPUT_FOLDER"]
+
+###ref_folder: Path to the reference which we use to analyse the data
+ref_folder=config["REFERENCE_FOLDER"]
+
+minimap_out_folder=config["MINIMAP_OUT_FOLDER"]
+
+IDS, = glob_wildcards(file_location+'spoa{id}merged.fa')
+
+isonform_location=config["ISONFORM_LOCATION"]
+#snakemake_out_folder=config["RATTLE_OUT_FOLDER"]
+#rattle_location=config["RATTLE_SCRIPT_FOLDER"]
+#isonform_outfolder=config["ISONFORM_OUT_FOLDER"]
+
+
+
+
+minimap_out_folder=config["MINIMAP_OUT_FOLDER"]
+ref_folder=config["REFERENCE_FOLDER"]
+isonclust_out_folder=config["ISONCLUST_OUT_FOLDER"]
+output_folder = config["OUTPUT_FOLDER"]
+rule all:
+	input: output_folder+'output_py/final_clusters.tsv', output_folder+'output_rs_denovo/final_clusters.tsv'
+	#,output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt"
+	#,minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
+		#snakemake_out_folder+"clusters.out"
+
+###############################################################################################################################
+#                                                Clustering steps                                                             #
+###############################################################################################################################
+
+##Run the python version of isONclust
+rule cluster_python:
+    input:	fastq=ref_folder + 'NA12878-cDNA_All_Guppy_4.2.2.fastq'
+    output: 	output_folder+'output_py/final_clusters.tsv'
+    run:
+        py_output_folder=output_folder+'output_py',
+        outfolder=output_folder+'output_py/clustering/fastq_files',
+        shell("isONclust  --t 8  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
+        shell("isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
+
+##Run the rust version of isONclust for annotation
+#rule cluster_rs_annot:
+#    input: fastq=ref_folder + 'full_length_output.fastq'
+#    output: output_folder+'output_rs_annot/final_clusters.tsv'
+#    run:	
+#        outfolder=output_folder+'output_rs_annot',
+#        initial_clustering="~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/SIRV_isoforms_multi-fasta_170612a.fasta",
+#        shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder} --init-cl {initial_clustering}")
+
+##Run the rust version of isONclust for denovo
+rule cluster_rs_denovo:
+    input: fastq=ref_folder + 'NA12878-cDNA_All_Guppy_4.2.2.fastq'
+    output: output_folder+'output_rs_denovo/final_clusters.tsv'
+    run:	
+        outfolder=output_folder+'output_rs_denovo',
+        shell("time -p cargo run --release --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder}")
