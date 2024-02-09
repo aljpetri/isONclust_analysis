@@ -36,7 +36,7 @@ ref_folder=config["REFERENCE_FOLDER"]
 isonclust_out_folder=config["ISONCLUST_OUT_FOLDER"]
 output_folder = config["OUTPUT_FOLDER"]
 rule all:
-	input: output_folder+"result_py_isONclust.txt",output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt"
+	input: output_folder+"result_py_isONclust.txt",output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt", output_folder + "result_GeLuster.txt"
 	#,minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
 		#snakemake_out_folder+"clusters.out"
 
@@ -46,7 +46,7 @@ rule all:
 
 ##Run the python version of isONclust
 rule cluster_python:
-    input:	fastq=ref_folder + 'full_length_output.fastq'
+    input:	fastq = ref_folder + 'full_length_output.fastq'
     output: 	output_folder+'output_py/final_clusters.tsv'
     run:
         py_output_folder=output_folder+'output_py',
@@ -65,12 +65,19 @@ rule cluster_rs_annot:
 
 ##Run the rust version of isONclust for denovo
 rule cluster_rs_denovo:
-    input: fastq=ref_folder + 'full_length_output.fastq'
+    input: fastq = ref_folder + 'full_length_output.fastq'
     output: output_folder+'output_rs_denovo/final_clusters.tsv'
     run:	
         outfolder=output_folder+'output_rs_denovo',
         shell("time -p cargo run --release --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder}")
-		
+	
+	
+rule run_GeLuster:
+    input: fastq = ref_folder + 'full_length_output.fastq'
+    output: output_folder+'GeLuster/GeLuster.tsv'
+    run:
+        outfolder=output_folder+'GeLuster'
+        shell("time -p /home/alexanderpetri/GeLuster/GeLuster -r {input.fastq}  -f fq -s cDNA -o {outfolder}")
 ###############################################################################################################################
 #                                                Alignment PIPELINE                                                           #
 ###############################################################################################################################
@@ -102,29 +109,36 @@ rule index_alignment:
 ###############################################################################################################################		
 		
 rule compute_quality_py:
-	input: 	py_cluster = output_folder+'output_py/final_clusters.tsv',
-			alignment = minimap_out_folder+"alignment.sorted.bam",
-			index = minimap_out_folder+"alignment.sorted.bam.bai"
+	input: 	py_cluster = output_folder + 'output_py/final_clusters.tsv',
+			alignment = minimap_out_folder + "alignment.sorted.bam",
+			index = minimap_out_folder + "alignment.sorted.bam.bai"
 			#rs_cluster = isonclust_out_folder + "final_clusters_100k_annot.tsv"
 	output:	output_folder + "result_py_isONclust.txt"
 	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
 		
 rule compute_quality_rs_annot:
-	input: 	rs_cluster = output_folder+'output_rs_annot/final_clusters.tsv',
-			alignment = minimap_out_folder+"alignment.sorted.bam",
-			index = minimap_out_folder+"alignment.sorted.bam.bai"		
-	output:	output_folder+"result_rs_isONclust_annot.txt"
+	input: 	rs_cluster = output_folder + 'output_rs_annot/final_clusters.tsv',
+			alignment = minimap_out_folder + "alignment.sorted.bam",
+			index = minimap_out_folder + "alignment.sorted.bam.bai"		
+	output:	output_folder + "result_rs_isONclust_annot.txt"
 	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
 		
 
 rule compute_quality_rs_denovo:
-	input: 	rs_cluster = output_folder+'output_rs_denovo/final_clusters.tsv',
+	input: 	rs_cluster = output_folder + 'output_rs_denovo/final_clusters.tsv',
 			alignment = minimap_out_folder + "alignment.sorted.bam",
-			index = minimap_out_folder+"alignment.sorted.bam.bai"		
-	output:	output_folder+"result_rs_isONclust_denovo.txt"
+			index = minimap_out_folder + "alignment.sorted.bam.bai"		
+	output:	output_folder + "result_rs_isONclust_denovo.txt"
 	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
 
-		
+rule compute_quality_geluster:
+	input: 	rs_cluster = output_folder + 'GeLuster/GeLuster.tsv',
+			alignment = minimap_out_folder + "alignment.sorted.bam",
+			index = minimap_out_folder + "alignment.sorted.bam.bai"		
+	output:	output_folder + "result_GeLuster.txt"
+	shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
+	
+			
 #The following rules are used to get a minimap based isoform count of our inputfile
 #rule pychop:
 #	input: file_location+'100k_sample.fastq'

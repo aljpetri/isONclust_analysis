@@ -1,2 +1,0 @@
-SyntaxError in line 77 of /home/alexanderpetri/isonclust_analysis/get_cluster_qualities/snakefile:
-Colon expected after keyword shell. (snakefile, line 77)

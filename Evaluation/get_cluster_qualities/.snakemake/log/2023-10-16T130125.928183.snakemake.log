@@ -1,3 +1,0 @@
-KeyError in line 31 of /home/alexanderpetri/isonclust_analysis/get_cluster_qualities/snakefile:
-'RATTLE_OUT_FOLDER'
-  File "/home/alexanderpetri/isonclust_analysis/get_cluster_qualities/snakefile", line 31, in <module>
