@@ -1,7 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule align_original_reads_minimap2  in line 52 of /home/alexanderpetri/isonclust_analysis/get_cluster_qualities/snakefile:
-Missing input files(Using '~' in your paths is not allowed as such platform specific syntax is not resolved by Snakemake. In general, try sticking to relative paths for everything inside the working directory.) for rule align_original_reads_minimap2:
-    output: ~/Rust/out/100kSIRV_Results/Analysis/alignment.bam
-    affected files:
-        ~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/non_redundant_SIRVTranscriptome.fasta
-        ~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/full_length_output.fastq

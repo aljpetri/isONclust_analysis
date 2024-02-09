@@ -19,6 +19,9 @@ output_folder=config["OUTPUT_FOLDER"]
 ###ref_folder: Path to the reference which we use to analyse the data
 ref_folder=config["REFERENCE_FOLDER"]
 
+###input_folder
+input_folder=config["INPUT_FOLDER"]
+
 minimap_out_folder=config["MINIMAP_OUT_FOLDER"]
 
 IDS, = glob_wildcards(file_location+'spoa{id}merged.fa')
@@ -36,7 +39,7 @@ ref_folder=config["REFERENCE_FOLDER"]
 isonclust_out_folder=config["ISONCLUST_OUT_FOLDER"]
 output_folder = config["OUTPUT_FOLDER"]
 rule all:
-	input: output_folder+'output_py/final_clusters.tsv', output_folder+'output_rs_denovo/final_clusters.tsv'
+	input: output_folder+'output_py/final_clusters.tsv', output_folder+'output_rs_denovo/final_clusters.tsv',output_folder + "result_py_isONclust.txt",output_folder+"result_rs_isONclust_denovo.txt"
 	#,output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt"
 	#,minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
 		#snakemake_out_folder+"clusters.out"
@@ -47,7 +50,7 @@ rule all:
 
 ##Run the python version of isONclust
 rule cluster_python:
-    input:	fastq=ref_folder + 'ccs.fastq'
+    input:	fastq=input_folder + 'ccs.fastq'
     output: 	output_folder+'output_py/final_clusters.tsv'
     run:
         py_output_folder=output_folder+'output_py',
@@ -66,8 +69,64 @@ rule cluster_python:
 
 ##Run the rust version of isONclust for denovo
 rule cluster_rs_denovo:
-    input: fastq=ref_folder + 'ccs.fastq'
+    input: fastq=input_folder + 'ccs.fastq'
     output: output_folder+'output_rs_denovo/final_clusters.tsv'
     run:	
         outfolder=output_folder+'output_rs_denovo',
         shell("time -p cargo run --release --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder}")
+        
+        
+        
+###############################################################################################################################
+#                                                Alignment PIPELINE                                                           #
+###############################################################################################################################
+
+
+##Align the original reads to the reference via minimap2 
+rule align_original_reads_minimap2:
+    input: 	reference = ref_folder + 'GCF_000001405.40_GRCh38.p14_genomic.fna',
+    	   	original_reads = input_folder + 'ccs.fastq'	 
+    output: 	alignment =  minimap_out_folder +'alignment.bam'
+    run:
+            	shell("minimap2 -t 8 -ax splice -uf -k 14 {input.reference} {input.original_reads} >{output.alignment} ")
+
+
+##Sort the alignment
+rule sort_alignment:
+	input: minimap_out_folder+"alignment.bam"
+	output: minimap_out_folder+"alignment.sorted.bam"
+	shell: "samtools view -Su {input} | samtools sort -o {output}"
+
+##Index the alignment(StringtiePipe)
+rule index_alignment:
+	input: minimap_out_folder+"alignment.sorted.bam"
+	output: minimap_out_folder+"alignment.sorted.bam.bai"
+	shell: "samtools index {input}"	
+		
+###############################################################################################################################
+#                                                Cluster quality assessment                                                   #
+###############################################################################################################################		
+		
+rule compute_quality_py:
+	input: 	py_cluster = output_folder+'output_py/final_clusters.tsv',
+			alignment = minimap_out_folder+"alignment.sorted.bam",
+			index = minimap_out_folder+"alignment.sorted.bam.bai"
+			#rs_cluster = isonclust_out_folder + "final_clusters_100k_annot.tsv"
+	output:	output_folder + "result_py_isONclust.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
+		
+#rule compute_quality_rs_annot:
+#	input: 	rs_cluster = output_folder+'output_rs_annot/final_clusters.tsv',
+#			alignment = minimap_out_folder+"alignment.sorted.bam",
+#			index = minimap_out_folder+"alignment.sorted.bam.bai"		
+#	output:	output_folder+"result_rs_isONclust_annot.txt"
+#	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
+		
+
+rule compute_quality_rs_denovo:
+	input: 	rs_cluster = output_folder+'output_rs_denovo/final_clusters.tsv',
+			alignment = minimap_out_folder + "alignment.sorted.bam",
+			index = minimap_out_folder+"alignment.sorted.bam.bai"		
+	output:	output_folder+"result_rs_isONclust_denovo.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
+
