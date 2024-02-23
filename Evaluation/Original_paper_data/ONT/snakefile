@@ -36,7 +36,7 @@ ref_folder=config["REFERENCE_FOLDER"]
 isonclust_out_folder=config["ISONCLUST_OUT_FOLDER"]
 output_folder = config["OUTPUT_FOLDER"]
 rule all:
-	input:  output_folder+'output_rs_denovo/final_clusters.tsv',output_folder+"result_rs_isONclust_denovo.txt", output_folder + "result_py_isONclust.txt"#,output_folder+"result_rs_isONclust_annot.txt"
+	input:  output_folder+'output_rs_denovo/final_clusters.tsv',output_folder+"result_rs_isONclust_denovo.txt", output_folder + "result_py_isONclust.txt" ,output_folder+"result_rs_isONclust_annot.txt"
 	#,output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt"
 	#,minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
 		#snakemake_out_folder+"clusters.out"
@@ -65,13 +65,14 @@ rule cluster_python:
         shell("time -p isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
 
 ##Run the rust version of isONclust for annotation
-#rule cluster_rs_annot:
-#    input: fastq=output_folder+ 'full_length.fq'
-#    output: output_folder+'output_rs_annot/final_clusters.tsv'
-#    run:	
-#        outfolder=output_folder+'output_rs_annot',
-#        initial_clustering=ref_folder + 'GCF_000001405.40_GRCh38.p14_genomic.fna',
-#        shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder} --init-cl {initial_clustering}")
+rule cluster_rs_annot:
+    input: fastq=output_folder+ 'full_length.fq'
+    output: output_folder+'output_rs_annot/final_clusters.tsv'
+    run:	
+        outfolder=output_folder+'output_rs_annot',
+        initial_clustering= ref_folder + 'GCF_000001405.40_GRCh38.p14_genomic.fna',
+        gff= '/home/alexanderpetri/isONclust_analysis/Datasets/hg38/ncbi_dataset/data/GCF_000001405.40/genomic.gff'
+        shell("cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} --mode ont --gff {gff} --outfolder {outfolder} --init-cl {initial_clustering}")
 
 ##Run the rust version of isONclust for denovo
 rule cluster_rs_denovo:
@@ -120,12 +121,12 @@ rule compute_quality_py:
 	output:	output_folder + "result_py_isONclust.txt"
 	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
 		
-#rule compute_quality_rs_annot:
-#	input: 	rs_cluster = output_folder+'output_rs_annot/final_clusters.tsv',
-#			alignment = minimap_out_folder+"alignment.sorted.bam",
-#			index = minimap_out_folder+"alignment.sorted.bam.bai"		
-#	output:	output_folder+"result_rs_isONclust_annot.txt"
-#	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
+rule compute_quality_rs_annot:
+	input: 	rs_cluster = output_folder+'output_rs_annot/final_clusters.tsv',
+			alignment = minimap_out_folder+"alignment.sorted.bam",
+			index = minimap_out_folder+"alignment.sorted.bam.bai"		
+	output:	output_folder+"result_rs_isONclust_annot.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
 		
 
 rule compute_quality_rs_denovo:

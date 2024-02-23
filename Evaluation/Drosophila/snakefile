@@ -274,7 +274,12 @@ rule compute_quality_rattle:
         output: cluster_outfolder + "result_rattle.txt"
         shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"     
 
-
+rule compute_quality_rs_annot:
+        input:  rs_cluster = cluster_outfolder+"rs_annot/final_clusters.tsv",
+                alignment = outfolder_root+"/stringtie/drosophila_aligned.sorted.bam",
+                index = outfolder_root+"/stringtie/drosophila_aligned.sorted.bam.bai"
+        output: cluster_outfolder+"result_rs_isONclust_annot.txt"
+        shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
 
 ###############################################################################################################################
 #                                                     ISONFORM ANALYSIS                                                       #
@@ -291,7 +296,14 @@ rule run_isONclust_py:
             shell("isONclust  --t 1  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
             shell("isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
 
-
+rule cluster_rs_annot:
+    input: fastq = outfolder_root+'/data/full_length_output.fastq'
+    output: cluster_outfolder+"rs_annot/final_clusters.tsv"
+    run:
+        outfolder = output_folder+'rs_annot',
+        initial_clustering = config["drosophila97"],
+        shell("cargo run --release --manifest-path /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder} --init-cl {initial_clustering}")
+        
 rule run_isONclust_rs:
         input: fastq = outfolder_root+'/data/full_length_output.fastq'
         output: cluster_outfolder+"rs/final_clusters.tsv"
