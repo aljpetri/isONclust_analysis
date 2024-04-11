@@ -36,7 +36,7 @@ ref_folder=config["REFERENCE_FOLDER"]
 isonclust_out_folder=config["ISONCLUST_OUT_FOLDER"]
 output_folder = config["OUTPUT_FOLDER"]
 rule all:
-	input: output_folder+"result_py_isONclust.txt",output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt", output_folder + "result_GeLuster.txt"
+	input: output_folder+"result_rs_isONclust_annot.txt",output_folder+"result_rs_isONclust_denovo.txt"#, output_folder + "result_GeLuster.txt",output_folder+"result_py_isONclust.txt",
 	#,minimap_out_folder +"alignment.bam", minimap_out_folder+"alignment.sorted.bam.bai"#, snakemake_out_folder+'rattle_counts.csv',output_folder+'dummy.txt', isonform_outfolder+'/isONformAnalysis.csv',output_folder+"alignments/results_ison.csv"#,output_folder+"alignments/results_rattle.csv"#,output_folder+'dummy.txt'
 		#snakemake_out_folder+"clusters.out"
 
@@ -56,20 +56,21 @@ rule cluster_python:
 
 ##Run the rust version of isONclust for annotation
 rule cluster_rs_annot:
-    input: fastq=ref_folder + 'full_length_output.fastq'
-    output: output_folder+'output_rs_annot/final_clusters.tsv'
+    input: fastq = ref_folder + 'full_length_output.fastq'
+    output: output_folder+'output_rs_annot/clustering/final_clusters.tsv'
     run:	
         outfolder=output_folder+'output_rs_annot',
         initial_clustering="~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/SIRV_isoforms_multi-fasta_170612a.fasta",
-        shell("time -p cargo run --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder} --init-cl {initial_clustering}")
+        gff= "~/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/SIRV.gff3",
+        shell("time -p cargo run --release --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} --gff {gff} --mode ont --outfolder {outfolder} --init-cl {initial_clustering}")
 
 ##Run the rust version of isONclust for denovo
 rule cluster_rs_denovo:
     input: fastq = ref_folder + 'full_length_output.fastq'
-    output: output_folder+'output_rs_denovo/final_clusters.tsv'
+    output: output_folder+'output_rs_denovo/clustering/final_clusters.tsv'
     run:	
         outfolder=output_folder+'output_rs_denovo',
-        shell("time -p cargo run --release --manifest-path ~/Rust/isONclust_rs/Cargo.toml -- --fastq {input.fastq} -k 13 -w 20  --outfolder {outfolder}")
+        shell("time -p cargo run --release --manifest-path ~/Rust/isONclust_rs/Cargo.toml --  --fastq {input.fastq}   --outfolder {outfolder} --mode ont")
 	
 	
 rule run_GeLuster:
@@ -117,7 +118,7 @@ rule compute_quality_py:
 	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
 		
 rule compute_quality_rs_annot:
-	input: 	rs_cluster = output_folder + 'output_rs_annot/final_clusters.tsv',
+	input: 	rs_cluster = output_folder + 'output_rs_annot/clustering/final_clusters.tsv',
 			alignment = minimap_out_folder + "alignment.sorted.bam",
 			index = minimap_out_folder + "alignment.sorted.bam.bai"		
 	output:	output_folder + "result_rs_isONclust_annot.txt"
@@ -125,11 +126,11 @@ rule compute_quality_rs_annot:
 		
 
 rule compute_quality_rs_denovo:
-	input: 	rs_cluster = output_folder + 'output_rs_denovo/final_clusters.tsv',
+	input: 	rs_cluster = output_folder + 'output_rs_denovo/clustering/final_clusters.tsv',
 			alignment = minimap_out_folder + "alignment.sorted.bam",
 			index = minimap_out_folder + "alignment.sorted.bam.bai"		
 	output:	output_folder + "result_rs_isONclust_denovo.txt"
-	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
+	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "	
 
 rule compute_quality_geluster:
 	input: 	rs_cluster = output_folder + 'GeLuster/GeLuster.tsv',
