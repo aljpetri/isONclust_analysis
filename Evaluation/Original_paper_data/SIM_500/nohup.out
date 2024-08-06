@@ -1,0 +1,1797 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                              count    min threads    max threads
+-----------------------------  -------  -------------  -------------
+align_original_reads_minimap2        1              1              1
+all                                  1              1              1
+compute_quality_geluster             1              1              1
+compute_quality_py                   1              1              1
+compute_quality_rattle               1              1              1
+compute_quality_rs_denovo            1              1              1
+index_alignment                      1              1              1
+rattle_cluster                       1              1              1
+run_GeLuster                         1              1              1
+run_isONclust_py                     1              1              1
+run_isONclust_rs                     1              1              1
+sort_alignment                       1              1              1
+summarize_rattle                     1              1              1
+total                               13              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (5):
+	run_isONclust_py
+	run_isONclust_rs
+	rattle_cluster
+	align_original_reads_minimap2
+	run_GeLuster
+Select jobs to execute...
+Welcome to the CBC MILP Solver 
+Version: 2.10.8 
+Build Date: May  6 2022 
+
+command line - cbc /scratch/ff0e309ada824375969734d8ca01a1c3-pulp.mps max timeMode elapsed branch printingOptions all solution /scratch/ff0e309ada824375969734d8ca01a1c3-pulp.sol (default strategy 1)
+At line 2 NAME          MODEL
+At line 3 ROWS
+At line 7 COLUMNS
+At line 33 RHS
+At line 36 BOUNDS
+At line 42 ENDATA
+Problem MODEL has 2 rows, 5 columns and 10 elements
+Coin0008I MODEL read with 0 errors
+Option for timeMode changed from cpu to elapsed
+Continuous objective value is 10 - 0.00 seconds
+Cgl0004I processed model has 0 rows, 0 columns (0 integer (0 of which binary)) and 0 elements
+Cbc3007W No integer variables - nothing to do
+Cuts at root node changed objective from -10 to -1.79769e+308
+Probing was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Gomory was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Knapsack was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Clique was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+MixedIntegerRounding2 was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+FlowCover was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+TwoMirCuts was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+ZeroHalf was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+
+Result - Optimal solution found
+
+Objective value:                10.00000000
+Enumerated nodes:               0
+Total iterations:               0
+Time (CPU seconds):             0.01
+Time (Wallclock seconds):       0.01
+
+Option for printingOptions changed from normal to all
+Total time (CPU seconds):       0.01   (Wallclock seconds):       0.01
+
+Selected jobs (5):
+	run_isONclust_py
+	run_isONclust_rs
+	rattle_cluster
+	align_original_reads_minimap2
+	run_GeLuster
+Resources after job selection: {'_cores': 9223372036854775802, '_nodes': 999994}
+
+[Fri Feb 16 13:07:06 2024]
+rule run_isONclust_py:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv
+    jobid: 10
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_py", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 10, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "20", "C": "mem128GB", "Nodes": 1, "runtime": "5-00:00:00", "jobname": "run_isONclust.py", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_py:' --allowed-rules 'run_isONclust_py' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/10.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/10.jobfailed'; exit 1)
+
+Submitted job 10 with external jobid 'Submitted batch job 45104487'.
+
+[Fri Feb 16 13:07:07 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    jobid: 12
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 12, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/12.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/12.jobfailed'; exit 1)
+
+Submitted job 12 with external jobid 'Submitted batch job 45104488'.
+
+[Fri Feb 16 13:07:07 2024]
+rule rattle_cluster:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/clusters.out
+    jobid: 3
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/clusters.out
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "rattle_cluster", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/clusters.out"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 3, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "20", "C": "mem256GB", "Nodes": "1", "runtime": "5-00:00:00", "jobname": "rattle_cluster", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'rattle_cluster:' --allowed-rules 'rattle_cluster' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/3.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/3.jobfailed'; exit 1)
+
+Submitted job 3 with external jobid 'Submitted batch job 45104489'.
+
+[Fri Feb 16 13:07:07 2024]
+rule align_original_reads_minimap2:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sam
+    jobid: 5
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sam
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "align_original_reads_minimap2", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sam"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 5, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "20", "C": "mem128GB", "Nodes": 1, "runtime": "10:00:00", "jobname": "align_original_reads_minimap2", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'align_original_reads_minimap2:' --allowed-rules 'align_original_reads_minimap2' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/5.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/5.jobfailed'; exit 1)
+
+Submitted job 5 with external jobid 'Submitted batch job 45104490'.
+
+[Fri Feb 16 13:07:07 2024]
+rule run_GeLuster:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/GeLuster/GeLuster.tsv
+    jobid: 8
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/GeLuster/GeLuster.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_GeLuster", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/GeLuster/GeLuster.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 8, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "5-00:00:00", "jobname": "run_GeLuster", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_GeLuster:' --allowed-rules 'run_GeLuster' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/8.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/8.jobfailed'; exit 1)
+
+Submitted job 8 with external jobid 'Submitted batch job 45104491'.
+[Fri Feb 16 13:22:37 2024]
+Finished job 12.
+1 of 13 steps (8%) done
+[Fri Feb 16 13:30:27 2024]
+Finished job 5.
+2 of 13 steps (15%) done
+Resources before job selection: {'_cores': 9223372036854775804, '_nodes': 999996}
+Ready jobs (1):
+	sort_alignment
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	sort_alignment
+Resources after job selection: {'_cores': 9223372036854775803, '_nodes': 999995}
+
+[Fri Feb 16 13:30:27 2024]
+rule sort_alignment:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sam
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam
+    jobid: 4
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sam
+    resources: mem_mb=4741, mem_mib=4522, disk_mb=4741, disk_mib=4522, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "sort_alignment", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sam"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4741, "mem_mib": 4522, "disk_mb": 4741, "disk_mib": 4522, "tmpdir": "<TBD>"}, "jobid": 4, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "1", "C": "mem128GB", "Nodes": "1", "runtime": "10:00:00", "jobname": "sortalignment", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'sort_alignment:' --allowed-rules 'sort_alignment' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4741' 'mem_mib=4522' 'disk_mb=4741' 'disk_mib=4522' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sam' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/4.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/4.jobfailed'; exit 1)
+
+Submitted job 4 with external jobid 'Submitted batch job 45105734'.
+[Fri Feb 16 13:34:37 2024]
+Finished job 4.
+3 of 13 steps (23%) done
+Resources before job selection: {'_cores': 9223372036854775804, '_nodes': 999996}
+Ready jobs (1):
+	index_alignment
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	index_alignment
+Resources after job selection: {'_cores': 9223372036854775803, '_nodes': 999995}
+
+[Fri Feb 16 13:34:37 2024]
+rule index_alignment:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    jobid: 6
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "index_alignment", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 6, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "1", "C": "mem128GB", "Nodes": "1", "runtime": "10:00:00", "jobname": "indexalignment", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'index_alignment:' --allowed-rules 'index_alignment' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/6.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/6.jobfailed'; exit 1)
+
+Submitted job 6 with external jobid 'Submitted batch job 45105759'.
+[Fri Feb 16 13:37:58 2024]
+Finished job 6.
+4 of 13 steps (31%) done
+Resources before job selection: {'_cores': 9223372036854775804, '_nodes': 999996}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775803, '_nodes': 999995}
+
+[Fri Feb 16 13:37:58 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 11
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 11, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/11.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/11.jobfailed'; exit 1)
+
+Submitted job 11 with external jobid 'Submitted batch job 45105762'.
+[Fri Feb 16 13:38:28 2024]
+Finished job 11.
+5 of 13 steps (38%) done
+[Fri Feb 16 13:43:58 2024]
+Finished job 8.
+6 of 13 steps (46%) done
+Resources before job selection: {'_cores': 9223372036854775805, '_nodes': 999997}
+Ready jobs (1):
+	compute_quality_geluster
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_geluster
+Resources after job selection: {'_cores': 9223372036854775804, '_nodes': 999996}
+
+[Fri Feb 16 13:43:58 2024]
+rule compute_quality_geluster:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/GeLuster/GeLuster.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt
+    jobid: 7
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/GeLuster/GeLuster.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_geluster", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/GeLuster/GeLuster.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 7, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "0-10:00:00", "jobname": "pipeline", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_geluster:' --allowed-rules 'compute_quality_geluster' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/GeLuster/GeLuster.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/7.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/7.jobfailed'; exit 1)
+
+Submitted job 7 with external jobid 'Submitted batch job 45105866'.
+[Fri Feb 16 13:47:58 2024]
+Finished job 7.
+7 of 13 steps (54%) done
+[Fri Feb 16 20:17:10 2024]
+Finished job 10.
+8 of 13 steps (62%) done
+Resources before job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+Ready jobs (1):
+	compute_quality_py
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_py
+Resources after job selection: {'_cores': 9223372036854775805, '_nodes': 999997}
+
+[Fri Feb 16 20:17:10 2024]
+rule compute_quality_py:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt
+    jobid: 9
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_py", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 9, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_py", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_py:' --allowed-rules 'compute_quality_py' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/9.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/9.jobfailed'; exit 1)
+
+Submitted job 9 with external jobid 'Submitted batch job 45117040'.
+[Fri Feb 16 20:17:40 2024]
+Finished job 9.
+9 of 13 steps (69%) done
+[Sat Feb 17 00:02:52 2024]
+Finished job 3.
+10 of 13 steps (77%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	summarize_rattle
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	summarize_rattle
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Sat Feb 17 00:02:52 2024]
+rule summarize_rattle:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/clusters.out
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/cluster_summary.tsv
+    jobid: 2
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/cluster_summary.tsv; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/clusters.out
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "summarize_rattle", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/clusters.out"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/cluster_summary.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 2, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "summarize_rattle", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'summarize_rattle:' --allowed-rules 'summarize_rattle' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/clusters.out' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/2.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/2.jobfailed'; exit 1)
+
+Submitted job 2 with external jobid 'Submitted batch job 45117628'.
+[Sat Feb 17 00:07:32 2024]
+Finished job 2.
+11 of 13 steps (85%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rattle
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rattle
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Sat Feb 17 00:07:32 2024]
+rule compute_quality_rattle:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/cluster_summary.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt
+    jobid: 1
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/cluster_summary.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rattle", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/cluster_summary.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 1, "cluster": {"account": "snic2022-5-592 ", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rattle", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rattle:' --allowed-rules 'compute_quality_rattle' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rattle/cluster_summary.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/1.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.xmotcgi6/1.jobfailed'; exit 1)
+
+Submitted job 1 with external jobid 'Submitted batch job 45117632'.
+[Sat Feb 17 00:12:13 2024]
+Finished job 1.
+12 of 13 steps (92%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Sat Feb 17 00:12:13 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Sat Feb 17 00:12:13 2024]
+Finished job 0.
+13 of 13 steps (100%) done
+Complete log: .snakemake/log/2024-02-16T130705.560292.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+cluster_rs_annot                 1              1              1
+compute_quality_rs_annot         1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            5              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (2):
+	cluster_rs_annot
+	run_isONclust_rs
+Select jobs to execute...
+Welcome to the CBC MILP Solver 
+Version: 2.10.8 
+Build Date: May  6 2022 
+
+command line - cbc /scratch/6a66ef94a500483dae4c33dcad9a0392-pulp.mps max timeMode elapsed branch printingOptions all solution /scratch/6a66ef94a500483dae4c33dcad9a0392-pulp.sol (default strategy 1)
+At line 2 NAME          MODEL
+At line 3 ROWS
+At line 7 COLUMNS
+At line 18 RHS
+At line 21 BOUNDS
+At line 24 ENDATA
+Problem MODEL has 2 rows, 2 columns and 4 elements
+Coin0008I MODEL read with 0 errors
+Option for timeMode changed from cpu to elapsed
+Continuous objective value is 4 - 0.00 seconds
+Cgl0004I processed model has 0 rows, 0 columns (0 integer (0 of which binary)) and 0 elements
+Cbc3007W No integer variables - nothing to do
+Cuts at root node changed objective from -4 to -1.79769e+308
+Probing was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Gomory was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Knapsack was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Clique was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+MixedIntegerRounding2 was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+FlowCover was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+TwoMirCuts was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+ZeroHalf was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+
+Result - Optimal solution found
+
+Objective value:                4.00000000
+Enumerated nodes:               0
+Total iterations:               0
+Time (CPU seconds):             0.00
+Time (Wallclock seconds):       0.00
+
+Option for printingOptions changed from normal to all
+Total time (CPU seconds):       0.01   (Wallclock seconds):       0.00
+
+Selected jobs (2):
+	cluster_rs_annot
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775805, '_nodes': 999997}
+
+[Thu Mar 14 09:55:50 2024]
+rule cluster_rs_annot:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    jobid: 2
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "cluster_rs_annot", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 2, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "20", "C": "mem128GB", "Nodes": 1, "runtime": "5-00:00:00", "jobname": "run_isONclust_rs_annot", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'cluster_rs_annot:' --allowed-rules 'cluster_rs_annot' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.24u7hdid' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'params' 'mtime' 'code' 'input' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.24u7hdid/2.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.24u7hdid/2.jobfailed'; exit 1)
+
+Submitted job 2 with external jobid 'Submitted batch job 45546109'.
+
+[Thu Mar 14 09:55:50 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    jobid: 14
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.24u7hdid' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'params' 'mtime' 'code' 'input' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.24u7hdid/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.24u7hdid/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 45546110'.
+[Thu Mar 14 09:59:40 2024]
+Error in rule cluster_rs_annot:
+    jobid: 2
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    cluster_jobid: Submitted batch job 45546109
+
+Error executing rule cluster_rs_annot on cluster (jobid: 2, external: Submitted batch job 45546109, jobscript: /crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.24u7hdid/snakejob.cluster_rs_annot.2.sh). For error details see the cluster log and the log files of the involved rule(s).
+Cleanup job metadata.
+Cleanup failed jobs output files.
+[Thu Mar 14 10:00:00 2024]
+Error in rule run_isONclust_rs:
+    jobid: 14
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    cluster_jobid: Submitted batch job 45546110
+
+Error executing rule run_isONclust_rs on cluster (jobid: 14, external: Submitted batch job 45546110, jobscript: /crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.24u7hdid/snakejob.run_isONclust_rs.14.sh). For error details see the cluster log and the log files of the involved rule(s).
+Cleanup job metadata.
+Cleanup failed jobs output files.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-03-14T095549.344629.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+cluster_rs_annot                 1              1              1
+compute_quality_rs_annot         1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            5              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (2):
+	cluster_rs_annot
+	run_isONclust_rs
+Select jobs to execute...
+Welcome to the CBC MILP Solver 
+Version: 2.10.8 
+Build Date: May  6 2022 
+
+command line - cbc /scratch/ead5fece7bdb46c59bae4a496b2edf39-pulp.mps max timeMode elapsed branch printingOptions all solution /scratch/ead5fece7bdb46c59bae4a496b2edf39-pulp.sol (default strategy 1)
+At line 2 NAME          MODEL
+At line 3 ROWS
+At line 7 COLUMNS
+At line 18 RHS
+At line 21 BOUNDS
+At line 24 ENDATA
+Problem MODEL has 2 rows, 2 columns and 4 elements
+Coin0008I MODEL read with 0 errors
+Option for timeMode changed from cpu to elapsed
+Continuous objective value is 4 - 0.00 seconds
+Cgl0004I processed model has 0 rows, 0 columns (0 integer (0 of which binary)) and 0 elements
+Cbc3007W No integer variables - nothing to do
+Cuts at root node changed objective from -4 to -1.79769e+308
+Probing was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Gomory was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Knapsack was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Clique was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+MixedIntegerRounding2 was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+FlowCover was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+TwoMirCuts was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+ZeroHalf was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+
+Result - Optimal solution found
+
+Objective value:                4.00000000
+Enumerated nodes:               0
+Total iterations:               0
+Time (CPU seconds):             0.01
+Time (Wallclock seconds):       0.00
+
+Option for printingOptions changed from normal to all
+Total time (CPU seconds):       0.01   (Wallclock seconds):       0.00
+
+Selected jobs (2):
+	cluster_rs_annot
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775805, '_nodes': 999997}
+
+[Thu Mar 14 10:08:49 2024]
+rule cluster_rs_annot:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    jobid: 2
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "cluster_rs_annot", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 2, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "20", "C": "mem128GB", "Nodes": 1, "runtime": "5-00:00:00", "jobname": "run_isONclust_rs_annot", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'cluster_rs_annot:' --allowed-rules 'cluster_rs_annot' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'software-env' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv/2.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv/2.jobfailed'; exit 1)
+
+Submitted job 2 with external jobid 'Submitted batch job 45547346'.
+
+[Thu Mar 14 10:08:49 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    jobid: 14
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'software-env' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 45547347'.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+cluster_rs_annot                 1              1              1
+compute_quality_rs_annot         1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            5              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (2):
+	cluster_rs_annot
+	run_isONclust_rs
+Select jobs to execute...
+Welcome to the CBC MILP Solver 
+Version: 2.10.8 
+Build Date: May  6 2022 
+
+command line - cbc /scratch/8c991472c51c4dbeb5b8d72c44916315-pulp.mps max timeMode elapsed branch printingOptions all solution /scratch/8c991472c51c4dbeb5b8d72c44916315-pulp.sol (default strategy 1)
+At line 2 NAME          MODEL
+At line 3 ROWS
+At line 7 COLUMNS
+At line 18 RHS
+At line 21 BOUNDS
+At line 24 ENDATA
+Problem MODEL has 2 rows, 2 columns and 4 elements
+Coin0008I MODEL read with 0 errors
+Option for timeMode changed from cpu to elapsed
+Continuous objective value is 4 - 0.00 seconds
+Cgl0004I processed model has 0 rows, 0 columns (0 integer (0 of which binary)) and 0 elements
+Cbc3007W No integer variables - nothing to do
+Cuts at root node changed objective from -4 to -1.79769e+308
+Probing was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Gomory was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Knapsack was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Clique was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+MixedIntegerRounding2 was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+FlowCover was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+TwoMirCuts was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+ZeroHalf was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+
+Result - Optimal solution found
+
+Objective value:                4.00000000
+Enumerated nodes:               0
+Total iterations:               0
+Time (CPU seconds):             0.01
+Time (Wallclock seconds):       0.09
+
+Option for printingOptions changed from normal to all
+Total time (CPU seconds):       0.02   (Wallclock seconds):       0.10
+
+Selected jobs (2):
+	cluster_rs_annot
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775805, '_nodes': 999997}
+
+[Thu Mar 14 10:10:22 2024]
+rule cluster_rs_annot:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    jobid: 2
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "cluster_rs_annot", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 2, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "20", "C": "mem128GB", "Nodes": 1, "runtime": "5-00:00:00", "jobname": "run_isONclust_rs_annot", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'cluster_rs_annot:' --allowed-rules 'cluster_rs_annot' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'params' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve/2.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve/2.jobfailed'; exit 1)
+
+Submitted job 2 with external jobid 'Submitted batch job 45547712'.
+
+[Thu Mar 14 10:10:22 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    jobid: 14
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'params' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 45547713'.
+[Thu Mar 14 10:12:11 2024]
+Error in rule run_isONclust_rs:
+    jobid: 14
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    cluster_jobid: Submitted batch job 45547713
+
+Error executing rule run_isONclust_rs on cluster (jobid: 14, external: Submitted batch job 45547713, jobscript: /crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve/snakejob.run_isONclust_rs.14.sh). For error details see the cluster log and the log files of the involved rule(s).
+Cleanup job metadata.
+Cleanup failed jobs output files.
+[Thu Mar 14 10:12:19 2024]
+Error in rule run_isONclust_rs:
+    jobid: 14
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    cluster_jobid: Submitted batch job 45547347
+
+Error executing rule run_isONclust_rs on cluster (jobid: 14, external: Submitted batch job 45547347, jobscript: /crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv/snakejob.run_isONclust_rs.14.sh). For error details see the cluster log and the log files of the involved rule(s).
+Cleanup job metadata.
+Cleanup failed jobs output files.
+[Thu Mar 14 10:33:50 2024]
+Finished job 2.
+1 of 5 steps (20%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_annot
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_annot
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Mar 14 10:33:50 2024]
+rule compute_quality_rs_annot:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt
+    jobid: 1
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_annot", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 1, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_annot", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_annot:' --allowed-rules 'compute_quality_rs_annot' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'software-env' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv/1.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.4b7010nv/1.jobfailed'; exit 1)
+
+Submitted job 1 with external jobid 'Submitted batch job 45550250'.
+[Thu Mar 14 10:34:03 2024]
+Finished job 2.
+1 of 5 steps (20%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_annot
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_annot
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Mar 14 10:34:03 2024]
+rule compute_quality_rs_annot:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt
+    jobid: 1
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_annot", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 1, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_annot", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_annot:' --allowed-rules 'compute_quality_rs_annot' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/annot/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'params' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve/1.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l6mylqve/1.jobfailed'; exit 1)
+
+Submitted job 1 with external jobid 'Submitted batch job 45550274'.
+[Thu Mar 14 10:37:20 2024]
+Finished job 1.
+2 of 5 steps (40%) done
+[Thu Mar 14 10:37:23 2024]
+Finished job 1.
+2 of 5 steps (40%) done
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-03-14T100847.708148.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-03-14T101021.209748.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Mar 14 16:05:34 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    jobid: 14
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l0uibi1w' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'software-env' 'input' 'mtime' 'code' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l0uibi1w/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l0uibi1w/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 45586269'.
+[Thu Mar 14 16:25:25 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Mar 14 16:25:25 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l0uibi1w' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'software-env' 'input' 'mtime' 'code' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l0uibi1w/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.l0uibi1w/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 45588170'.
+[Thu Mar 14 16:28:35 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Mar 14 16:28:35 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Thu Mar 14 16:28:35 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-03-14T160533.477365.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Apr 11 17:14:34 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.qynwpfa0' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'mtime' 'code' 'input' 'params' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.qynwpfa0/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.qynwpfa0/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 46448704'.
+[Thu Apr 11 17:35:25 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Apr 11 17:35:25 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv; Set of input files has changed since last execution
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.qynwpfa0' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'mtime' 'code' 'input' 'params' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.qynwpfa0/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.qynwpfa0/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 46448849'.
+[Thu Apr 11 17:37:25 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Apr 11 17:37:25 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Thu Apr 11 17:37:25 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-04-11T171433.415932.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Mon Jun 10 10:51:08 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.6bi2x9bp' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'code' 'params' 'mtime' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.6bi2x9bp/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.6bi2x9bp/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 47652248'.
+[Mon Jun 10 11:18:49 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Mon Jun 10 11:18:49 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.6bi2x9bp' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'code' 'params' 'mtime' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.6bi2x9bp/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.6bi2x9bp/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 47659384'.
+[Mon Jun 10 11:34:10 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Mon Jun 10 11:34:10 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Mon Jun 10 11:34:10 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-06-10T105107.546832.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Wed Jun 19 11:25:37 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv; Code has changed since last execution
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.ngo9bvpj' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'code' 'software-env' 'input' 'params' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.ngo9bvpj/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.ngo9bvpj/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 47787527'.
+[Wed Jun 19 15:27:11 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Wed Jun 19 15:27:11 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt; Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.ngo9bvpj' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'code' 'software-env' 'input' 'params' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.ngo9bvpj/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.ngo9bvpj/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 47792386'.
+[Wed Jun 19 15:32:31 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Wed Jun 19 15:32:32 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Wed Jun 19 15:32:32 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-06-19T112515.207817.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+./submit_main_snakemake.sh: line 22: n: command not found
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Wed Jun 19 16:55:43 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Code has changed since last execution
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.mm2kvrgk' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'code' 'mtime' 'params' 'software-env' 'input' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.mm2kvrgk/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.mm2kvrgk/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 47793707'.
+[Thu Jun 20 09:49:40 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Jun 20 09:49:40 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.mm2kvrgk' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'code' 'mtime' 'params' 'software-env' 'input' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.mm2kvrgk/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.mm2kvrgk/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 47802288'.
+[Thu Jun 20 09:52:20 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Thu Jun 20 09:52:20 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Thu Jun 20 09:52:20 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-06-19T165539.877886.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Fri Jun 21 10:40:51 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Code has changed since last execution
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.uaizkzch' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'code' 'mtime' 'params' 'input' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.uaizkzch/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.uaizkzch/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 47819713'.
+[Fri Jun 21 11:58:26 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Fri Jun 21 11:58:26 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.uaizkzch' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'code' 'mtime' 'params' 'input' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.uaizkzch/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.uaizkzch/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 47821127'.
+[Fri Jun 21 12:03:46 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Fri Jun 21 12:03:46 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Fri Jun 21 12:03:46 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-06-21T104051.139690.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Fri Jun 21 21:42:18 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Code has changed since last execution
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.7uync2gs' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'mtime' 'input' 'software-env' 'code' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.7uync2gs/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.7uync2gs/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 47824238'.
+[Fri Jun 21 22:28:31 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Fri Jun 21 22:28:31 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.7uync2gs' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'mtime' 'input' 'software-env' 'code' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.7uync2gs/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.7uync2gs/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 47824494'.
+[Fri Jun 21 22:31:31 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Fri Jun 21 22:31:31 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Fri Jun 21 22:31:31 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-06-21T214217.986641.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Tue Jun 25 13:21:21 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Code has changed since last execution
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.017tuybv' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'mtime' 'code' 'input' 'params' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.017tuybv/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.017tuybv/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 47880234'.
+[Tue Jun 25 13:54:33 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Tue Jun 25 13:54:33 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.017tuybv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'mtime' 'code' 'input' 'params' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.017tuybv/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.017tuybv/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 47881135'.
+[Tue Jun 25 13:59:33 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Tue Jun 25 13:59:33 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Tue Jun 25 13:59:33 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-06-25T132120.683824.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                   count    min threads    max threads
+------------------  -------  -------------  -------------
+all                       1              1              1
+compute_quality_py        1              1              1
+total                     2              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_py
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_py
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Tue Jun 25 14:37:34 2024]
+rule compute_quality_py:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt
+    jobid: 11
+    reason: Code has changed since last execution
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_py", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 11, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_py", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_py:' --allowed-rules 'compute_quality_py' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.9ozzm8xe' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/py/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'mtime' 'software-env' 'input' 'code' 'params' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.9ozzm8xe/11.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.9ozzm8xe/11.jobfailed'; exit 1)
+
+Submitted job 11 with external jobid 'Submitted batch job 47882186'.
+[Tue Jun 25 14:38:34 2024]
+Finished job 11.
+1 of 2 steps (50%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Tue Jun 25 14:38:34 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Tue Jun 25 14:38:34 2024]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2024-06-25T143733.831706.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Tue Jun 25 20:58:58 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Code has changed since last execution
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.fyq8g0fq' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'input' 'code' 'mtime' 'params' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.fyq8g0fq/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.fyq8g0fq/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 47902695'.
+[Tue Jun 25 21:35:51 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Tue Jun 25 21:35:51 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.fyq8g0fq' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'input' 'code' 'mtime' 'params' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.fyq8g0fq/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.fyq8g0fq/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 47903822'.
+[Tue Jun 25 21:36:31 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Tue Jun 25 21:36:31 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Tue Jun 25 21:36:31 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-06-25T205858.425296.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Wed Jun 26 08:53:05 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Code has changed since last execution
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.0l2crro4' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'software-env' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.0l2crro4/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.0l2crro4/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 47926056'.
+[Wed Jun 26 09:22:26 2024]
+Finished job 14.
+1 of 3 steps (33%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	compute_quality_rs_denovo
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	compute_quality_rs_denovo
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Wed Jun 26 09:22:26 2024]
+rule compute_quality_rs_denovo:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "compute_quality_rs_denovo", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 1000, "mem_mib": 954, "disk_mb": 1000, "disk_mib": 954, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "1", "C": "mem128GB", "Nodes": 1, "runtime": "02:00:00", "jobname": "compute_quality_rs_denovo", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'compute_quality_rs_denovo:' --allowed-rules 'compute_quality_rs_denovo' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=1000' 'mem_mib=954' 'disk_mb=1000' 'disk_mib=954' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.0l2crro4' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'params' 'software-env' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.0l2crro4/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.0l2crro4/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 47926255'.
+[Wed Jun 26 09:24:17 2024]
+Finished job 13.
+2 of 3 steps (67%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Wed Jun 26 09:24:17 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Wed Jun 26 09:24:17 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-06-26T085304.284460.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                          count    min threads    max threads
+-------------------------  -------  -------------  -------------
+all                              1              1              1
+compute_quality_rs_denovo        1              1              1
+run_isONclust_rs                 1              1              1
+total                            3              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Wed Jul 31 14:27:15 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    jobid: 14
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    resources: mem_mb=4251, mem_mib=4055, disk_mb=4251, disk_mib=4055, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4251, "mem_mib": 4055, "disk_mb": 4251, "disk_mib": 4055, "tmpdir": "<TBD>"}, "jobid": 14, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4251' 'mem_mib=4055' 'disk_mb=4251' 'disk_mib=4055' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.9nds06c3' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'software-env' 'params' 'code' 'input' 'mtime' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.9nds06c3/14.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.9nds06c3/14.jobfailed'; exit 1)
+
+Submitted job 14 with external jobid 'Submitted batch job 49014593'.
+[Wed Jul 31 14:32:15 2024]
+Error in rule run_isONclust_rs:
+    jobid: 14
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/rs/clustering/final_clusters.tsv
+    cluster_jobid: Submitted batch job 49014593
+
+Error executing rule run_isONclust_rs on cluster (jobid: 14, external: Submitted batch job 49014593, jobscript: /crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.9nds06c3/snakejob.run_isONclust_rs.14.sh). For error details see the cluster log and the log files of the involved rule(s).
+Cleanup job metadata.
+Cleanup failed jobs output files.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-07-31T142714.745531.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 999999
+Job stats:
+job                 count    min threads    max threads
+----------------  -------  -------------  -------------
+all                     1              1              1
+run_isONclust_rs        1              1              1
+total                   2              1              1
+
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	run_isONclust_rs
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	run_isONclust_rs
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Fri Aug  2 13:53:54 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 13
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt; Set of input files has changed since last execution; Code has changed since last execution
+    resources: mem_mb=4851, mem_mib=4627, disk_mb=4851, disk_mib=4627, tmpdir=<TBD>
+
+Jobscript:
+#!/bin/sh
+# properties = {"type": "single", "rule": "run_isONclust_rs", "local": false, "input": ["/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam", "/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai"], "output": ["/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt"], "wildcards": {}, "params": {}, "log": [], "threads": 1, "resources": {"mem_mb": 4851, "mem_mib": 4627, "disk_mb": 4851, "disk_mib": 4627, "tmpdir": "<TBD>"}, "jobid": 13, "cluster": {"account": "naiss2024-5-55", "cpus-per-task": "10", "C": "mem128GB", "Nodes": 1, "runtime": "1-00:00:00", "jobname": "run_isONclust.rs", "mail": "alexander.petri@math.su.se", "mail_type": "FAIL"}}
+cd '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500' && /home/alpetri/.conda/envs/isONpipe/bin/python3.10 -m snakemake --snakefile '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/snakefile' --target-jobs 'run_isONclust_rs:' --allowed-rules 'run_isONclust_rs' --cores 'all' --attempt 1 --force-use-threads  --resources 'mem_mb=4851' 'mem_mib=4627' 'disk_mb=4851' 'disk_mib=4627' --wait-for-files '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.srhwrcct' '/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam' '/proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/stringtie/ont_human_aligned.sorted.bam.bai' --force --keep-target-files --keep-remote --max-inventory-time 0 --nocolor --notemp --no-hooks --nolock --ignore-incomplete --rerun-triggers 'input' 'params' 'mtime' 'code' 'software-env' --skip-script-cleanup  --conda-frontend 'mamba' --wrapper-prefix 'https://github.com/snakemake/snakemake-wrappers/raw/' --configfiles '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/cluster_config.json' --latency-wait 100 --scheduler 'ilp' --scheduler-solver-path '/home/alpetri/.conda/envs/isONpipe/bin' --default-resources 'mem_mb=max(2*input.size_mb, 1000)' 'disk_mb=max(2*input.size_mb, 1000)' 'tmpdir=system_tmpdir' --mode 2 && touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.srhwrcct/13.jobfinished' || (touch '/crex/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Evaluation/Original_paper_data/SIM_500/.snakemake/tmp.srhwrcct/13.jobfailed'; exit 1)
+
+Submitted job 13 with external jobid 'Submitted batch job 49028468'.
+[Fri Aug  2 14:01:24 2024]
+Finished job 13.
+1 of 2 steps (50%) done
+Resources before job selection: {'_cores': 9223372036854775807, '_nodes': 999999}
+Ready jobs (1):
+	all
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1):
+	all
+Resources after job selection: {'_cores': 9223372036854775806, '_nodes': 999998}
+
+[Fri Aug  2 14:01:24 2024]
+localrule all:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_annot.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rattle.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_GeLuster.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_py_isONclust.txt, /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Input files updated by another job: /proj/snic2022-6-31/nobackup/alexp/Results/Original_data/SIM_500/result_rs_isONclust_denovo.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/scratch
+
+[Fri Aug  2 14:01:24 2024]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2024-08-02T135353.804021.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks

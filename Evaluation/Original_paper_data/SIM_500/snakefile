@@ -35,7 +35,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input:cluster_outfolder+"result_rs_isONclust_annot.txt", cluster_outfolder + "result_rattle.txt", cluster_outfolder + "result_GeLuster.txt",  cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder+"result_rs_isONclust_denovo.txt"    # cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv", outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"
+	input: cluster_outfolder+"result_rs_isONclust_annot.txt", cluster_outfolder + "result_rattle.txt", cluster_outfolder + "result_GeLuster.txt",  cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder+"result_rs_isONclust_denovo.txt"    # cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv", outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"
 
 
 ###############################################################################################################################
@@ -43,18 +43,18 @@ rule all:
 ###############################################################################################################################
 
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
-rule split_accessions_orig:
-    input: fastq = config["original_reads"]
-    output: original_reads_split_accessions =  outfolder_root + "data/split_accs.fq"
-
-    run:
-        shell("python split_accessions.py {input.fastq} {output.original_reads_split_accessions}")
+#rule split_accessions_orig:
+#    input: fastq = config["original_reads"]
+#    output: original_reads_split_accessions =  outfolder_root + "data/full_length_output.fastq"
+#
+#    run:
+#        shell("python split_accessions.py {input.fastq} {output.original_reads_split_accessions}")
 
 ##Use pychopper so every tool has the same possibility to perform
-rule pychop:
-	input: outfolder_root + "data/split_accs.fq"
-	output: outfolder_root+'data/full_length_output.fastq'
-	shell: 'cdna_classifier.py -t 20 {input} {output}'
+#rule pychop:
+#	input: outfolder_root + "data/split_accs.fq"
+#	output: outfolder_root+'data/full_length_output.fastq'
+#	shell: 'cdna_classifier.py -t 20 {input} {output}'
 
 ###############################################################################################################################
 #                                                STRINGTIE PIPELINE                                                           #
@@ -63,7 +63,7 @@ rule pychop:
 
 ##Align the original reads to the reference via minimap2 (part of the stringtie pipeline)
 rule align_original_reads_minimap2:
-    input: original_reads = outfolder_root+'data/full_length_output.fastq' #outfolder_root+'/data/full_length_output.fastq'
+    input: original_reads = config["original_reads"] #outfolder_root+'/data/full_length_output.fastq'
     output: original_reads_aligned =  outfolder_root+"stringtie/ont_human_aligned.sam"
     run:
             ref ="/proj/snic2022-6-31/nobackup/alexp/References/Human/chm13v2.0.fasta",
@@ -242,22 +242,20 @@ rule compute_quality_py:
 
 			#rs_cluster = isonclust_out_folder + "final_clusters_100k_annot.tsv"
 	output:	cluster_outfolder + "result_py_isONclust.txt"
-	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
+	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} "
 		
 rule compute_quality_rs_annot:
-        input:  rs_cluster = cluster_outfolder+"annot/final_clusters.tsv",
+        input:  rs_cluster = cluster_outfolder+'annot/final_clusters.tsv',
                 alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-                index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
         output: cluster_outfolder+"result_rs_isONclust_annot.txt"
-        shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
-		
+        shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
 
-rule compute_quality_rs_denovo:
-	input: 	rs_cluster = cluster_outfolder+"rs/clustering/final_clusters.tsv",
-		alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-		index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"		
-	output:	cluster_outfolder+"result_rs_isONclust_denovo.txt"
-	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
+#rule compute_quality_rs_denovo:
+#	input: 	rs_cluster = cluster_outfolder+"rs/clustering/final_clusters.tsv",
+#		alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+#		index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"		
+#	output:	cluster_outfolder+"result_rs_isONclust_denovo.txt"
+#	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
 
 
 rule compute_quality_geluster:
@@ -283,7 +281,7 @@ rule compute_quality_rattle:
 
 ##Run the isONpipeline
 rule run_isONclust_py:
-	input: fastq = outfolder_root+'data/full_length_output.fastq'
+	input: fastq = config["original_reads"]
 	output: cluster_outfolder+"py/final_clusters.tsv"
 	run:
 	    py_output_folder=cluster_outfolder+'py',
@@ -291,30 +289,28 @@ rule run_isONclust_py:
             shell("isONclust  --t 1  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
             shell("isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
 
-
-rule run_isONclust_rs:
-        input: fastq = outfolder_root+'data/full_length_output.fastq',
-               alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-               index= outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-        output:  cluster_outfolder+"result_rs_isONclust_denovo.txt" #cluster_outfolder+"rs/clustering/final_clusters.tsv"
-        run:
-            outfolder= '/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs',
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder}   --seeding minimizer  --no-post-cluster true")
-            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment} --outfile {output}")
-
 ##Run the rust version of isONclust for annotation
 rule cluster_rs_annot:
-    input: fastq=outfolder_root+'data/full_length_output.fastq'
+    input: fastq= config["original_reads"]
     output: cluster_outfolder+'annot/final_clusters.tsv'
     run:
         outfolder= cluster_outfolder+'annot',
         initial_clustering="/proj/snic2022-6-31/nobackup/alexp/References/Human/chm13v2.0.fasta",
         gff= "/proj/snic2022-6-31/nobackup/alexp/References/Human/chm13v2.0_RefSeq_Liftoff_v4.gff3",
-        shell("time -p cargo run --release --manifest-path /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/Cargo.toml -- --gff {gff} --fastq {input.fastq} --mode ont --outfolder {outfolder} --init-cl {initial_clustering}")
+        shell("time -p cargo run --release --manifest-path /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/Cargo.toml  -- --gff {gff} --fastq {input.fastq} --mode ont --outfolder {outfolder} --init-cl {initial_clustering}")
 
-           
+rule run_isONclust_rs:
+        input: fastq = config["original_reads"],
+               alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+               index= outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+        output: cluster_outfolder+"result_rs_isONclust_denovo.txt" # cluster_outfolder+"rs/clustering/final_clusters.tsv"
+        run:
+            outfolder= '/scratch/$SLURM_JOB_ID',
+            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder}   --seeding minimizer --no-fastq true --no-post-cluster true")
+            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment} --outfile {output}")
+
 rule run_GeLuster:
-    input: fastq = outfolder_root + 'data/full_length_output.fastq'
+    input: fastq = config["original_reads"]
     output: cluster_outfolder +'GeLuster/GeLuster.tsv'
     run:
         outfolder=cluster_outfolder+'GeLuster'
@@ -323,19 +319,19 @@ rule run_GeLuster:
 
 rule rattle_cluster:
     input:
-        outfolder_root+'data/full_length_output.fastq'#outfolder_root+'/data/subsample.fastq'
+        config["original_reads"]
     output:
         cluster_outfolder+"rattle/clusters.out"
     run:
         rattle_out_folder = cluster_outfolder+"rattle/",
-        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 20 -o {rattle_out_folder} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 1 -o {rattle_out_folder} ")
 
 rule summarize_rattle:
     input: cluster_outfolder+'rattle/clusters.out'
     output: cluster_outfolder+'rattle/cluster_summary.tsv'
     run: 
         rattle_out_folder= cluster_outfolder+'rattle/',
-        path_to_fastq= outfolder_root+'/data/full_length_output.fastq'
+        path_to_fastq= config["original_reads"],
         shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {path_to_fastq} -c {input} >  {output} ")
 
 
