@@ -1,0 +1,398 @@
+#Run via submit_main_snakemake.sh
+#this snakemake pipeline is used to analyse the performance of isONform on Drosophila Data
+
+
+#The following variables represent the paths to the files required to run this pipeline
+
+###Script_input_folder: Equal to the folder the snakefile is located in. Should also contain all scripts needed for our analysis:
+#script_input_folder=config["SCRIPT_FOLDER"]
+cluster_outfolder=config["CLUSTER_OUT"]
+outfolder_root=config["ROOT_OUT"]
+isonform_location=config["ISONFORM_LOCATION"]
+isoform_abundance=config["ISO_ABUNDANCE"]
+rattle_location=config["RATTLE_DIR"]
+shell.prefix("set -o pipefail; ")
+wildcard_constraints:
+    nr_reads="[\d]+",
+####################################################
+########## standard python functions ###############
+####################################################
+
+import re
+import os
+import errno
+import shutil
+import glob
+
+def mkdir_p(path):
+    print("creating", path)
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
+rule all:
+	input: cluster_outfolder + "result_GeLuster.txt",  cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder+"result_rs_isONclust_denovo.txt", cluster_outfolder + "result_rattle.txt" #, cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" 
+
+
+###############################################################################################################################
+#                                                PREPROCESSING                                                                #
+###############################################################################################################################
+
+##Preprocessing:some of our tools have issues with the accessions- we shorten them here
+rule split_accessions_orig:
+    input: fastq = config["original_reads"]
+    output: original_reads_split_accessions =  outfolder_root + "data/full_length_output.fastq"
+    run:
+        shell("python split_accessions.py {input.fastq} {output.original_reads_split_accessions}")
+
+##Use pychopper so every tool has the same possibility to perform
+#rule pychop:
+#	input: outfolder_root + "data/split_accs.fq"
+#	output: outfolder_root+'data/full_length_output.fastq'
+#	shell: 'cdna_classifier.py -t 20 {input} {output}'
+
+###############################################################################################################################
+#                                                STRINGTIE PIPELINE                                                           #
+###############################################################################################################################
+
+
+##Align the original reads to the reference via minimap2 (part of the stringtie pipeline)
+rule align_original_reads_minimap2:
+    input: original_reads = outfolder_root+'data/full_length_output.fastq' #outfolder_root+'/data/full_length_output.fastq'
+    output: original_reads_aligned =  outfolder_root+"stringtie/ont_human_aligned.sam"
+    run:
+            ref ="/proj/snic2022-6-31/nobackup/alexp/References/Human/HG002/hg002v1.0.1.fasta.gz",
+            shell("minimap2 --eqx -t 20 -ax splice -uf -k 13 -w 4 {ref} {input.original_reads} >  {output.original_reads_aligned} ")
+
+##Sort the alignment(StringtiePipe)
+rule sort_alignment:
+	input: outfolder_root+"stringtie/ont_human_aligned.sam"
+	output: outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
+	shell: "samtools view -Su {input} | samtools sort -o {output}"
+
+##Index the alignment(StringtiePipe)
+rule index_alignment:
+	input: outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
+	output: outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+	shell: "samtools index  {input}"
+
+##Run stringtie (stringtie pipe)
+#rule run_stringtie:
+#	input: ref=outfolder_root+"stringtie/drosophila_aligned.sorted.bam",idx=outfolder_root+"/stringtie/drosophila_aligned.sorted.bam.bai"
+#	output: outfolder_root+"stringtie/stringtie_res.gtf"
+#	shell: "stringtie -p 20 -L -c 3 -s 3 -o {output} {input.ref}"
+
+##Run gffread to get a fasta file from the stringtie output (stringtie pipe)
+#rule run_gffread:
+#	input: outfolder_root+"/stringtie/stringtie_res.gtf"
+#	output: outfolder_root+"/stringtie/stringtie_transcripts.fasta"
+#	run:
+#		ref = config["drosophila97"]
+#		#ref=config["droso"]
+#		shell("/usr/bin/time -v gffread -w {output} -g {ref}  {input}")
+
+##Align the Stringtie consensus vs the reference (needed for evaluations)
+#rule align_stringtie_reads_minimap2:
+#    input: corrected_reads = outfolder_root+"/stringtie/stringtie_transcripts.fasta"
+#    output: stringtie_aligned=outfolder_root + "/results/stringtie.sam"
+#    run:
+#            ref = config["drosophila97"]
+#            shell("/usr/bin/time -v  minimap2 --eqx -t 20 -ax splice -uf -k13 -w4 {ref} {input.corrected_reads} >  {output} ")
+
+
+#rule ultra_mm2_prep_st:
+#    input:
+#    output: ref_index = outfolder_root + "/uLTRA_st/all_splice_sites_annotations.pickle"
+
+#    run:
+#        outfolder = outfolder_root + "/uLTRA_st"
+#        mkdir_p(outfolder)
+#        ref =  config["drosophila97"]
+#        annotation = config["ANNOTATION"]
+#        timer=outfolder_root +"/time_usage_st.txt"
+#        shell("/usr/bin/time -v uLTRA index --disable_infer {ref} {annotation} {outfolder} --min_mem 17 --mask_threshold 200 2>&1 | tee {timer}")
+
+#rule ultra_mm2_align_st:
+#    input:  reads = outfolder_root+"/stringtie/stringtie_transcripts.fasta",
+#            ultra_index = outfolder_root + "/uLTRA_st/all_splice_sites_annotations.pickle"
+#
+#    output: sam = outfolder_root + "/uLTRA_st/reads.sam",
+#            time_and_mem =  config["ROOT_OUT"] + "/time_and_mem/aligning_time_and_mem_st.txt"
+#    run:
+#        ref =  config["drosophila97"]
+#        outfolder = outfolder_root + "/uLTRA_st"
+#        shell("/usr/bin/time -v uLTRA align {ref} {input.reads}  {outfolder} --min_mem 17 --min_acc 0.6 --t 19  2>&1 | tee {output.time_and_mem} ") # 2> {output.time_and_mem})
+
+
+
+
+###############################################################################################################################
+#                                                    RATTLE ANALYSIS                                                          #
+###############################################################################################################################
+"""
+##Cluster the reads (RATTLE pipe)
+#rule rattle_cluster:
+#        input:
+#                 outfolder_root+'/data/full_length_output.fastq'#outfolder_root+'/data/subsample.fastq'
+#        output:
+#                outfolder_root+"/rattle/clusters.out"
+#        run:
+#        	rattle_out_folder=outfolder_root+"/rattle/"
+#           	shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 20 -o {rattle_out_folder} ")
+
+#rule rattle_cluster_results:
+#       input:
+#                 outfolder_root+"/rattle/clusters.out"
+#
+#        output:
+#                outfolder_root+"/rattle/clusters.out"
+#        run:
+#               rattle_out_folder=outfolder_root+"/rattle/"
+#               shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 20 -o {rattle_out_folder} ")
+
+
+##Correct the reads (RATTLE pipe)
+#rule rattle_correct:
+#        input:
+#                clusters= outfolder_root+"/rattle/clusters.out", fastq=outfolder_root+'/data/full_length_output.fastq'
+#        output:
+#                outfolder_root+"/rattle/corrected.fq",
+#                outfolder_root+"/rattle/uncorrected.fq",
+#                outfolder_root+"/rattle/consensi.fq"
+#
+#        run:
+#        	rattle_out_folder=outfolder_root+"/rattle/"
+#             	shell("/usr/bin/time -v {rattle_location}/rattle correct -i {input.fastq} -c {input.clusters} -o {rattle_out_folder} -t 20  ")
+
+##Polish the reads (RATTLE pipe)
+#rule rattle_polish:
+#        input:
+#                outfolder_root+"/rattle/consensi.fq"
+#        output:
+#                outfolder_root+"/rattle/transcriptome.fq"
+#        run:
+#        	rattle_out_folder=outfolder_root+"/rattle/"
+#             	shell("/usr/bin/time -v {rattle_location}/rattle polish -i {input} -o {rattle_out_folder} -t 20 ")
+
+##Align the RATTLE consensus vs the reference (RATTLE evaluation)
+#rule align_rattle_reference_minimap2:
+#    input: corrected_reads = outfolder_root+"/rattle/transcriptome.fq"
+#    output: rattle_aligned=outfolder_root + "/results/rattle_ref.sam"
+#    run:
+#            ref = config["drosophila97"]
+#            shell("/usr/bin/time -v  minimap2 --eqx -t 20 -ax splice -uf -k13 -w4 {ref} {input.corrected_reads} >  {output} ")
+
+
+#rule ultra_mm2_prep_Rattle:
+#    input:
+#    output: ref_index = outfolder_root + "/uLTRA_rattle/all_splice_sites_annotations.pickle"
+#
+#    run:
+#        outfolder = outfolder_root + "/uLTRA_rattle"
+#        mkdir_p(outfolder)
+#        ref =  config["drosophila97"]
+#        annotation = config["ANNOTATION"]
+#        timer=outfolder_root +"/time_usage.txt"
+#        shell("/usr/bin/time -v uLTRA index --disable_infer {ref} {annotation} {outfolder} --min_mem 17 --mask_threshold 200 2>&1 | tee {timer}")
+
+
+
+
+##Align the RATTLE consensus vs the reference (via uLTRA)
+#rule ultra_mm2_align_RATTLE:
+#    input:  reads = outfolder_root+"/rattle/transcriptome.fq",
+#            ultra_index = outfolder_root + "/uLTRA_rattle/all_splice_sites_annotations.pickle"
+#            
+#    output: sam = outfolder_root + "/uLTRA_rattle/reads.sam",
+#            time_and_mem =  config["ROOT_OUT"] + "/time_and_mem/aligning_time_and_mem_rattle.txt"
+#    run:
+#        ref =  config["drosophila97"]
+#        outfolder = outfolder_root + "/uLTRA_rattle"
+#        shell("/usr/bin/time -v uLTRA align {ref} {input.reads}  {outfolder} --min_mem 17 --min_acc 0.6 --t 19  2>&1 | tee {output.time_and_mem} ") # 2> {output.time_and_mem})
+"""
+##Evaluate the RATTLE results
+#rule evaluate_rattle:
+#    input: original_reads = outfolder_root+"/stringtie/stringtie_transcripts.fasta",
+#            corrected_reads = outfolder_root+"/rattle/transcriptome.fq",
+#            original_reads_aligned = outfolder_root + "/uLTRA_st/reads.sam",
+#            corrected_reads_aligned =  outfolder_root + "/uLTRA_rattle/reads.sam",
+#            gtf_annotation = config["ANNOTATION"] # drosophila v97 gtf annotation
+#    output: csv_file =  outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"
+#    run:
+#        ref =  config["drosophila97"]
+#        #eval_dir = config["ROOT_IN"] + "/scripts/"
+#        outfolder = outfolder_root+ "/evaluation_biological/RATTLE/"
+#        mkdir_p(outfolder)
+#        shell("/usr/bin/time -v python evaluate_real_reads_to_genome.py  {input.original_reads_aligned}  {input.corrected_reads_aligned} {input.original_reads}  \
+#                                                        {input.corrected_reads} {ref} {input.gtf_annotation} {outfolder}")
+
+###############################################################################################################################
+#                                                     ISONCLUST ANALYSIS                                                       #
+###############################################################################################################################
+
+rule compute_quality_py:
+	input: 	py_cluster = cluster_outfolder+"py/final_clusters.tsv",
+                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+       	       	index= outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+	output:	cluster_outfolder + "result_py_isONclust.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} "
+		
+rule compute_quality_rs_annot:
+	input: 	rs_cluster = cluster_outfolder+'annot/final_clusters.tsv',
+		alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+                index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"		
+	output:	cluster_outfolder+"result_rs_isONclust_annot.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
+		
+
+rule compute_quality_rs_denovo:
+	input: 	rs_cluster = cluster_outfolder + "rs/clustering/final_clusters.tsv",
+		alignment = outfolder_root + "stringtie/ont_human_aligned.sorted.bam",
+	        index =	outfolder_root + "stringtie/ont_human_aligned.sorted.bam.bai",
+        output:	cluster_outfolder + "result_rs_isONclust_denovo.txt"
+	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
+
+rule compute_quality_rs_denovo_ont:
+        input:  rs_cluster = cluster_outfolder+"rs_ont/final_clusters.tsv",
+                alignment = outfolder_root + "stringtie/ont_human_aligned.sorted.bam",
+       	       	index= outfolder_root + "stringtie/ont_human_aligned.sorted.bam.bai"
+        output: cluster_outfolder + "result_rs_isONclust_denovo_ont.txt"
+        shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"
+
+rule compute_quality_geluster:
+        input:  rs_cluster = cluster_outfolder + 'GeLuster/GeLuster.tsv',
+                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+                index= outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai",
+
+        output: cluster_outfolder + "result_GeLuster.txt"
+        shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"
+
+rule compute_quality_rattle:
+        input:  rs_cluster = cluster_outfolder + 'rattle/cluster_summary.tsv',
+                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+       	       	index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+        output: cluster_outfolder + "result_rattle.txt"
+        shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"     
+
+###############################################################################################################################
+#                                                     ISONFORM ANALYSIS                                                       #
+###############################################################################################################################
+
+
+##Run the isONpipeline
+rule run_isONclust_py:
+	input: fastq = outfolder_root+'data/full_length_output.fastq'
+	output: cluster_outfolder+"py/final_clusters.tsv"
+	run:
+	    py_output_folder=cluster_outfolder+'py',
+            outfolder=cluster_outfolder+'py/clustering/fastq_files',
+            shell("isONclust  --t 16  --isoseq --fastq {input.fastq} --outfolder {py_output_folder}"),
+            shell("isONclust write_fastq --N 1 --clusters {output} --fastq {input.fastq} --outfolder {outfolder}")
+
+
+rule run_isONclust_rs:
+        input: fastq = outfolder_root+'data/full_length_output.fastq'
+        output: cluster_outfolder+"rs/clustering/final_clusters.tsv"
+        run:
+            outfolder= cluster_outfolder+'rs',
+            shell("time -p cargo run --release --manifest-path /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/Cargo.toml -- --fastq {input.fastq} --mode ont  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true")
+
+rule run_isONclust_rs_ont:
+        input: fastq = outfolder_root+'data/full_length_output.fastq'
+        output: cluster_outfolder+"rs_ont/final_clusters.tsv"
+        run:
+            outfolder= cluster_outfolder+'rs_ont',
+            shell("time -p cargo run --release --manifest-path /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/Cargo.toml -- --fastq {input.fastq} --mode ont  --outfolder {outfolder} --seeding minimizer")
+
+##Run the rust version of isONclust for annotation
+#rule cluster_rs_annot:
+#    input: fastq = outfolder_root+'data/full_length_output.fastq'
+#    output: cluster_outfolder+'annot/final_clusters.tsv'
+#    run:	
+#        outfolder= cluster_outfolder+'annot',
+#        initial_clustering="/proj/snic2022-6-31/nobackup/alexp/References/Human/chm13v2.0.fasta",
+#        gff= "/proj/snic2022-6-31/nobackup/alexp/References/Human/chm13v2.0_RefSeq_Liftoff_v4.gff3",
+#        shell("time -p cargo run --release --manifest-path /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/Cargo.toml   -- --gff {gff} --fastq {input.fastq} --mode ont --outfolder {outfolder} --init-cl {initial_clustering} --seeding minimizer")
+
+
+rule run_GeLuster:
+    input: fastq = outfolder_root + 'data/full_length_output.fastq'
+    output: cluster_outfolder +'GeLuster/GeLuster.tsv'
+    run:
+        outfolder = cluster_outfolder+'GeLuster'
+        shell("time -p /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 8 -r {input.fastq}  -f fq -s dRNA -o {outfolder}")
+
+rule rattle_cluster:
+    input:
+        outfolder_root+'data/full_length_output.fastq' #outfolder_root+'/data/subsample.fastq'
+    output:
+        cluster_outfolder+"rattle/clusters.out"
+    run:
+        rattle_out_folder = cluster_outfolder+"rattle/",
+        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 16 -o {rattle_out_folder} ")
+
+rule summarize_rattle:
+    input: cluster_outfolder+'rattle/clusters.out'
+    output: cluster_outfolder+'rattle/cluster_summary.tsv'
+    run: 
+        rattle_out_folder= cluster_outfolder+'rattle/',
+        path_to_fastq= outfolder_root+'/data/full_length_output.fastq'
+        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {path_to_fastq} -c {input} >  {output} ")
+
+
+##Align the isONform consensus vs the reference  (isONform evaluation)
+#rule align_isONform_reference_minimap2:
+#    input: corrected_reads = outfolder_root+'/isONform/outfolder/isoforms/transcriptome.fastq'
+#    output: isONform_aligned=outfolder_root + "/results/isONform_ref.sam"
+#    run:
+#            ref = config["drosophila97"]
+#            shell("/usr/bin/time -v  minimap2 --eqx -t 20 -ax splice -uf -k13 -w4 {ref} {input.corrected_reads} >  {output} ")
+
+
+#rule ultra_mm2_prep_isON:
+#    input:  
+#    output: ref_index = outfolder_root + "/uLTRA_ison/all_splice_sites_annotations.pickle"
+
+#    run:
+#        outfolder = outfolder_root + "/uLTRA_ison"
+#        mkdir_p(outfolder)
+#        ref =  config["drosophila97"]
+#        annotation = config["ANNOTATION"]
+#        timer=outfolder_root +"/time_usage.txt"
+#        shell("/usr/bin/time -v uLTRA index --disable_infer {ref} {annotation} {outfolder} --min_mem 17 --mask_threshold 200 2>&1 | tee {timer}")
+            
+
+#rule ultra_mm2_align_isON:
+#    input:  reads = outfolder_root+'/isONform/outfolder/isoforms/transcriptome.fastq',
+#            ultra_index = outfolder_root + "/uLTRA_ison/all_splice_sites_annotations.pickle"
+#            
+#    output: sam = outfolder_root + "/uLTRA_ison/reads.sam",
+#    run:
+#        ref =  config["drosophila97"]
+#        outfolder = outfolder_root + "/uLTRA_ison"
+#	runtime=outfolder_root+"/timeusage.txt"
+#        othertime=outfolder_root+"/other_timeusage.txt"
+
+#        shell("/usr/bin/time -v uLTRA align {ref} {input.reads}  {outfolder} --min_mem 17 --min_acc 0.6 --t 19  2>&1 | tee {othertime} ") # 2> {runtime})
+
+
+##Evaluate the isONform results
+#rule evaluate_isONform:
+#    input: original_reads = outfolder_root+"/stringtie/stringtie_transcripts.fasta",
+#            corrected_reads = outfolder_root+'/isONform/outfolder/isoforms/transcriptome.fastq',
+#            original_reads_aligned = outfolder_root + "/uLTRA_st/reads.sam",
+#            corrected_reads_aligned =  outfolder_root + "/uLTRA_ison/reads.sam",
+#            gtf_annotation = config["ANNOTATION"] # drosophila v97 gtf annotation
+#    output: csv_file =  outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv"
+#    run:
+#        ref =  config["drosophila97"]
+#        #eval_dir = config["ROOT_IN"] + "/scripts/"
+#        outfolder =  outfolder_root+"/evaluation_biological/isONform/"
+#        mkdir_p(outfolder)
+#        shell("/usr/bin/time -v python evaluate_real_reads_to_genome.py  {input.original_reads_aligned}  {input.corrected_reads_aligned} {input.original_reads}  \
+#                                                        {input.corrected_reads} {ref} {input.gtf_annotation} {outfolder}")
+
