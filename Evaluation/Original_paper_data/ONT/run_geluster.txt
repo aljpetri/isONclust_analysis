@@ -1,0 +1,27 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=18815, mem_mib=17944, disk_mb=18815, disk_mib=17944
+Select jobs to execute...
+
+[Sat Feb 10 00:51:09 2024]
+rule run_GeLuster:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/data/full_length_output.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/GeLuster/GeLuster.tsv
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/GeLuster/GeLuster.tsv
+    resources: mem_mb=18815, mem_mib=17944, disk_mb=18815, disk_mib=17944, tmpdir=/scratch/44990604
+
+[10/02/2024 00:51:09] Running...
+[10/02/2024 00:51:09] [Warning] : /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/GeLuster exists already. It will be overwritten.
+[10/02/2024 00:51:09] First iteration...
+[10/02/2024 03:54:55] Second iteration...
+[10/02/2024 04:50:38] Third iteration...
+[10/02/2024 05:47:19] Done, clustering results is written to /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/GeLuster/GeLuster.tsv!
+real 17769.97
+user 16294.31
+sys 1331.37
+[Sat Feb 10 05:47:19 2024]
+Finished job 0.
+1 of 1 steps (100%) done

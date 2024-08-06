@@ -1,0 +1,656 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=18815, mem_mib=17944, disk_mb=18815, disk_mib=17944
+Select jobs to execute...
+
+[Sat Feb 10 00:51:09 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/data/full_length_output.fastq
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/rs/final_clusters.tsv
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/rs/final_clusters.tsv
+    resources: mem_mb=18815, mem_mib=17944, disk_mb=18815, disk_mib=17944, tmpdir=/scratch/44990606
+
+warning: unused manifest key: rustflags
+warning: isONclust_rs v0.0.1 (/proj/snic2022-6-31/nobackup/alexp/isONclust_rs) ignoring invalid dependency `cargo-valgrind` which is missing a lib target
+warning: unused import: `HashMap`
+ --> src/main.rs:2:24
+  |
+2 | use std::collections::{HashMap, HashSet, VecDeque};
+  |                        ^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::time::Duration`
+ --> src/main.rs:5:5
+  |
+5 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `rayon::iter::split`
+ --> src/file_actions.rs:9:5
+  |
+9 | use rayon::iter::split;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/clustering.rs:2:5
+  |
+2 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `generate_sorted_fastq_new_version`, `structs`
+ --> src/clustering.rs:4:13
+  |
+4 | use crate::{generate_sorted_fastq_new_version, structs};
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^
+
+warning: unused import: `std::borrow::Cow`
+ --> src/clustering.rs:8:5
+  |
+8 | use std::borrow::Cow;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::ops::Index`
+ --> src/generate_sorted_fastq_new_version.rs:2:5
+  |
+2 | use std::ops::Index;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::cmp::max`
+ --> src/generate_sorted_fastq_new_version.rs:5:5
+  |
+5 | use std::cmp::max;
+  |     ^^^^^^^^^^^^^
+
+warning: unused imports: `FastaRecord`, `FastqRecord_isoncl_init`
+ --> src/generate_sorted_fastq_new_version.rs:6:22
+  |
+6 | use crate::structs::{FastqRecord_isoncl_init, FastaRecord, Minimizer, Minimizer_hashed};
+  |                      ^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^
+
+warning: unused import: `Borrow`
+ --> src/generate_sorted_fastq_new_version.rs:8:19
+  |
+8 | use std::borrow::{Borrow, Cow};
+  |                   ^^^^^^
+
+warning: unused import: `std::collections::hash_map::DefaultHasher`
+ --> src/generate_sorted_fastq_new_version.rs:9:5
+  |
+9 | use std::collections::hash_map::DefaultHasher;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Hash`, `Hasher`
+  --> src/generate_sorted_fastq_new_version.rs:10:17
+   |
+10 | use std::hash::{Hash, Hasher};
+   |                 ^^^^  ^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/generate_sorted_fastq_for_cluster.rs:1:5
+  |
+1 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `HashMap`
+ --> src/generate_sorted_fastq_for_cluster.rs:2:24
+  |
+2 | use std::collections::{HashMap, HashSet};
+  |                        ^^^^^^^
+
+warning: unused import: `std::io::Write`
+ --> src/generate_sorted_fastq_for_cluster.rs:4:5
+  |
+4 | use std::io::Write;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `std::borrow::Borrow`
+ --> src/generate_sorted_fastq_for_cluster.rs:8:5
+  |
+8 | use std::borrow::Borrow;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::generate_sorted_fastq_new_version`
+  --> src/generate_sorted_fastq_for_cluster.rs:13:5
+   |
+13 | use crate::generate_sorted_fastq_new_version;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::PathBuf`
+  --> src/main.rs:15:5
+   |
+15 | use std::path::PathBuf;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: variant `read_ids` should have an upper camel case name
+ --> src/structs.rs:5:5
+  |
+5 |     read_ids(HashSet<T>),
+  |     ^^^^^^^^ help: convert the identifier to upper camel case: `ReadIds`
+  |
+  = note: `#[warn(non_camel_case_types)]` on by default
+
+warning: variant `mini_seqs` should have an upper camel case name
+ --> src/structs.rs:6:5
+  |
+6 |     mini_seqs(HashSet<U>),
+  |     ^^^^^^^^^ help: convert the identifier to upper camel case: `MiniSeqs`
+
+warning: type `Minimizer_hashed` should have an upper camel case name
+  --> src/structs.rs:20:12
+   |
+20 | pub struct Minimizer_hashed {
+   |            ^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `MinimizerHashed`
+
+warning: type `FastqRecord_isoncl_init` should have an upper camel case name
+  --> src/structs.rs:75:19
+   |
+75 | pub(crate) struct FastqRecord_isoncl_init {
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `FastqRecordIsonclInit`
+
+warning: unused import: `FastaRecord`
+  --> src/main.rs:18:22
+   |
+18 | use crate::structs::{FastaRecord, FastqRecord_isoncl_init};
+   |                      ^^^^^^^^^^^
+
+warning: unused import: `std::thread`
+  --> src/main.rs:19:5
+   |
+19 | use std::thread;
+   |     ^^^^^^^^^^^
+
+warning: unused import: `crate::clustering::calculate_hash`
+  --> src/main.rs:20:5
+   |
+20 | use crate::clustering::calculate_hash;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `BufRead`, `BufReader`, `Error`
+ --> src/write_output.rs:3:22
+  |
+3 | use std::io::{Write, BufReader, BufRead, BufWriter, Error};
+  |                      ^^^^^^^^^  ^^^^^^^             ^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/write_output.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `FastqRecord`
+ --> src/write_output.rs:7:22
+  |
+7 | use crate::structs::{FastqRecord, FastqRecord_isoncl_init};
+  |                      ^^^^^^^^^^^
+
+warning: unused import: `std::collections::hash_map::RandomState`
+ --> src/write_output.rs:8:5
+  |
+8 | use std::collections::hash_map::RandomState;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::borrow::Cow`
+  --> src/write_output.rs:10:5
+   |
+10 | use std::borrow::Cow;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Read`
+  --> src/main.rs:28:5
+   |
+28 | use std::io::Read;
+   |     ^^^^^^^^^^^^^
+
+warning: unused import: `FastxReader`
+  --> src/main.rs:27:46
+   |
+27 | use needletail::{parse_fastx_file, Sequence, FastxReader};
+   |                                              ^^^^^^^^^^^
+
+warning: unused import: `rayon::prelude`
+ --> src/generate_sorted_fastq_new_version.rs:3:5
+  |
+3 | use rayon::prelude::*;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `Sequence`
+  --> src/main.rs:27:36
+   |
+27 | use needletail::{parse_fastx_file, Sequence, FastxReader};
+   |                                    ^^^^^^^^
+
+warning: value assigned to `quality_header` is never read
+   --> src/file_actions.rs:166:9
+    |
+166 |         quality_header = quality_header.trim().to_owned();
+    |         ^^^^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+    = note: `#[warn(unused_assignments)]` on by default
+
+warning: value assigned to `most_shared_cluster` is never read
+  --> src/clustering.rs:81:17
+   |
+81 |         let mut most_shared_cluster= 0;
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `shared` is never read
+  --> src/clustering.rs:82:17
+   |
+82 |         let mut shared= false;
+   |                 ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: variable does not need to be mutable
+   --> src/clustering.rs:174:21
+    |
+174 |                 let mut elem= clustering.get_mut(tcl_elem).unwrap();
+    |                     ----^^^^
+    |                     |
+    |                     help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: unused variable: `head`
+   --> src/clustering.rs:263:13
+    |
+263 |         let head = record.header.clone();
+    |             ^^^^ help: if this is intentional, prefix it with an underscore: `_head`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: value assigned to `w` is never read
+  --> src/generate_sorted_fastq_new_version.rs:45:13
+   |
+45 |     let mut w= 0;
+   |             ^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: variable `skipped_cter` is assigned to, but never used
+   --> src/generate_sorted_fastq_new_version.rs:166:13
+    |
+166 |     let mut skipped_cter= 0;
+    |             ^^^^^^^^^^^^
+    |
+    = note: consider using `_skipped_cter` instead
+
+warning: variable `minimizer_range_start` is assigned to, but never used
+   --> src/generate_sorted_fastq_new_version.rs:168:13
+    |
+168 |     let mut minimizer_range_start;
+    |             ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: consider using `_minimizer_range_start` instead
+
+warning: value assigned to `minimizer_range_start` is never read
+   --> src/generate_sorted_fastq_new_version.rs:175:9
+    |
+175 |         minimizer_range_start = 0;
+    |         ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `minimizer_range_start` is never read
+   --> src/generate_sorted_fastq_new_version.rs:179:13
+    |
+179 |             minimizer_range_start = minimizer_pos;
+    |             ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `w` is never read
+   --> src/generate_sorted_fastq_for_cluster.rs:119:13
+    |
+119 |     let mut w= 0;
+    |             ^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: unused variable: `i`
+   --> src/generate_sorted_fastq_for_cluster.rs:177:10
+    |
+177 |     for (i, c) in quality_interval.chars().enumerate() {
+    |          ^ help: if this is intentional, prefix it with an underscore: `_i`
+
+warning: value assigned to `w` is never read
+   --> src/generate_sorted_fastq_for_cluster.rs:200:13
+    |
+200 |     let mut w= 0;
+    |             ^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: unused variable: `curr_min`
+   --> src/generate_sorted_fastq_for_cluster.rs:238:14
+    |
+238 |         let (curr_min, min_pos) = binding.iter().min_by_key(|&(kmer, _)| kmer).unwrap();
+    |              ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_curr_min`
+
+warning: unused variable: `curr_min`
+   --> src/generate_sorted_fastq_for_cluster.rs:266:18
+    |
+266 |             let (curr_min, min_pos) = *binding.iter().min_by_key(|&(kmer, _)| kmer).unwrap();
+    |                  ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_curr_min`
+
+warning: variable `skipped_cter` is assigned to, but never used
+   --> src/generate_sorted_fastq_for_cluster.rs:282:13
+    |
+282 |     let mut skipped_cter= 0;
+    |             ^^^^^^^^^^^^
+    |
+    = note: consider using `_skipped_cter` instead
+
+warning: unused variable: `d`
+   --> src/generate_sorted_fastq_for_cluster.rs:330:9
+    |
+330 |     let d =compute_d();
+    |         ^ help: if this is intentional, prefix it with an underscore: `_d`
+
+warning: variable does not need to be mutable
+  --> src/write_output.rs:15:9
+   |
+15 |     let mut f = File::create(outfolder.to_owned()+"/sorted.fastq").expect("Unable to create file");
+   |         ----^
+   |         |
+   |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+  --> src/write_output.rs:26:9
+   |
+26 |     let mut f = File::create(file_path).expect("unable to create file");
+   |         ----^
+   |         |
+   |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+  --> src/write_output.rs:53:21
+   |
+53 |                 let mut id_vec: &mut Vec<FastqRecord_isoncl_init> = cluster_map.get_mut(cluster_id).unwrap();
+   |                     ----^^^^^^
+   |                     |
+   |                     help: remove this `mut`
+
+warning: variable does not need to be mutable
+  --> src/write_output.rs:56:21
+   |
+56 |                 let mut id_vec = vec![read];
+   |                     ----^^^^^^
+   |                     |
+   |                     help: remove this `mut`
+
+warning: variable does not need to be mutable
+  --> src/write_output.rs:72:13
+   |
+72 |         let mut f = File::create(file_path).expect("unable to create file");
+   |             ----^
+   |             |
+   |             help: remove this `mut`
+
+warning: unused variable: `result_dir`
+  --> src/write_output.rs:95:13
+   |
+95 |         let result_dir=fs::create_dir(fastq_path.clone());
+   |             ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_result_dir`
+
+warning: variable does not need to be mutable
+  --> src/write_output.rs:98:9
+   |
+98 |     let mut header_cluster_map=FxHashMap::default();
+   |         ----^^^^^^^^^^^^^^^^^^
+   |         |
+   |         help: remove this `mut`
+
+warning: variable `gtf_entries` is assigned to, but never used
+   --> src/main.rs:320:17
+    |
+320 |         let mut gtf_entries = vec![];
+    |                 ^^^^^^^^^^^
+    |
+    = note: consider using `_gtf_entries` instead
+
+warning: value assigned to `gtf_entries` is never read
+   --> src/main.rs:322:13
+    |
+322 |             gtf_entries = file_actions::parse_gtf(gtf_path_u).unwrap();
+    |             ^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: unused variable: `mini_map_filtered`
+   --> src/main.rs:344:13
+    |
+344 |     let mut mini_map_filtered: FxHashMap<i32, Vec<structs::Minimizer_hashed>> = FxHashMap::default();
+    |             ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_mini_map_filtered`
+
+warning: unused variable: `mini_map_unfiltered`
+   --> src/main.rs:345:13
+    |
+345 |     let mut mini_map_unfiltered: FxHashMap<i32, Vec<structs::Minimizer_hashed>> = FxHashMap::default();
+    |             ^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_mini_map_unfiltered`
+
+warning: unused variable: `int_id_cter`
+   --> src/main.rs:356:13
+    |
+356 |     let mut int_id_cter = 0;
+    |             ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_int_id_cter`
+
+warning: variable does not need to be mutable
+   --> src/main.rs:344:9
+    |
+344 |     let mut mini_map_filtered: FxHashMap<i32, Vec<structs::Minimizer_hashed>> = FxHashMap::default();
+    |         ----^^^^^^^^^^^^^^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/main.rs:345:9
+    |
+345 |     let mut mini_map_unfiltered: FxHashMap<i32, Vec<structs::Minimizer_hashed>> = FxHashMap::default();
+    |         ----^^^^^^^^^^^^^^^^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/main.rs:356:9
+    |
+356 |     let mut int_id_cter = 0;
+    |         ----^^^^^^^^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: function `compute_d` is never used
+  --> src/main.rs:31:4
+   |
+31 | fn compute_d() -> [f64; 128] {
+   |    ^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: function `expected_number_errornous_kmers` is never used
+  --> src/main.rs:43:4
+   |
+43 | fn expected_number_errornous_kmers(quality_string: &str, k: usize, d:&[f64;128]) -> f64 {
+   |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `calculate_error_rate` is never used
+  --> src/main.rs:70:4
+   |
+70 | fn calculate_error_rate(qual: &str, d_no_min: &[f64; 128]) -> f64 {
+   |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `get_sorted_entries` is never used
+  --> src/main.rs:88:4
+   |
+88 | fn get_sorted_entries(mini_map_filtered: FxHashMap<i32, Vec<structs::Minimizer_hashed>>)->Vec<(i32, Vec<structs::Minimizer_hashed>)>{
+   |    ^^^^^^^^^^^^^^^^^^
+
+warning: function `filter_fastq_records` is never used
+   --> src/main.rs:102:4
+    |
+102 | fn filter_fastq_records(mut fastq_records:Vec<FastqRecord_isoncl_init>,d_no_min:[f64;128], q_threshold:f64,k:usize,d :[f64;128])->Vec<Fas...
+    |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `get_final_cl_init` is never used
+   --> src/clustering.rs:165:4
+    |
+165 | fn get_final_cl_init(this_clusters: Vec<&Vec<i32>>) -> i32 {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `add_rev_comp_seqs_annotation` is never used
+   --> src/clustering.rs:252:15
+    |
+252 | pub(crate) fn add_rev_comp_seqs_annotation(initial_clustering_records:Vec<FastaRecord>) ->Vec<FastaRecord>{
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `add_rev_comp_seqs` is never used
+   --> src/clustering.rs:274:15
+    |
+274 | pub(crate) fn add_rev_comp_seqs(initial_clustering_records:Vec<FastaRecord>) ->Vec<FastaRecord>{
+    |               ^^^^^^^^^^^^^^^^^
+
+warning: function `get_id_from_header` is never used
+   --> src/clustering.rs:297:4
+    |
+297 | fn get_id_from_header(head: String) -> i32 {
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: function `cow_to_string` is never used
+  --> src/generate_sorted_fastq_new_version.rs:36:4
+   |
+36 | fn cow_to_string(cow: Cow<'_, [u8]>) -> String {
+   |    ^^^^^^^^^^^^^
+
+warning: function `average` is never used
+   --> src/generate_sorted_fastq_new_version.rs:128:4
+    |
+128 | fn average(numbers: &[f64]) -> f64 {
+    |    ^^^^^^^
+
+warning: function `get_kmer_syncmers` is never used
+   --> src/generate_sorted_fastq_new_version.rs:207:15
+    |
+207 | pub(crate) fn get_kmer_syncmers(seq: &str, k_size: usize, s_size: usize, t: isize) -> Vec<Minimizer> {
+    |               ^^^^^^^^^^^^^^^^^
+
+warning: function `expected_number_errornous_kmers` is never used
+  --> src/generate_sorted_fastq_for_cluster.rs:36:4
+   |
+36 | fn expected_number_errornous_kmers(quality_string: &str, k: usize, d:&[f64;128]) -> f64 {
+   |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `get_kmer_minimizers` is never used
+   --> src/generate_sorted_fastq_for_cluster.rs:118:8
+    |
+118 | pub fn get_kmer_minimizers<'a>(seq: &'a str, k_size: usize, w_size: usize, mut minimizers:  Vec<usize> )  {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: function `print_statistics` is never used
+   --> src/generate_sorted_fastq_for_cluster.rs:364:4
+    |
+364 | fn print_statistics(fastq_records:&Vec<FastqRecord_isoncl_init>){
+    |    ^^^^^^^^^^^^^^^^
+
+warning: enum `Cluster` is never used
+ --> src/structs.rs:4:10
+  |
+4 | pub enum Cluster<T, U> {
+  |          ^^^^^^^
+
+warning: fields `start`, `end`, `score`, `strand`, `frame`, and `attribute` are never read
+  --> src/structs.rs:30:9
+   |
+26 | pub(crate) struct GtfEntry {
+   |                   -------- fields in this struct
+...
+30 |     pub start: usize,
+   |         ^^^^^
+31 |     pub end: usize,
+   |         ^^^
+32 |     pub score: f64,
+   |         ^^^^^
+33 |     pub strand: bool,
+   |         ^^^^^^
+34 |     pub frame: i8,
+   |         ^^^^^
+35 |     pub attribute: String
+   |         ^^^^^^^^^
+
+warning: crate `isONclust_rs` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `is_onclust_rs`
+  = note: `#[warn(non_snake_case)]` on by default
+
+warning: function `lineToGTF` should have a snake case name
+  --> src/file_actions.rs:94:4
+   |
+94 | fn lineToGTF(line:&str) -> GtfEntry {
+   |    ^^^^^^^^^ help: convert the identifier to snake case: `line_to_gtf`
+
+warning: variable `gtfRecords` should have a snake case name
+   --> src/file_actions.rs:129:13
+    |
+129 |     let mut gtfRecords =vec![];
+    |             ^^^^^^^^^^ help: convert the identifier to snake case: `gtf_records`
+
+warning: unused `Result` that must be used
+  --> src/write_output.rs:34:13
+   |
+34 |             writeln!(buf_write ,"{}\t{}", cl_id, read_id);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this `Result` may be an `Err` variant, which should be handled
+   = note: `#[warn(unused_must_use)]` on by default
+   = note: this warning originates in the macro `writeln` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `isONclust_rs` (bin "isONclust_rs") generated 87 warnings (run `cargo fix --bin "isONclust_rs"` to apply 46 suggestions)
+    Finished release [optimized] target(s) in 25.49s
+warning: the following packages contain code that will be rejected by a future version of Rust: buf_redux v0.8.4
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+     Running `/proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust_rs --fastq /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/data/full_length_output.fastq -k 13 -w 20 --outfolder /proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/rs`
+k: 13
+w: 20
+n: 1
+outfolder "/proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/rs"
+0 s used for file input
+Current physical memory usage: 1503232
+Current virtual memory usage: 19873792
+Current physical memory usage: 1511424
+Current virtual memory usage: 19873792
+Current physical memory usage: 1511424
+Current virtual memory usage: 19873792
+Mini range len: 13
+Parsed the files
+Current physical memory usage: 1556480
+Current virtual memory usage: 19873792
+/proj/snic2022-6-31/nobackup/alexp/Results/Original_paper/ONT/rs/sorted.fastq
+6782154 reads recorded
+6753879 reads accepted
+6719775 reads accepted
+Elapsed: 397.38s
+433 s before minimizergen
+9363 s for minimizer gen and filtering of minis
+Skipped 0 reads due to being too short
+Current physical memory usage: 11283693568
+Current virtual memory usage: 11993436160
+0 s for sorting of reads
+0 s for denovo clustering
+Current physical memory usage: 11283693568
+Current virtual memory usage: 11993436160
+Finished clustering
+321267 different clusters identified
+36 s for file output
+9400 overall runtime
+real 9435.36
+user 12103.71
+sys 153.70
+[Sat Feb 10 03:28:24 2024]
+Finished job 0.
+1 of 1 steps (100%) done
