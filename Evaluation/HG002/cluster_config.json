@@ -1,0 +1,11 @@
+{
+"DATASETS" : "ONT_original",
+  "ROOT_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/HG002/",
+  "ISONFORM_LOCATION" : "/proj/snic2022-6-31/nobackup/alexp/isONform/",
+  "ISONCORRECT_LOCATION" : "/proj/snic2022-6-31/nobackup/alexp/isONcorrect/",
+  "ISO_ABUNDANCE": 5,
+  "RATTLE_DIR" : "/proj/snic2022-6-31/nobackup/alexp/RATTLE/",
+  "drosophila97" : "/proj/snic2022-6-31/nobackup/alexp/References/Drosophila/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa",
+  "original_reads" : "/proj/snic2022-6-31/nobackup/alexp/Rawdata/HG002/flnc.fastq",
+  "CLUSTER_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/HG002/"
+}
