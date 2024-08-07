@@ -191,9 +191,21 @@
         "mail_type" : "FAIL"
     },
 
-    "run_isONclust_rs" :
+    "alz_isONclust_rs" :
     {
-     	"jobname" : "run_isONclust.rs",
+     	"jobname" : "alz_isONclust.rs",
+        "cpus-per-task" : "20",
+        "Nodes" : 1,
+        "C" : "mem128GB",
+        "runtime" : "1-00:00:00",
+        "mail" : "alexander.petri@math.su.se",
+        "mail_type" : "FAIL"
+    },
+    
+    
+    "droso_isonclust_rs" :
+    {
+     	"jobname" : "droso_isonclust.rs",
         "cpus-per-task" : "20",
         "Nodes" : 1,
         "C" : "mem128GB",
