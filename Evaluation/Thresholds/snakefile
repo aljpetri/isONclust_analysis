@@ -93,8 +93,8 @@ rule alz_isONclust_rs:
         output: outfolder_analysis+"isONclust_denovo_{min_shared_minis}_ALZ.txt" 
         run:
             outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
-                shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_alz} --mode pacbio  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {min_shared_minis}")
-                shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_alz} --outfile {output}")
+            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_alz} --mode pacbio  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {min_shared_minis}")
+            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_alz} --outfile {output}")
                 
                 
 rule droso_isonclust_rs:
