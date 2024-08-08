@@ -58,4 +58,4 @@ rule droso_isonclust_rs:
         run:
             outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
             shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --quality-threshold {wildcards.quality_threshold}")
-            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_alz} --outfile {output}")
+            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_droso} --outfile {output}")
