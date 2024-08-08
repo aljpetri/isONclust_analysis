@@ -1,7 +1,6 @@
 #Run via submit_main_snakemake.sh
 #this snakemake pipeline is used to analyse the performance of isONform on Drosophila Data
 
-
 #The following variables represent the paths to the files required to run this pipeline
 
 ###Script_input_folder: Equal to the folder the snakefile is located in. Should also contain all scripts needed for our analysis:
@@ -38,73 +37,25 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input: expand(outfolder_analysis+"isONclust_denovo_{quality_threshold}_{dataset}.txt", min_shared_minis=config["MIN_SHARED_MINIS"], dataset =config["DATASET"]) # ,cluster_outfolder + "result_GeLuster.txt", cluster_outfolder+"result_rs_isONclust_denovo_{min_shared_minis}.txt" #, cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv"
-
-
-###############################################################################################################################
-#                                                PREPROCESSING                                                                #
-###############################################################################################################################
-
-##Preprocessing:some of our tools have issues with the accessions- we shorten them here
-#rule split_accessions_orig:
-#    input: fastq = config["original_reads"]
-#    output: original_reads_split_accessions =  outfolder_root + "data/full_length_output.fastq"
-
-#    run:
-#        shell("python split_accessions.py {input.fastq} {output.original_reads_split_accessions}")
-
-###############################################################################################################################
-#                                                STRINGTIE PIPELINE                                                           #
-###############################################################################################################################
-
-
-##Align the original reads to the reference via minimap2 (part of the stringtie pipeline)
-#rule align_original_reads_minimap2:
-#    input: original_reads = outfolder_root+'data/full_length_output.fastq' #outfolder_root+'/data/full_length_output.fastq'
-#    output: original_reads_aligned =  outfolder_root+"stringtie/ont_human_aligned.sam"
-#    run:
-#            ref ="/proj/snic2022-6-31/nobackup/alexp/References/Human/chm13v2.0.fasta",
-#            shell("minimap2 --eqx -t 20 -ax splice:hq -uf -k 15 -w 5 {ref} {input.original_reads} >  {output.original_reads_aligned} ")
-
-##Sort the alignment(StringtiePipe)
-#rule sort_alignment:
-#	input: outfolder_root+"stringtie/ont_human_aligned.sam"
-#	output: outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
-#	shell: "samtools view -Su {input} | samtools sort -o {output}"
-
-##Index the alignment(StringtiePipe)
-#rule index_alignment:
-#	input: outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
-#	output: outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-#	shell: "samtools index  {input}"
-
-
-
+	input: expand(outfolder_analysis+"isONclust_denovo_{quality_threshold}_{dataset}.txt", min_shared_minis=config["MIN_SHARED_MINIS"], dataset =config["DATASET"]) 
 ###############################################################################################################################
 #                                                     ISONFORM ANALYSIS                                                       #
 ###############################################################################################################################
 
-
-
-
 rule alz_isONclust_rs:
         input: fastq_alz = infolder_alz +'data/full_length_output.fastq',
                alignment_alz = infolder_alz +"stringtie/ont_human_aligned.sorted.bam",
-        output: outfolder_analysis+"isONclust_denovo_{quality_threshold}_ALZ.txt" 
+        output: outfolder_analysis+"isONclust_denovo_{quality_threshold}_ALZ.txt"
         run:
             outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
                 shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_alz} --mode pacbio  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --quality-threshold {wildcards.quality_threshold}")
                 shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_alz} --outfile {output}")
-                
-                
+
 rule droso_isonclust_rs:
         input: fastq_droso = infolder_droso +'data/full_length_output.fastq',
                alignment_droso = infolder_droso +"stringtie/drosophila_aligned.sorted.bam"
-        output: outfolder_analysis+"isONclust_denovo_{quality_threshold}_Droso.txt" 
+        output: outfolder_analysis+"isONclust_denovo_{quality_threshold}_Droso.txt"
         run:
             outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
             shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --quality-threshold {wildcards.quality_threshold}")
             shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_alz} --outfile {output}")
-
-
-
