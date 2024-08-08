@@ -214,6 +214,17 @@
         "mail_type" : "FAIL"
     },
     
+    "human_isonclust_rs" :
+    {
+     	"jobname" : "droso_isonclust.rs",
+        "cpus-per-task" : "20",
+        "Nodes" : 1,
+        "C" : "mem128GB",
+        "runtime" : "1-00:00:00",
+        "mail" : "alexander.petri@math.su.se",
+        "mail_type" : "FAIL"
+    },
+    
     "run_isONclust_rs_ont" :
     {
      	"jobname" : "run_isONclust_rs_ont",

@@ -9,11 +9,9 @@
 outfolder_analysis = config["CLUSTER_OUT"]
 infolder_alz = config["ALZ_IN"]
 infolder_droso = config ["DROSO_IN"]
+infolder_human_ont = config ["ONT_H_IN"]
 dataset = config["DATASET"]
 min_shared_minis =config["MIN_SHARED_MINIS"]
-#isonform_location=config["ISONFORM_LOCATION"]
-#isoform_abundance=config["ISO_ABUNDANCE"]
-#rattle_location=config["RATTLE_DIR"]
 shell.prefix("set -o pipefail; ")
 wildcard_constraints:
     nr_reads="[\d]+",
@@ -40,43 +38,6 @@ def mkdir_p(path):
 rule all:
 	input: expand(outfolder_analysis+"isONclust_denovo_{min_shared_minis}_{dataset}.txt", min_shared_minis = config["MIN_SHARED_MINIS"], dataset =config["DATASET"]) # ,cluster_outfolder + "result_GeLuster.txt", cluster_outfolder+"result_rs_isONclust_denovo_{min_shared_minis}.txt" #, cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv"
 
-
-###############################################################################################################################
-#                                                PREPROCESSING                                                                #
-###############################################################################################################################
-
-##Preprocessing:some of our tools have issues with the accessions- we shorten them here
-#rule split_accessions_orig:
-#    input: fastq = config["original_reads"]
-#    output: original_reads_split_accessions =  outfolder_root + "data/full_length_output.fastq"
-
-#    run:
-#        shell("python split_accessions.py {input.fastq} {output.original_reads_split_accessions}")
-
-###############################################################################################################################
-#                                                STRINGTIE PIPELINE                                                           #
-###############################################################################################################################
-
-
-##Align the original reads to the reference via minimap2 (part of the stringtie pipeline)
-#rule align_original_reads_minimap2:
-#    input: original_reads = outfolder_root+'data/full_length_output.fastq' #outfolder_root+'/data/full_length_output.fastq'
-#    output: original_reads_aligned =  outfolder_root+"stringtie/ont_human_aligned.sam"
-#    run:
-#            ref ="/proj/snic2022-6-31/nobackup/alexp/References/Human/chm13v2.0.fasta",
-#            shell("minimap2 --eqx -t 20 -ax splice:hq -uf -k 15 -w 5 {ref} {input.original_reads} >  {output.original_reads_aligned} ")
-
-##Sort the alignment(StringtiePipe)
-#rule sort_alignment:
-#	input: outfolder_root+"stringtie/ont_human_aligned.sam"
-#	output: outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
-#	shell: "samtools view -Su {input} | samtools sort -o {output}"
-
-##Index the alignment(StringtiePipe)
-#rule index_alignment:
-#	input: outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
-#	output: outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-#	shell: "samtools index  {input}"
 
 
 
@@ -106,5 +67,12 @@ rule droso_isonclust_rs:
             shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {wildcards.min_shared_minis}")
             shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_droso} --outfile {output}")
 
-
+rule human_isonclust_rs:
+        input: fastq_human = infolder_human_ont +'data/full_length_output.fastq',
+               alignment_droso = infolder_human_ont +"stringtie/ont_human_aligned.sorted.bam"
+        output: outfolder_analysis+"isONclust_denovo_{min_shared_minis}_ONTh.txt" 
+        run:
+            outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
+            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {wildcards.min_shared_minis}")
+            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_droso} --outfile {output}")
 
