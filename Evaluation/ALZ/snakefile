@@ -35,7 +35,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input: cluster_outfolder + "result_GeLuster.txt",  cluster_outfolder+"result_rs_isONclust_denovo.txt"    #, cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv", outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"
+	input:  cluster_outfolder+"result_rs_isONclust_denovo.txt"    #,cluster_outfolder + "result_GeLuster.txt", cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv", outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"
 
 
 ###############################################################################################################################
@@ -43,12 +43,12 @@ rule all:
 ###############################################################################################################################
 
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
-rule split_accessions_orig:
-    input: fastq = config["original_reads"]
-    output: original_reads_split_accessions =  outfolder_root + "data/full_length_output.fastq"
+#rule split_accessions_orig:
+#    input: fastq = config["original_reads"]
+#    output: original_reads_split_accessions =  outfolder_root + "data/full_length_output.fastq"
 
-    run:
-        shell("python split_accessions.py {input.fastq} {output.original_reads_split_accessions}")
+#    run:
+#        shell("cp /proj/snic2022-6-31/nobackup/alexp/Rawdata/human_pacbio/flnc.fastq {output.original_reads_split_accessions} ")
 
 ##Use pychopper so every tool has the same possibility to perform
 #rule pychop:
@@ -270,7 +270,9 @@ rule compute_quality_isONclust2:
 
 #rule compute_quality_geluster:
 #	input: 	rs_cluster = cluster_outfolder + 'GeLuster/GeLuster.tsv',
-#		alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
+#		alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+#               index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+#
 #	output:	cluster_outfolder + "result_GeLuster.txt"
 #	shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
 
@@ -324,8 +326,10 @@ rule run_isONclust_py:
 
 
 rule run_isONclust_rs:
-        input: fastq = outfolder_root+'data/full_length_output.fastq',
-               alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
+        input: fastq = outfolder_root + "data/full_length_output.fastq",
+               alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+               index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+
         output: cluster_outfolder+"result_rs_isONclust_denovo.txt" # cluster_outfolder+"rs/clustering/final_clusters.tsv"
         run:
             outfolder='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs',
@@ -353,7 +357,8 @@ rule cluster_rs_annot:
            
 rule run_GeLuster:
     input: fastq = outfolder_root + 'data/full_length_output.fastq',
-           alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
+           alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+           index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
     output: cluster_outfolder + "result_GeLuster.txt" #cluster_outfolder +'GeLuster/GeLuster.tsv'
     run:
         outfolder = '/scratch/$SLURM_JOB_ID/GeLuster' # cluster_outfolder+'GeLuster'
