@@ -93,21 +93,7 @@ rule compute_quality_rs_annot:
 		alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam"		
 	output:	cluster_outfolder+"result_rs_isONclust_annot.txt"
 	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
-		
 
-
-rule compute_quality_rs_denovo_ont:
-        input:  rs_cluster = cluster_outfolder+"rs_ont/final_clusters.tsv",
-                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
-        output: cluster_outfolder+"result_rs_isONclust_denovo_ont.txt"
-        shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"
-
-rule compute_quality_isONclust2:
-        input:  py_cluster = cluster_outfolder + "isONclust2/results/clusters.tsv",
-                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
-                        #rs_cluster = isonclust_out_folder + "final_clusters_10$
-        output: cluster_outfolder + "result_isONclust_2.txt"
-        shell: "python compute_cluster_quality_2.py  --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} --modified_ont"
 
 #rule compute_quality_geluster:
 #	input: 	rs_cluster = cluster_outfolder + 'GeLuster/GeLuster.tsv',
@@ -117,11 +103,11 @@ rule compute_quality_isONclust2:
 #	output:	cluster_outfolder + "result_GeLuster.txt"
 #	shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
 
-rule compute_quality_rattle:
-        input:  rs_cluster = cluster_outfolder + 'rattle/cluster_summary.tsv',
-                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
-        output: cluster_outfolder + "result_rattle.txt"
-        shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"     
+#rule compute_quality_rattle:
+#        input:  rs_cluster = cluster_outfolder + 'rattle/cluster_summary.tsv',
+#                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
+#        output: cluster_outfolder + "result_rattle.txt"
+#        shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"     
 
 
 
@@ -181,19 +167,19 @@ rule run_GeLuster:
 
 rule rattle_cluster:
     input:
-        outfolder_root+'data/full_length_output.fastq'#outfolder_root+'/data/subsample.fastq'
+        outfolder_root+'data/full_length_output.fastq',
+        alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+        index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
     output:
-        cluster_outfolder+"rattle/clusters.out"
+        cluster_outfolder + "result_rattle.txt"
     run:
-        rattle_out_folder = cluster_outfolder+"rattle/",
+        rattle_out_folder = '/scratch/$SLURM_JOB_ID/rattle',
+        clusters_out = '/scratch/$SLURM_JOB_ID/rattle/clusters.out'
+        cl_summary = '/scratch/$SLURM_JOB_ID/rattle/cluster_summary.tsv'
         shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 16 -o {rattle_out_folder} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
+        shell("python compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
 
-rule summarize_rattle:
-    input: cluster_outfolder+'rattle/clusters.out'
-    output: cluster_outfolder+'rattle/cluster_summary.tsv'
-    run: 
-        rattle_out_folder= cluster_outfolder+'rattle/',
-        path_to_fastq= outfolder_root+'/data/full_length_output.fastq'
-        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {path_to_fastq} -c {input} >  {output} ")
+        
 
 
