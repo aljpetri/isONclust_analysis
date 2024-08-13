@@ -123,7 +123,7 @@ rule run_isONclust_py:
            index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
     output: cluster_outfolder + "result_py_isONclust.txt"
     run:
-	    py_output_folder=/scratch/$SLURM_JOB_ID/py',
+	    py_output_folder='/scratch/$SLURM_JOB_ID/py',
 	    outfolder='/scratch/$SLURM_JOB_ID'
             shell("isONclust  --t 16  --isoseq --fastq {input.fastq} --outfolder {py_output_folder}"),
             shell("isONclust write_fastq --N 1 --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --fastq {input.fastq} --outfolder {outfolder}")
