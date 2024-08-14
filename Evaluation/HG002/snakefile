@@ -131,7 +131,7 @@ rule run_isONclust_rs_ont:
 
 ##Run the rust version of isONclust for annotation
 rule cluster_rs_annot:
-    input: fastq=outfolder_root+'data/full_length_output.fastq'
+    input: fastq = outfolder_root+'data/full_length_output.fastq'
     output: cluster_outfolder+'annot/final_clusters.tsv'
     run:	
         outfolder= cluster_outfolder+'annot',
@@ -141,7 +141,7 @@ rule cluster_rs_annot:
 
            
 rule run_GeLuster:
-    input: fastq = fastq = config["original_reads"],
+    input: fastq = config["original_reads"],
            alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
            index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
     output: cluster_outfolder + "result_GeLuster.txt" #cluster_outfolder +'GeLuster/GeLuster.tsv'
@@ -152,7 +152,7 @@ rule run_GeLuster:
 
 rule rattle_cluster:
     input:
-        fastq = config["original_reads"]
+        fastq = config["original_reads"],
         alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
         index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
     output:
