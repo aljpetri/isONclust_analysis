@@ -104,7 +104,7 @@ rule run_isONclust_py:
     run:
 	    py_output_folder='/scratch/$SLURM_JOB_ID/py',
 	    outfolder='/scratch/$SLURM_JOB_ID'
-            shell("isONclust  --t 16  --isoseq --fastq {input.fastq} --outfolder {py_output_folder}"),
+            shell("isONclust  --t 8  --isoseq --fastq {input.fastq} --outfolder {py_output_folder}"),
             shell("isONclust write_fastq --N 1 --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --fastq {input.fastq} --outfolder {outfolder}")
             shell("python compute_cluster_quality.py --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --classes {input.alignment} --outfile {output} ")
 
@@ -161,7 +161,7 @@ rule rattle_cluster:
         rattle_out_folder = '/scratch/$SLURM_JOB_ID/rattle',
         clusters_out = '/scratch/$SLURM_JOB_ID/rattle/clusters.out'
         cl_summary = '/scratch/$SLURM_JOB_ID/rattle/cluster_summary.tsv'
-        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t 16 -o {rattle_out_folder} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t 8 -o {rattle_out_folder} ")
         shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {cl_summary} ")
         shell("python compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
 
