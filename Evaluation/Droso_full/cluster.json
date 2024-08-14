@@ -228,6 +228,17 @@
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
+    
+    "run_isONclust_rs_analysis" :
+    {
+     	"jobname" : "run_isONclust.rs",
+        "cpus-per-task" : "10",
+        "Nodes" : 1,
+        "C" : "mem128GB",
+        "runtime" : "1-00:00:00",
+        "mail" : "alexander.petri@math.su.se",
+        "mail_type" : "FAIL"
+    },
 
 "cluster_rs_annot" :
     {
