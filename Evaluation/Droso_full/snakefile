@@ -298,7 +298,7 @@ rule run_GeLuster:
 
 rule rattle_cluster:
     input:
-        outfolder_root+'data/full_length_output.fastq',
+        fastq = outfolder_root+'data/full_length_output.fastq',
         alignment = outfolder_root+"stringtie/drosophila_aligned.sorted.bam",
         index = outfolder_root+"stringtie/drosophila_aligned.sorted.bam.bai"
     output:
