@@ -35,7 +35,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input:  cluster_outfolder+"result_rs_isONclust_denovo.txt"    #,cluster_outfolder + "result_GeLuster.txt", cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv", outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"
+	input:  cluster_outfolder+"result_rs_isONclust_denovo.txt" ,cluster_outfolder + "result_GeLuster.txt"#, cluster_outfolder + "result_py_isONclust.txt"#, cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv", outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"
 
 
 ###############################################################################################################################
@@ -161,7 +161,7 @@ rule run_GeLuster:
     output: cluster_outfolder + "result_GeLuster.txt" #cluster_outfolder +'GeLuster/GeLuster.tsv'
     run:
         outfolder = '/scratch/$SLURM_JOB_ID/GeLuster' # cluster_outfolder+'GeLuster'
-        shell("time -p /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 8 -r {input.fastq}  -f fq -s Pacbio -o {outfolder}")
+        shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 8 -r {input.fastq}  -f fq -s Pacbio -o {outfolder}")
         shell("python compute_cluster_quality_geluster.py --clusters /scratch/$SLURM_JOB_ID/GeLuster/GeLuster.tsv --classes {input.alignment} --outfile {output}")
 
 
