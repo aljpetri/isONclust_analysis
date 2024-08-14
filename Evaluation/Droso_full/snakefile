@@ -307,6 +307,7 @@ rule rattle_cluster:
         rattle_out_folder = '/scratch/$SLURM_JOB_ID/rattle',
         clusters_out = '/scratch/$SLURM_JOB_ID/rattle/clusters.out'
         cl_summary = '/scratch/$SLURM_JOB_ID/rattle/cluster_summary.tsv'
+        shell("mkdir /scratch/$SLURM_JOB_ID/rattle")
         shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 8 -o {rattle_out_folder} ")
         shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
         shell("python compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
