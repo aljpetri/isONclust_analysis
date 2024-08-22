@@ -86,48 +86,6 @@ rule index_alignment:
 #                                                     ISONCLUST ANALYSIS                                                       #
 ###############################################################################################################################
 
-rule compute_quality_py:
-	input: 	py_cluster = cluster_outfolder+"py/final_clusters.tsv",
-                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-                index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-
-			#rs_cluster = isonclust_out_folder + "final_clusters_100k_annot.tsv"
-	output:	cluster_outfolder + "result_py_isONclust.txt"
-	shell: "python compute_cluster_quality.py --clusters {input.py_cluster} --classes {input.alignment} --outfile {output} "
-		
-rule compute_quality_rs_annot:
-        input:  rs_cluster = cluster_outfolder+'annot/final_clusters.tsv',
-                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-        output: cluster_outfolder+"result_rs_isONclust_annot.txt"
-        shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output} "		
-
-#rule compute_quality_rs_denovo:
-#	input: 	rs_cluster = cluster_outfolder+"rs/clustering/final_clusters.tsv",
-#		alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-#		index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"		
-#	output:	cluster_outfolder+"result_rs_isONclust_denovo.txt"
-#	shell: "python compute_cluster_quality.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
-
-
-rule compute_quality_geluster:
-	input: 	rs_cluster = cluster_outfolder + 'GeLuster/GeLuster.tsv',
-		alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-		index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-	output:	cluster_outfolder + "result_GeLuster.txt"
-	shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"	
-
-rule compute_quality_rattle:
-        input:  rs_cluster = cluster_outfolder + 'rattle/cluster_summary.tsv',
-                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-                index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-        output: cluster_outfolder + "result_rattle.txt"
-        shell: "python compute_cluster_quality_geluster.py --clusters {input.rs_cluster} --classes {input.alignment} --outfile {output}"     
-
-
-
-###############################################################################################################################
-#                                                     ISONFORM ANALYSIS                                                       #
-###############################################################################################################################
 
 rule run_isONclust_py:
     input: fastq = config["original_reads"],
