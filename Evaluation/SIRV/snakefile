@@ -97,8 +97,8 @@ rule run_isONclust_py:
     run:
 	    py_output_folder='/scratch/$SLURM_JOB_ID/py',
 	    outfolder='/scratch/$SLURM_JOB_ID'
-            shell("isONclust  --t 8  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
-            shell("isONclust write_fastq --N 1 --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --fastq {input.fastq} --outfolder {outfolder}")
+            shell("/usr/bin/time -v isONclust  --t 1  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
+            shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --fastq {input.fastq} --outfolder {outfolder}")
             shell("python compute_cluster_quality.py --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --classes {input.alignment} --outfile {output} ")
 
 
@@ -106,13 +106,11 @@ rule run_isONclust_rs:
         input: fastq = outfolder_root + "data/full_length_output.fastq",
                alignment = outfolder_root+"stringtie/SIRV_aligned.sorted.bam",
                index = outfolder_root+"stringtie/SIRV_aligned.sorted.bam.bai"
-
         output: cluster_outfolder+"result_rs_isONclust_denovo.txt" # cluster_outfolder+"rs/clustering/final_clusters.tsv"
         run:
             outfolder='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs',
             shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder} --seeding minimizer  --no-post-cluster true")
             shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment} --outfile {output}")
-
 
 rule run_GeLuster:
     input: fastq = outfolder_root + 'data/full_length_output.fastq',
