@@ -1,0 +1,69 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+1409565,15785,7,0,179444.0,114629,463537.8566789594,742434
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.792,0.656,1.0,0.9428579252318242,96.1,6983,332,55626,1.0,1.0,430194.94297090464,742291
+
+[Wed Aug 14 21:44:20 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/stringtie/SIRV_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/result_rs_isONclust_denovo.txt
+    resources: mem_mb=5628, mem_mib=5368, disk_mb=5628, disk_mib=5368, tmpdir=/scratch/49301466
+
+n: 1
+outfolder "/scratch/49301466"
+k: 13
+w: 21
+s: 9
+t: 2
+quality_threshold 0.2541865828329001
+Min shared minis: 0.5
+Using minimizers as seeds
+/scratch/49301466/clustering/sorted.fastq
+Sorting the fastq_file
+1396497 reads accepted
+Elapsed: 73.63s
+Wrote the sorted fastq file
+Generated 51030 clusters from clustering
+Finished clustering
+1396497 reads used for clustering
+Current physical memory usage: 252256256
+Current virtual memory usage: 963674112
+460 s for clustering and post_clustering
+51030 different clusters identified
+1396497 reads added to tsv file
+Writing the fastq files
+1396497 reads written
+9 s for file output
+
+Current physical memory usage: 164315136
+Current virtual memory usage: 875585536
+552 overall runtime
+        Command being timed: "/proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/data/full_length_output.fastq --mode ont --outfolder /scratch/49301466 --seeding minimizer --no-post-cluster true"
+        User time (seconds): 543.45
+        System time (seconds): 9.47
+        Percent of CPU this job got: 100%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 9:12.79
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 2473608
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 1
+        Minor (reclaiming a frame) page faults: 1706293
+        Voluntary context switches: 126
+        Involuntary context switches: 1182
+        Swaps: 0
+        File system inputs: 508840
+        File system outputs: 7624424
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+2024-08-14 21:54:05 jobid=49301466 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r46 procs=10 partition=core qos=normal jobname=run_isONclust.rs maxmemory_in_GiB=0.5 maxmemory_node=r46 timelimit=1-00:00:00 submit_time=2024-08-14T21:32:36 start_time=2024-08-14T21:44:15 end_time=2024-08-14T21:54:05 runtime=00:09:50 margin=23:50:10 queuetime=00:11:39

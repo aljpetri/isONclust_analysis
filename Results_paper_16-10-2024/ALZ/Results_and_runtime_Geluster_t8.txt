@@ -1,0 +1,47 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+4277293,6278,17947,12573,13.0,2.0,4665.864957861305,1587
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.837,0.748,0.951,0.6323179385912012,85.2,2994,48775,631457,1.0,1.0,2536.5741249024045,298
+
+[Wed Aug 14 14:23:24 2024]
+rule run_GeLuster:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/noback$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/result_GeLuster.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/result_GeLuster.txt
+    resources: mem_mb=54816, mem_mib=52277, disk_mb=54816, disk_mib=52277, tmpdir=/scratch/49289534
+
+[14/08/2024 14:23:24] Running...
+[14/08/2024 14:23:24] First iteration...
+[14/08/2024 18:25:28] Second iteration...
+[14/08/2024 21:36:01] Third iteration...
+[14/08/2024 23:41:48] Done, clustering results is written to /scratch/49289534/GeLuster/GeLuster.tsv!
+        Command being timed: "/proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 8 -r /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/data/full_length_output.fastq -f fq -s Pacbio -o /scratch/492895$
+        User time (seconds): 240690.16
+        System time (seconds): 857.40
+        Percent of CPU this job got: 720%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 9:18:23
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 34290784
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 862
+        Minor (reclaiming a frame) page faults: 380238360
+        Voluntary context switches: 2489492
+        Involuntary context switches: 320281
+        Swaps: 0
+        File system inputs: 2287624
+        File system outputs: 172996504
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+        
+        
+2024-08-14 23:43:40 jobid=49289534 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r303 procs=20 partition=node qos=normal jobname=run_GeLuster maxmemory_in_GiB=32.7 maxmemory_node=r303 timelimit=5-00:00:00 submit_time=2024-08-14T13:45:58 start_time=2024-08-14T14:23:21 end_time=2024-08-14T23:43:40 runtime=09:20:19 margin=4-14:39:41 queuetime=00:37:23
+

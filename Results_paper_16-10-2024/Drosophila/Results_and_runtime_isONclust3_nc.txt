@@ -1,0 +1,72 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+3764978,492248,5488,2153,70,7,31645.625296923365,13733
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.856,0.755,0.988,0.45872406919886066,90.1,311096,29483,372851,1.0,1.0,13640.877371510902,3871
+
+
+[Fri Aug 30 10:38:10 2024]
+rule run_isONclust_rs_analysis:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/stringtie/drosophila_aligned.sorted.bam, /proj/snic2$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/result_rs_isONclust_denovo.txt
+    resources: mem_mb=14844, mem_mib=14157, disk_mb=14844, disk_mib=14157, tmpdir=/scratch/49613691
+
+n: 1
+outfolder "/scratch/49613691"
+k: 13
+w: 21
+s: 9
+t: 2
+quality_threshold 0.5133420832795048
+Min shared minis: 0.5
+Using minimizers as seeds
+/scratch/49613691/clustering/sorted.fastq
+Sorting the fastq_file
+3657701 reads accepted
+Elapsed: 179.00s
+Wrote the sorted fastq file
+Generated 398129 clusters from clustering
+Finished clustering
+3657701 reads used for clustering
+Current physical memory usage: 1526136832
+Current virtual memory usage: 2236526592
+1938 s for clustering and post_clustering
+398129 different clusters identified
+3657701 reads added to tsv file
+Writing the fastq files
+3657701 reads written
+44 s for file output
+Current physical memory usage: 832913408
+Current virtual memory usage: 1542873088
+2193 overall runtime
+	Command being timed: "/proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/data/full_length_output.fastq --mode ont --outfolder /scratch/49613691 --seeding minimizer --noncanonical true"
+        User time (seconds): 2154.31
+        System time (seconds): 38.82
+        Percent of CPU this job got: 99%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 36:34.01
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 6898912
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 13793388
+        Voluntary context switches: 296
+        Involuntary context switches: 3681
+        Swaps: 0
+        File system inputs: 507752
+        File system outputs: 21911616
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+        
+2024-08-30 11:15:57 jobid=49613691 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r171 procs=10 partition=core qos=normal jobname=run_isONclust.rs maxmemory_in_GiB=5.8 maxmemory_node=r171 timelimit=1-00:00:00 submit_time=2024-08-30T10:37:08 start_time=2024-08-30T10:38:07 end_time=2024-08-30T11:15:57 runtime=00:37:50 margin=23:22:10 queuetime=00:00:59
+
+

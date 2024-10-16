@@ -1,0 +1,46 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+1409565,15785,7,0,179444.0,114629,463537.8566789594,742434
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.793,0.668,0.974,0.8617398963967313,98.7,376,56,18296,1.0,1.0,385356.8531546278,700699
+
+[Sun Aug 25 11:20:44 2024]
+rule rattle_cluster:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/stringtie/SIRV_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/result_rattle.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/result_rattle.txt
+    resources: mem_mb=5533, mem_mib=5277, disk_mb=5533, disk_mib=5277, tmpdir=/scratch/49557217
+
+RNA mode: false
+Reading fasta file...
+Reads: 1378534
+Done
+Gene clustering done
+58 gene clusters found
+        Command being timed: "/proj/snic2022-6-31/nobackup/alexp/RATTLE/rattle cluster -i /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/data/full_length_output.fastq /proj/snic2022-6-31/nobackup/alexp$
+        User time (seconds): 867.03
+        System time (seconds): 33.42
+        Percent of CPU this job got: 99%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 15:02.16
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 17175428
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 2
+        Minor (reclaiming a frame) page faults: 15457016
+        Voluntary context switches: 5280
+        Involuntary context switches: 1323
+        Swaps: 0
+        File system inputs: 497432
+        File system outputs: 14136
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+Reading fasta file... Done
+2024-08-25 11:36:26 jobid=49557217 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r249 procs=20 partition=node qos=normal jobname=rattle_cluster maxmemory_in_GiB=16.4 maxmemory_node=r249 timelimit=10:00:00 submit_time=2024-08-25T11:20:12 start_time=2024-08-25T11:20:39 end_time=2024-08-25T11:36:26 runtime=00:15:47 margin=09:44:13 queuetime=00:00:27
