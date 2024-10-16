@@ -1,0 +1,15 @@
+[Sun Aug 25 11:24:44 2024]
+rule rattle_cluster:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/stringtie/drosophila_aligned.sorted.bam, /proj/snic2$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/result_rattle.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/result_rattle.txt
+    resources: mem_mb=14844, mem_mib=14157, disk_mb=14844, disk_mib=14157, tmpdir=/scratch/49557222
+
+RNA mode: false
+Reading fasta file...
+Reads: 3206858
+Done
+slurmstepd: error: *** JOB 49557222 ON r43 CANCELLED AT 2024-08-25T21:25:05 DUE TO TIME LIMIT ***
+
+2024-08-25 21:25:05 jobid=49557222 jobstate=TIMEOUT username=alpetri account=naiss2024-5-55 nodes=r43 procs=20 partition=node qos=normal jobname=rattle_cluster maxmemory_in_GiB=42.4 maxmemory_node=r43 timelimit=10:00:00 submit_time=2024-08-25T11:21:46 start_time=2024-08-25T11:24:39 end_time=2024-08-25T21:25:05 runtime=10:00:26 margin=-00:00:26 queuetime=00:02:53

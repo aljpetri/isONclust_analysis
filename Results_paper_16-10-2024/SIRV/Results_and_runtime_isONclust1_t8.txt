@@ -1,0 +1,79 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+1400942,13266,7,0,178282.0,113509,462997.3733998426,740862
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.629,0.462,0.985,0.267705903741516,99.5,3407,582,7613,1.0,1,101267.59340796538,90599
+
+
+[Sun Aug 25 11:20:44 2024]
+rule run_isONclust_py:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/stringtie/SIRV_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/result_py_isONclust.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/result_py_isONclust.txt
+    resources: mem_mb=5533, mem_mib=5277, disk_mb=5533, disk_mib=5277, tmpdir=/scratch/49557218
+
+ITERATION 4
+Using 1 batches.
+Saved: 41 iterations.
+Total number of reads iterated through:3208
+Passed mapping criteria:164
+Passed alignment criteria in this process:26
+Total calls to alignment mudule in this process:39
+Time elapesd clustering last iteration single core: 0.48589038848876953
+Time elapsed clustering: 218.4270670413971
+Nr clusters larger than 1: 352
+Nr clusters (all): 3018
+        Command being timed: "isONclust --t 8 --ont --fastq /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/data/full_length_output.fastq --outfolder /scratch/49557218/py"
+        User time (seconds): 1872.99
+        System time (seconds): 41.51
+        Percent of CPU this job got: 621%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 5:07.95
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 4994648
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 59
+        Minor (reclaiming a frame) page faults: 15679920
+        Voluntary context switches: 222757
+        Involuntary context switches: 2952
+        Swaps: 0
+        File system inputs: 574168
+        File system outputs: 4235576
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+Wrote clusters to separate fastq files.
+        Command being timed: "isONclust write_fastq --N 1 --clusters /scratch/49557218/py/final_clusters.tsv --fastq /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/data/full_length_output.fastq --outfo$
+        User time (seconds): 9.20
+        System time (seconds): 4.93
+        Percent of CPU this job got: 99%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:14.24
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 2604704
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 1283019
+        Voluntary context switches: 339
+        Involuntary context switches: 23
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 3752152
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+
+
+
+2024-08-25 11:26:42 jobid=49557218 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r323 procs=20 partition=node qos=normal jobname=run_isONclust.py maxmemory_in_GiB=7.7 maxmemory_node=r323 timelimit=1-00:00:00 submit_time=2024-08-25T11:20:12 start_time=2024-08-25T11:20:39 end_time=2024-08-25T11:26:42 runtime=00:06:03 margin=23:53:57 queuetime=00:00:27

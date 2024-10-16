@@ -1,0 +1,68 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+500000,0,13451,1878,34,10,221.134112,98
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.955,0.917,0.995,0.5669121826392207,99.0,0,23287,4985,19.0,6.0,92.20832,47
+
+
+
+[Sun Aug 25 11:28:43 2024]
+rule run_isONclust_py:
+    input: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/SIM_500/stringtie/ont_human_aligned.sorted.bam, /proj/snic202$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/SIM_500/result_py_isONclust.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/SIM_500/result_py_isONclust.txt
+    resources: mem_mb=4842, mem_mib=4618, disk_mb=4842, disk_mib=4618, tmpdir=/scratch/49557229
+
+        Command being timed: "isONclust --t 1 --ont --fastq /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq --outfolder /scratch/49557229/py"
+        User time (seconds): 24330.76
+        System time (seconds): 1434.33
+        Percent of CPU this job got: 99%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 7:09:28
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 3506688
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 59
+        Minor (reclaiming a frame) page faults: 810631450
+        Voluntary context switches: 1195
+        Involuntary context switches: 33722
+        Swaps: 0
+        File system inputs: 574032
+        File system outputs: 4751240
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+Wrote clusters to separate fastq files.
+Wrote clusters to separate fastq files.
+        Command being timed: "isONclust write_fastq --N 1 --clusters /scratch/49557229/py/final_clusters.tsv --fastq /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq --outfolder /scratch/49557229"
+        User time (seconds): 7.02
+        System time (seconds): 7.01
+        Percent of CPU this job got: 97%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:14.45
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 2514752
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 1226141
+        Voluntary context switches: 977
+        Involuntary context switches: 91
+        Swaps: 0
+        File system inputs: 491520
+        File system outputs: 4471760
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+        
+        
+2024-08-25 18:38:43 jobid=49557229 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r44 procs=20 partition=node qos=normal jobname=run_isONclust.py maxmemory_in_GiB=3.3 maxmemory_node=r44 timelimit=5-00:00:00 submit_time=2024-08-25T11:25:06 start_time=2024-08-25T11:28:39 end_time=2024-08-25T18:38:43 runtime=07:10:04 margin=4-16:49:56 queuetime=00:03:33
