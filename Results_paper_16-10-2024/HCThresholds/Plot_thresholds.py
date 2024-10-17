@@ -3,9 +3,47 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 from datetime import timedelta
+def plot_dataset_new(dataset_name, data, outfolder):
+    print(data)
+    outfilename = dataset_name + "_HC.pdf"
+    
+    # Melt the dataframe to have a separate row for each measure, making it easier to plot
+    melted_data = pd.melt(data, id_vars=['Threshold'], value_vars=['V', 'c', 'h', 'ARI'], var_name='Measure', value_name='Value')
+    
+    # Convert 'Value' column to float
+    melted_data['Value'] = melted_data['Value'].astype(float)
+    
+    # Create a grouped bar plot for each measure with colored bars for each tool
+    plt.figure(figsize=(15, 8))
+    
+    # Create the line plot
+    g = sns.lineplot(x='Threshold', y='Value', hue='Measure', data=melted_data,linewidth=3)
+    
+    # Set title with larger font size
+    plt.title(dataset_name, fontsize=32)
+    
+    # Set axis labels with larger font sizes
+    plt.xlabel('Threshold', fontsize=30)
+    plt.ylabel('Cluster measures', fontsize=30)
+    
+    # Customize tick label font size
+    plt.xticks(fontsize=28, rotation=45, ha='right')
+    plt.yticks(fontsize=28)
+    
+    # Customize the legend font size and title font size
+    plt.legend(title='Measure', loc='upper left', fontsize=28, title_fontsize=30)
+    
+    # Adjust layout to prevent overlap of elements
+    plt.tight_layout()
+    
+    # Save the plot as a PDF in the specified output folder
+    plt.savefig(os.path.join(outfolder, outfilename))
+    
+    # Close the plot to free up memory
+    plt.close()
 def plot_dataset(dataset_name,data,outfolder):
     print(data)
-    outfilename = dataset_name + ".pdf"
+    outfilename = dataset_name + "_HC.pdf"
     #tool_order = data['Tool'].unique()
     # Melt the dataframe to have a separate row for each measure, making it easier to plot
     # Melt the dataframe to have a separate row for each measure, making it easier to plot
@@ -15,14 +53,19 @@ def plot_dataset(dataset_name,data,outfolder):
     melted_data['Value'] = melted_data['Value'].astype(float)
     # Create a grouped bar plot for each measure with colored bars for each tool
     plt.figure(figsize=(15, 8))
-    sns.lineplot(x='Threshold', y='Value', hue='Measure', data=melted_data)#,
+    g = sns.lineplot(x='Threshold', y='Value', hue='Measure', data=melted_data)#,
+    #g.set_axis_labels("Measure", "Value",fontsize=20)
+
+
                 #order=['V', 'c', 'h', 'ARI'] )
     plt.title(dataset_name)
     # Set y-axis limits
     # plt.ylim(0, 1)
     plt.xlabel('Measure')
     plt.ylabel('Value')
-    plt.legend(title='Dataset', loc='upper left')
+    #plt.setp(g.legend.get_texts(), fontsize='20')  # for legend text
+    #plt.setp(g.legend.get_title(), fontsize='22')
+    plt.legend(title='Dataset', loc='upper left', fontsize=20)
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     #plt.show()
@@ -30,8 +73,8 @@ def plot_dataset(dataset_name,data,outfolder):
     plt.close()
 
 # Read data from the TSV file
-file_path = "~/isONclust_analysis/Results_not_pushed/HCThresholds/Results_HCThresholds.txt"
-outfolder= "/home/alexanderpetri/isONclust_analysis/Results_not_pushed/HCThresholds/"
+file_path = "~/isONclust_analysis/Results_paper_16-10-2024/HCThresholds/Results_HCThresholds.txt"
+outfolder= "/home/alexanderpetri/isONclust_analysis/Results_paper_16-10-2024/HCThresholds/"
 df = pd.read_csv(file_path, sep='\t')
 #plot_rt(df)
 # Remove quotes and spaces from the 'rt(d-h:m:s)' column
@@ -56,11 +99,11 @@ alz_data = df[df['Dataset'] == 'ALZ']
 #onth_data =df[df['Dataset'] == 'ONTh']
 dro_data = df[df['Dataset'] == 'Droso']
 #plot_dataset("SIRV", sirv_data,outfolder)
-plot_dataset("ALZ", alz_data,outfolder)
+plot_dataset_new("ALZ", alz_data,outfolder)
 #plot_dataset("ONTh", onth_data,outfolder)
 #plot_dataset("SIM-500k", sim_data,outfolder)
 #plot_dataset("ONT",ont_data,outfolder)
-plot_dataset("Drosophila", dro_data,outfolder)
+plot_dataset_new("Drosophila", dro_data,outfolder)
 #measures = ['V', 'c', 'h', 'ARI']
 #for measure in measures:
 # Set the order of tools for plotting
