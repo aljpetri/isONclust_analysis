@@ -1,0 +1,48 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+3764978,492248,5488,2153,70,7,31645.625296923365,13733
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.858,0.759,0.986,0.42391487520372356,95.1,12847,14162,185732,1.0,1.0,9489.214913849226,3341
+
+
+2024-08-25 12:38:20 jobid=49557220 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r334 procs=10 partition=core qos=normal jobname=run_GeLuster maxmemory_in_GiB=6.5 maxmemory_node=r334 timelimit=1-00:00:00 submit_time=2024-08-25T11:21:46 start_time=2024-08-25T11:24:39 end_time=2024-08-25T12:38:20 runtime=01:13:41 margin=22:46:19 queuetime=00:02:53
+
+
+[Sun Aug 25 11:24:44 2024]
+rule run_GeLuster:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/stringtie/drosophila_aligned.sorted.bam, /proj/snic2$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/result_GeLuster.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/result_GeLuster.txt
+    resources: mem_mb=14844, mem_mib=14157, disk_mb=14844, disk_mib=14157, tmpdir=/scratch/49557220
+
+[25/08/2024 11:24:44] Running...
+[25/08/2024 11:24:44] First iteration...
+[25/08/2024 12:11:19] Second iteration...
+[25/08/2024 12:31:38] Third iteration...
+[25/08/2024 12:37:10] Done, clustering results is written to /scratch/49557220/GeLuster/GeLuster.tsv!
+        Command being timed: "/proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 1 -r /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/data/full_length_output.fastq -f fq -s cDNA -o /scratch/4$
+        User time (seconds): 4427.04
+        System time (seconds): 108.00
+        Percent of CPU this job got: 104%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 1:12:26
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 6938116
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 13
+        Minor (reclaiming a frame) page faults: 33121076
+        Voluntary context switches: 217685
+        Involuntary context switches: 70208
+        Swaps: 0
+        File system inputs: 4450760
+        File system outputs: 34738184
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+

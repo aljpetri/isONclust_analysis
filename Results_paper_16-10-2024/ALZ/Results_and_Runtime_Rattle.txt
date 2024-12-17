@@ -1,0 +1,21 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 20
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=54816, mem_mib=52277, disk_mb=54816, disk_mib=52277
+Select jobs to execute...
+
+[Thu Aug 15 09:15:29 2024]
+rule rattle_cluster:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/noback$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/result_rattle.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/ALZ/result_rattle.txt
+    resources: mem_mb=54816, mem_mib=52277, disk_mb=54816, disk_mib=52277, tmpdir=/scratch/49308838
+
+RNA mode: false
+Reading fasta file...
+Reads: 4272919
+Done
+slurmstepd: error: *** JOB 49308838 ON r10 CANCELLED AT 2024-08-20T09:15:48 DUE TO TIME LIMIT ***
+
