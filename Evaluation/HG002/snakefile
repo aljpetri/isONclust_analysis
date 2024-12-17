@@ -117,7 +117,7 @@ rule run_isONclust_rs:
         output: cluster_outfolder+"result_rs_isONclust_denovo.txt" # cluster_outfolder+"rs/clustering/final_clusters.tsv"
         run:
             outfolder='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs',
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {outfolder} --seeding minimizer  --no-post-cluster true")
+            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {outfolder} --seeding minimizer  --noncanonical true ")
             shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment} --outfile {output}")
 
 
