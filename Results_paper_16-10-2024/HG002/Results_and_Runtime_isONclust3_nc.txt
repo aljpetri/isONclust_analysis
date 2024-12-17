@@ -1,0 +1,72 @@
+[Fri Aug 30 10:46:10 2024]
+rule run_isONclust_rs:
+    input: /proj/snic2022-6-31/nobackup/alexp/Rawdata/HG002/flnc.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/HG002/stringtie/ont_human_aligned.sorted.bam, /proj/snic2022-6-31/nobackup/alexp/Result$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/HG002/result_rs_isONclust_denovo.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/HG002/result_rs_isONclust_denovo.txt
+    resources: mem_mb=363683, mem_mib=346836, disk_mb=363683, disk_mib=346836, tmpdir=/scratch/49613701
+
+n: 1
+outfolder "/scratch/49613701"
+k: 15
+w: 51
+s: 9
+t: 3
+quality_threshold 0.7385691026454038
+Min shared minis: 0.5
+Using minimizers as seeds
+/scratch/49613701/clustering/sorted.fastq
+Sorting the fastq_file
+37200651 reads accepted
+Elapsed: 3367.00s
+Wrote the sorted fastq file
+Generated 356650 clusters from clustering
+Finished clustering
+37200651 reads used for clustering
+Current physical memory usage: 18543443968
+Current virtual memory usage: 19959341056
+29380 s for clustering and post_clustering
+356650 different clusters identified
+37200651 reads added to tsv file
+Writing the fastq files
+37200651 reads written
+3304 s for file output
+Current physical memory usage: 7366717440
+Current virtual memory usage: 8884944896
+37558 overall runtime
+	Command being timed: "/proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq /proj/snic2022-6-31/nobackup/alexp/Rawdata/HG002/flnc.fastq --mode 		pacbio --outfolder /scr /scratch/49613701 --seeding minimizer --noncanonical true"
+        User time (seconds): 32383.98
+        System time (seconds): 2614.71
+        Percent of CPU this job got: 93%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 10:26:08
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 173303296
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 45524
+        Minor (reclaiming a frame) page faults: 1568294382
+        Voluntary context switches: 4824420
+        Involuntary context switches: 56365
+        Swaps: 0
+        File system inputs: 249187104
+        File system outputs: 622012632
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+        
+        
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+37200651,640,27055,45198,2,1,116660.86694122214,15646
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.844,0.785,0.913,0.5593964079741472,99.6,583,210293,146357,9.0,2.0,122322.24127763248,5033
+
+
+
+2024-08-30 21:27:23 jobid=49613701 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r28 procs=20 partition=node qos=normal jobname=run_isONclust.rs maxmemory_in_GiB=164.7 maxmemory_node=r28 timelimit=6-00:00:00 submit_time=2024-08-30T10:42:16 start_time=2024-08-30T10:46:07 end_time=2024-08-30T21:27:23 runtime=10:41:16 margin=5-13:18:44 queuetime=00:03:51
+

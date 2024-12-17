@@ -1,0 +1,16 @@
+hue Tool Column Dataset 
+g = sns.FacetGrid(tips, col="time", hue="sex")
+g.map_dataframe(sns.scatterplot, x="total_bill", y="tip")
+g.add_legend()
+Catplot to use Barplots for each data
+
+g = sns.catplot(
+    data=df, x="who", y="survived", col="class",
+    kind="bar", height=4, aspect=.6,
+)
+g.set_axis_labels("", "Survival Rate")
+g.set_xticklabels(["Men", "Women", "Children"])
+g.set_titles("{col_name} {col_var}")
+g.set(ylim=(0, 1))
+g.despine(left=True)
+Hue color 

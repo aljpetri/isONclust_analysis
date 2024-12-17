@@ -1,0 +1,45 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+3764978,492248,5488,2153,70,7,31645.625296923365,13733
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.85,0.742,0.994,0.2526586220998144,92.3,127194,39031,291101,1.0,1.0,4326.9826969889455,1296
+
+
+
+2024-08-14 23:38:53 jobid=49301473 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r339 procs=20 partition=node qos=normal jobname=run_isONclust.py maxmemory_in_GiB=21.9 maxmemory_node=r339 timelimit=3-00:00:00 submit_time=2024-08-14T21:48:26 start_time=2024-08-14T21:56:15 end_time=2024-08-14T23:38:53 runtime=01:42:38 margin=2-22:17:22 queuetime=00:07:49
+
+[Wed Aug 14 21:56:17 2024]
+rule run_isONclust_py:
+    input: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/data/full_length_output.fastq, /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/stringtie/drosophila_aligned.sorted.bam, /proj/snic2$
+    output: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/result_py_isONclust.txt
+    jobid: 0
+    reason: Missing output files: /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/result_py_isONclust.txt
+    resources: mem_mb=14844, mem_mib=14157, disk_mb=14844, disk_mib=14157, tmpdir=/scratch/49301473
+
+Command being timed: "isONclust --t 8 --ont --fastq /proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/data/full_length_output.fastq --outfolder /scratch/49524917/py"
+        User time (seconds): 20762.10
+        System time (seconds): 353.68
+        Percent of CPU this job got: 361%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 1:37:16
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 19004112
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 232195488
+        Voluntary context switches: 603217
+        Involuntary context switches: 29973
+        Swaps: 0
+        File system inputs: 491536
+        File system outputs: 13077960
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+2024-08-23 16:58:21 jobid=49524917 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r351 procs=20 partition=node qos=normal jobname=run_isONclust.py maxmemory_in_GiB=21.7 maxmemory_node=r351 timelimit=3-00:00:00 submit_time=2024-08-23T15:17:23 start_time=2024-08-23T15:18:53 end_time=2024-08-23T16:58:21 runtime=01:39:28 margin=2-22:20:32 queuetime=00:01:30
+
