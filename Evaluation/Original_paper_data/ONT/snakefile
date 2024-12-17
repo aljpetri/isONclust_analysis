@@ -1,4 +1,4 @@
-#Run via submit_main_snakemake.sh
++#Run via submit_main_snakemake.sh
 #this snakemake pipeline is used to analyse the performance of isONform on Drosophila Data
 
 
@@ -295,11 +295,11 @@ rule run_isONclust_py:
 rule run_isONclust_rs:
         input: fastq = outfolder_root+'data/full_length_output.fastq',
                alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-               index= outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+               index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
         output:  cluster_outfolder+"result_rs_isONclust_denovo.txt" #cluster_outfolder+"rs/clustering/final_clusters.tsv"
         run:
             outfolder= '/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs',
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder}   --seeding minimizer  --no-post-cluster true")
+            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder}   --seeding minimizer")
             shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment} --outfile {output}")
 
 ##Run the rust version of isONclust for annotation

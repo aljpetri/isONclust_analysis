@@ -95,8 +95,8 @@ rule run_isONclust_py:
     run:
 	    py_output_folder='/scratch/$SLURM_JOB_ID/py',
 	    outfolder='/scratch/$SLURM_JOB_ID'
-            shell("isONclust  --t 8  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
-            shell("isONclust write_fastq --N 1 --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --fastq {input.fastq} --outfolder {outfolder}")
+            shell("/usr/bin/time -v isONclust  --t 1  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
+            shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --fastq {input.fastq} --outfolder {outfolder}")
             shell("python compute_cluster_quality.py --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --classes {input.alignment} --outfile {output} ")
             
 rule run_isONclust_rs:
@@ -107,7 +107,7 @@ rule run_isONclust_rs:
         output: cluster_outfolder+"result_rs_isONclust_denovo.txt" # cluster_outfolder+"rs/clustering/final_clusters.tsv"
         run:
             outfolder='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs',
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder} --seeding minimizer  --no-post-cluster true")
+            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder} --seeding minimizer  --noncanonical true")
             shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment} --outfile {output}")
  
 rule run_GeLuster:
@@ -117,7 +117,7 @@ rule run_GeLuster:
     output: cluster_outfolder + "result_GeLuster.txt" #cluster_outfolder +'GeLuster/GeLuster.tsv'
     run:
         outfolder = '/scratch/$SLURM_JOB_ID/GeLuster' # cluster_outfolder+'GeLuster'
-        shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 8 -r {input.fastq}  -f fq -s cDNA -o {outfolder}")
+        shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 1 -r {input.fastq}  -f fq -s cDNA -o {outfolder}")
         shell("python compute_cluster_quality_geluster.py --clusters /scratch/$SLURM_JOB_ID/GeLuster/GeLuster.tsv --classes {input.alignment} --outfile {output}")
 
 rule rattle_cluster:
@@ -132,7 +132,7 @@ rule rattle_cluster:
         clusters_out = '/scratch/$SLURM_JOB_ID/rattle/clusters.out'
         cl_summary = '/scratch/$SLURM_JOB_ID/rattle/cluster_summary.tsv'
         shell("mkdir /scratch/$SLURM_JOB_ID/rattle")
-        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t 8 -o {rattle_out_folder} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t 1 -o {rattle_out_folder} ")
         shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {cl_summary} ")
         shell("python compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
 
