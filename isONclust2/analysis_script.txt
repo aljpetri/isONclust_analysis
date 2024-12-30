@@ -1,0 +1,1 @@
+python compute_cluster_quality.py  --clusters /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/isONclust2_t1/final_clusters/clusters.tsv --classes /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/stringtie/SIRV_aligned.sorted.bam --outfile /proj/snic2022-6-31/nobackup/alexp/Results/SIRV/isONclust_t1_result.txt --modified_ont
