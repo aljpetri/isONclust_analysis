@@ -4,10 +4,11 @@
     {
         "account" : "naiss2024-5-55",
         "cpus-per-task" : "1",
-        "C" : "mem128GB",
-        "Nodes" : 1,
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "0-10:00:00",
-        "jobname" : "pipeline",
+        "jobname" : "ONT_human_pipeline",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
@@ -15,9 +16,9 @@
     "split_accessions_orig":
     {
     	"jobname" :"split_accessions",
-    	"cpus-per-task":"1",
-    	"Nodes": "1",
-    	"C" : "mem128GB",
+    	"p" : "shared",
+        "n" : "20",
+        "N" : "1",
     	"runtime":"10:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -26,9 +27,9 @@
     "pychop":
     {
     	"jobname" :"pychopper",
-    	"cpus-per-task":"20",
-    	"Nodes": "1",
-    	"C" : "mem256GB",
+    	"p" : "shared",
+        "n" : "20",
+        "N" : "1",
     	"runtime":"10:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -37,9 +38,9 @@
     "align_original_reads_minimap2":
     {
         "jobname" : "align_original_reads_minimap2",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -48,9 +49,9 @@
     "sort_alignment":
      {
     	"jobname" :"sortalignment",
-    	"cpus-per-task":"1",
-    	"Nodes": "1",
-    	"C" : "mem128GB",
+    	"p" : "shared",
+        "n" : "1",
+        "N" : "1",
     	"runtime":"10:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -59,9 +60,9 @@
     "index_alignment":
     {
     	"jobname" :"indexalignment",
-    	"cpus-per-task":"1",
-    	"Nodes": "1",
-    	"C" : "mem128GB",
+    	"p" : "shared",
+        "n" : "1",
+        "N" : "1",
     	"runtime":"10:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -70,9 +71,9 @@
     "run_stringtie":
     {
     	"jobname" :"stringtie",
-    	"cpus-per-task":"20",
-    	"Nodes": "1",
-    	"C" : "mem128GB",
+    	"p" : "shared",
+        "n" : "20",
+        "N" : "1",
     	"runtime":"10:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -81,9 +82,9 @@
     "run_gffread":
     {
     	"jobname" :"gffread",
-    	"cpus-per-task":"1",
-    	"Nodes": "1",
-    	"C" : "mem128GB",
+    	"p" : "shared",
+        "n" : "1",
+        "N" : "1",
     	"runtime":"10:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -92,9 +93,9 @@
     "align_stringtie_reads_minimap2":
     {
         "jobname" : "align_stringtie_reads_minimap2",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -194,9 +195,9 @@
     "run_isONclust_rs" :
     {
      	"jobname" : "run_isONclust.rs",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "6-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
