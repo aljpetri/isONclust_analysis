@@ -104,9 +104,9 @@
     "rattle_cluster":
     {
     	"jobname" :"rattle_cluster",
-    	"cpus-per-task":"20",
-    	"Nodes": "1",
-    	"C" : "mem256GB",
+    	"p" : "shared",
+        "n" : "20",
+        "N" : "1",
     	"runtime":"5-00:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -115,9 +115,9 @@
     "rattle_correct":
     {
     	"jobname" :"rattle_correct",
-    	"cpus-per-task":"20",
-    	"Nodes": "1",
-    	"C" : "mem128GB",
+    	"p" : "shared",
+        "n" : "20",
+        "N" : "1",
     	"runtime":"10:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -126,9 +126,9 @@
     "rattle_polish":
     {
     	"jobname" :"rattle_polish",
-    	"cpus-per-task":"20",
-    	"Nodes": "1",
-    	"C" : "mem128GB",
+    	"p" : "shared",
+        "n" : "20",
+        "N" : "1",
     	"runtime":"10:00:00",
     	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -137,9 +137,9 @@
     "align_rattle_reference_minimap2":
     {
         "jobname" : "align_rattle_reference_minimap2",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -148,9 +148,9 @@
     "evaluate_rattle" :
     {
         "jobname" : "evaluate_rattle",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "0-02:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -159,9 +159,9 @@
     "run_isONclust_py" :
     {
         "jobname" : "run_isONclust.py",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "5-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -172,9 +172,9 @@
     "cluster_rs_annot" :
     {
      	"jobname" : "run_isONclust_rs_annot",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "5-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -184,9 +184,9 @@
     "run_GeLuster" :
     {
         "jobname" : "run_GeLuster",
-     	"cpus-per-task" : "10",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+     	"p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "5-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -206,9 +206,9 @@
     "run_isONclust_rs_ont" :
     {
      	"jobname" : "run_isONclust_rs_ont",
-        "cpus-per-task" : "10",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "1-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -217,9 +217,9 @@
     "run_isONclust2" :
     {
      	"jobname" : "run_isONclust2",
-        "cpus-per-task" : "1",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "1-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -227,9 +227,9 @@
     "compute_quality_isONclust2" :
     {
      	"jobname" : "compute_quality_isONclust2",
-        "cpus-per-task" : "1",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "02:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -238,9 +238,9 @@
     "compute_quality_py" :
     {
         "jobname" : "compute_quality_py",
-        "cpus-per-task" : "1",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "02:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -249,9 +249,9 @@
     "compute_quality_rs_denovo" :
     {
        	"jobname" : "compute_quality_rs_denovo",
-        "cpus-per-task" : "5",
-        "Nodes" : 1,
-        "C" : "mem256GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "02:00:00",
      	"mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -261,9 +261,9 @@
     "compute_quality_rs_denovo_ont" :
     {
         "jobname" : "compute_quality_rs_denovo_ont",
-        "cpus-per-task" : "1",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "02:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -272,9 +272,9 @@
     "compute_quality_rs_annot" :
     {
      	"jobname" : "compute_quality_rs_annot",
-        "cpus-per-task" : "1",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "02:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -284,9 +284,9 @@
     "compute_quality_GeLuster" :
     {
      	"jobname" : "compute_quality_GeLuster",
-        "cpus-per-task" : "5",
-        "Nodes" : 1,
-        "C" : "mem256GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "02:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -294,9 +294,9 @@
     "summarize_rattle" :
     {
      	"jobname" : "summarize_rattle",
-        "cpus-per-task" : "10",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "02:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -306,9 +306,9 @@
     "compute_quality_rattle" :
     {
      	"jobname" : "compute_quality_rattle",
-        "cpus-per-task" : "1",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "02:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -317,9 +317,9 @@
     "align_isONform_reference_minimap2":
     {
         "jobname" : "align_isONform_reference_minimap2",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -328,9 +328,9 @@
   "evaluate_isONform" :
     {
         "jobname" : "evaluate_isONform",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -338,9 +338,9 @@
    "ultra_mm2_prep_isON":
     {
         "jobname" : "ultra_prep_ison",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "1:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -348,9 +348,9 @@
   "ultra_mm2_prep_Rattle":
     {
      	"jobname" : "ultra_prep_rattle",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "1:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -359,9 +359,9 @@
     "ultra_mm2_align_isON": 
     {
         "jobname" : "ultra_align_isON",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -369,9 +369,9 @@
     "ultra_mm2_align_RATTLE":
     {
         "jobname" : "ultra_align_RATTLE",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -379,9 +379,9 @@
     "ultra_mm2_align_st":
     {
      	"jobname" : "ultra_align_st",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -389,9 +389,9 @@
 "ultra_mm2_prep_st":
     {
      	"jobname" : "ultra_prep_st",
-        "cpus-per-task" : "20",
-        "Nodes" : 1,
-        "C" : "mem128GB",
+        "p" : "shared",
+        "n" : "20",
+        "N" : "1",
         "runtime" : "1:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
