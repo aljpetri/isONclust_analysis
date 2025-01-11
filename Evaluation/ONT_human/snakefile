@@ -89,17 +89,17 @@ rule index_alignment:
 ###############################################################################################################################
 
 
-rule run_isONclust_py:
-    input: fastq = outfolder_root+'data/full_length_output.fastq',
-           alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-           index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-    output: cluster_outfolder + "result_py_isONclust.txt"
-    run:
-	    py_output_folder='/scratch/$SLURM_JOB_ID/py',
-	    outfolder='/scratch/$SLURM_JOB_ID'
-            shell("/usr/bin/time -v isONclust  --t 1  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
-            shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters config["SCRATCH"] + "py/final_clusters.tsv" --fastq {input.fastq} --outfolder {outfolder}")
-            shell("python compute_cluster_quality.py --clusters config["SCRATCH"] + "py/final_clusters.tsv" --classes {input.alignment} --outfile {output} ")
+#rule run_isONclust_py:
+#    input: fastq = outfolder_root+'data/full_length_output.fastq',
+#           alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+#           index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+#    output: cluster_outfolder + "result_py_isONclust.txt"
+#    run:
+#	    py_output_folder='/scratch/$SLURM_JOB_ID/py',
+#	    outfolder='/scratch/$SLURM_JOB_ID'
+#           shell("/usr/bin/time -v isONclust  --t 1  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
+#            shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters config["SCRATCH"] + "py/final_clusters.tsv" --fastq {input.fastq} --outfolder {outfolder}")
+#            shell("python compute_cluster_quality.py --clusters config["SCRATCH"] + "py/final_clusters.tsv" --classes {input.alignment} --outfile {output} ")
 
 
 rule run_isONclust_rs:
@@ -112,30 +112,30 @@ rule run_isONclust_rs:
             shell("python compute_cluster_quality.py  --clusters config["SCRATCH"] + "rs/clustering/final_clusters.tsv" --classes {input.alignment} --outfile {output}")
 
 
-rule run_GeLuster:
-    input: fastq = outfolder_root + 'data/full_length_output.fastq',
-           alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-           index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-    output: cluster_outfolder + "result_GeLuster.txt" #cluster_outfolder +'GeLuster/GeLuster.tsv'
-    run:
-        shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 1 -r {input.fastq}  -f fq -s dRNA -o config["SCRATCH"] + "geluster/" ")
-        shell("python compute_cluster_quality_geluster.py --clusters config["SCRATCH"] + "geluster/GeLuster.tsv" --classes {input.alignment} --outfile {output}")
+#rule run_GeLuster:
+#    input: fastq = outfolder_root + 'data/full_length_output.fastq',
+#           alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+#           index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+#    output: cluster_outfolder + "result_GeLuster.txt" #cluster_outfolder +'GeLuster/GeLuster.tsv'
+#    run:
+#        shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 1 -r {input.fastq}  -f fq -s dRNA -o config["SCRATCH"] + "geluster/" ")
+#        shell("python compute_cluster_quality_geluster.py --clusters config["SCRATCH"] + "geluster/GeLuster.tsv" --classes {input.alignment} --outfile {output}")
      
-rule rattle_cluster:
-    input:
-        outfolder_root+'data/full_length_output.fastq',
-        alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-        index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-    output:
-        cluster_outfolder + "result_rattle.txt"
-    run:
-        rattle_out_folder = '/scratch/$SLURM_JOB_ID/rattle',
-        clusters_out = '/scratch/$SLURM_JOB_ID/rattle/clusters.out'
-        cl_summary = '/scratch/$SLURM_JOB_ID/rattle/cluster_summary.tsv'
-        shell("mkdir /scratch/$SLURM_JOB_ID/rattle")
-        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 1 -o {rattle_out_folder} ")
-        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
-        shell("python compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
+#rule rattle_cluster:
+#    input:
+#        outfolder_root+'data/full_length_output.fastq',
+#        alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
+#        index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+#    output:
+#        cluster_outfolder + "result_rattle.txt"
+#    run:
+#        rattle_out_folder = '/scratch/$SLURM_JOB_ID/rattle',
+#        clusters_out = '/scratch/$SLURM_JOB_ID/rattle/clusters.out'
+#        cl_summary = '/scratch/$SLURM_JOB_ID/rattle/cluster_summary.tsv'
+#        shell("mkdir /scratch/$SLURM_JOB_ID/rattle")
+#        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 1 -o {rattle_out_folder} ")
+#        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
+#        shell("python compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
 
 
 
