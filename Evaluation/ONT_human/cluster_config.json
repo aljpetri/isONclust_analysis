@@ -1,10 +1,11 @@
 {
 "DATASETS" : "ONT_original",
-  "ROOT_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/ONT_human/",
+  "ROOT_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/",
   "ISONFORM_LOCATION" : "/proj/snic2022-6-31/nobackup/alexp/isONform/",
   "ISONCORRECT_LOCATION" : "/proj/snic2022-6-31/nobackup/alexp/isONcorrect/",
   "ISO_ABUNDANCE": 5,
   "RATTLE_DIR" : "/proj/snic2022-6-31/nobackup/alexp/RATTLE/",
-  "original_reads" : "/proj/snic2022-6-31/nobackup/alexp/Rawdata/human_pacbio/flnc.fastq",
-  "CLUSTER_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/ONT_human/"
+  "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/",
+  "SCRATCH": "/cfs/klemming/scratch/u/apetri/ONT_human/"
 }
+

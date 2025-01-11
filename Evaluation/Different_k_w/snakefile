@@ -1,0 +1,49 @@
+#Run via submit_main_snakemake.sh
+#this snakemake pipeline is used to analyse the performance of isONform on Drosophila Data
+
+#The following variables represent the paths to the files required to run this pipeline
+
+###Script_input_folder: Equal to the folder the snakefile is located in. Should also contain all scripts needed for our analysis:
+outfolder_analysis = config["CLUSTER_OUT"]
+k_value = config["K"]
+w_value = config ["W"]
+ont_folder = config["ONT_FOLDER"]
+scratch = config["SCRATCH"]
+shell.prefix("set -o pipefail; ")
+wildcard_constraints:
+    nr_reads="[\d]+",
+####################################################
+########## standard python functions ###############
+####################################################
+
+import re
+import os
+import errno
+import shutil
+import glob
+
+def mkdir_p(path):
+    print("creating", path)
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
+rule all:
+	input: expand(outfolder_analysis+"isONclust_denovo_{k_value}_{w_value}.txt", k_value=config["K"], w_value =config["W"]) 
+###############################################################################################################################
+#                                                     ISONFORM ANALYSIS                                                       #
+###############################################################################################################################
+
+rule run_isonclust_rs:
+        input: fastq = ont_folder +'data/full_length_output.fastq',
+               alignment = ont_folder +"stringtie/ont_human_aligned.sorted.bam"
+        output: outfolder_analysis+ 'isONclust_denovo_{k_value}_{w_value}.txt'
+        run:
+            this_folder = config["SCRATCH"]+ 'rs_{k_value}_{w_value}'
+            clusters_path = this_folder + '/clustering/final_clusters.tsv'
+            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {this_folder} --seeding minimizer --no-fastq true --k {k_value} --w {w_value}")
+            shell("python compute_cluster_quality.py  --clusters {clusters_path}  --classes {input.alignment} --outfile {output}")
