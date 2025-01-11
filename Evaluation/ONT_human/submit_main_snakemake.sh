@@ -13,10 +13,11 @@
 set -o errexit
 
 # --forcerun minimap2_align minimap2_map bwa_mem_align strobemap_align strobemap_map accelalign_align accelalign_map bowtie2_align
-module load gcc/9.3.0
-module load bioinfo-tools
-module load minimap2/2.24-r1122
-module load samtools
+ml bioinfo-tools
+ml snakemake/5.32.2
+ml gcc/9.3.0
+ml samtools
+ml minimap2/2.28
 
 snakemake --keep-going -j 999999 --configfile cluster_config.json --latency-wait 100 --verbose -n
 
