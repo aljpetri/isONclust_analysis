@@ -1,6 +1,6 @@
 #!/bin/sh
-#SBATCH -A snic2022-5-592 
-#SBATCH --time=5-00:00:00
+#SBATCH -A naiss2024-5-55 
+#SBATCH --time=1-00:00:00
 #SBATCH -p shared
 #SBATCH -n 20
 #SBATCH -N 1
