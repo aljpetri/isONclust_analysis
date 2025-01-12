@@ -55,7 +55,7 @@ rule split_accessions_orig:
 rule pychop:
 	input: outfolder_root + "data/split_accs.fq"
 	output: outfolder_root+'data/full_length_output.fastq'
-	shell: 'cdna_classifier.py -t 20 {input} {output}'
+	shell: 'pychopper -t 20 {input} {output}'
 
 ###############################################################################################################################
 #                                                STRINGTIE PIPELINE                                                           #
