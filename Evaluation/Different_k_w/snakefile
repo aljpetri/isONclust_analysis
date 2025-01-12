@@ -43,10 +43,11 @@ rule run_isonclust_rs:
                alignment = ont_folder +"stringtie/ont_human_aligned.sorted.bam"
         output: outfolder_analysis+ 'isONclust_denovo_{k_value}_{w_value}.txt'
         params:
-        scratch_folder = lambda wildcards: config["SCRATCH"] + f'rs_{wildcards.k_value}_{wildcards.w_value}'
+            # Resolve the folder path here to make wildcards available
+            this_folder = lambda wildcards: config["SCRATCH"] + f'rs_{wildcards.k_value}_{wildcards.w_value}'
         run:
-            # Resolve wildcards explicitly
-            this_folder = params.scratch_folder
+            # Use the resolved path from params
+            this_folder = params.this_folder
             clusters_path = this_folder + '/clustering/final_clusters.tsv'
             shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --no-fastq -k {wildcards.k_value} -w {wildcards.w_value}")
             shell("python compute_cluster_quality.py  --clusters {clusters_path}  --classes {input.alignment} --outfile {output}")
