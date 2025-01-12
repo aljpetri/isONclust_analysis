@@ -11,7 +11,7 @@ ont_folder = config["ONT_FOLDER"]
 scratch = config["SCRATCH"]
 shell.prefix("set -o pipefail; ")
 wildcard_constraints:
-    nr_reads="[\d]+",
+    k_value="[\d]+",
 ####################################################
 ########## standard python functions ###############
 ####################################################
@@ -33,7 +33,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input: expand(outfolder_analysis+"isONclust_denovo_{k_value}_{w_value}.txt", k_value=config["K"], w_value =config["W"]) 
+	input: expand(outfolder_analysis+"isONclust_denovo_{k_value}_{w_value}.txt", k_value = config["K"], w_value =config["W"]) 
 ###############################################################################################################################
 #                                                     ISONFORM ANALYSIS                                                       #
 ###############################################################################################################################
@@ -43,7 +43,7 @@ rule run_isonclust_rs:
                alignment = ont_folder +"stringtie/ont_human_aligned.sorted.bam"
         output: outfolder_analysis+ 'isONclust_denovo_{k_value}_{w_value}.txt'
         run:
-            this_folder = config["SCRATCH"]+ 'rs_{k_value}_{w_value}'
+            this_folder = config["SCRATCH"]+ 'rs_{wildcards.k_value}_{wildcards.w_value}'
             clusters_path = this_folder + '/clustering/final_clusters.tsv'
-            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --no-fastq -k {k_value} -w {w_value}")
+            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --no-fastq -k {wildcards.k_value} -w {wildcards.w_value}")
             shell("python compute_cluster_quality.py  --clusters {clusters_path}  --classes {input.alignment} --outfile {output}")
