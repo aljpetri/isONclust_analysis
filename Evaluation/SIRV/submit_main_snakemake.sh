@@ -5,7 +5,7 @@
 #SBATCH -n 20
 # Memory per node specification is in MB. It is optional. 
 # The default limit is 3000MB per core.
-#SBATCH --job-name="IsONformDrosophila"
+#SBATCH --job-name="Different_k_w"
 #SBATCH --mail-user=alexander.petri@math.su.se
 #SBATCH --mail-type=ALL
 
