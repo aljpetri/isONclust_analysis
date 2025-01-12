@@ -64,10 +64,10 @@ rule pychop:
 
 ##Align the original reads to the reference via minimap2 (part of the stringtie pipeline)
 rule align_original_reads_minimap2:
-    input: original_reads = outfolder_root+'data/full_length_output.fastq' #outfolder_root+'/data/full_length_output.fastq'
+    input: original_reads = outfolder_root +'data/full_length_output.fastq' #outfolder_root+'/data/full_length_output.fastq'
     output: original_reads_aligned =  outfolder_root+"stringtie/ont_human_aligned.sam"
     run:
-            ref ="/cfs/klemming/projects/snic/snic2022-6-31/alex/Human/chm13v2.0.fasta",
+            ref ="/cfs/klemming/projects/snic/snic2022-6-31/alex/Human/chm13v2.0.fa",
             shell("minimap2 --eqx -t 20 -ax splice -uf -k 13 -w 4 {ref} {input.original_reads} >  {output.original_reads_aligned} ")
 
 ##Sort the alignment(StringtiePipe)
