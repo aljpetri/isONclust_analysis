@@ -7,9 +7,6 @@
 ###Script_input_folder: Equal to the folder the snakefile is located in. Should also contain all scripts needed for our analysis:
 #script_input_folder=config["SCRIPT_FOLDER"]
 cluster_outfolder=config["CLUSTER_OUT"]
-outfolder_root=config["ROOT_OUT"]
-isonform_location=config["ISONFORM_LOCATION"]
-isoform_abundance=config["ISO_ABUNDANCE"]
 rattle_location=config["RATTLE_DIR"]
 scratch = config["SCRATCH"]
 shell.prefix("set -o pipefail; ")
@@ -36,7 +33,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input: cluster_outfolder+"result_rs_isONclust_denovo.txt",# cluster_outfolder + "result_GeLuster.txt",  , cluster_outfolder + "result_py_isONclust.txt",cluster_outfolder + "result_rattle.txt" #,outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"#, outfolder_root+ "/evaluation_biological/isONform/results_per_read.csv", outfolder_root+ "/evaluation_biological/RATTLE/results_per_read.csv"
+	input: cluster_outfolder+"result_rs_isONclust_denovo.txt",# cluster_outfolder + "result_GeLuster.txt",  , cluster_outfolder + "result_py_isONclust.txt",cluster_outfolder + "result_rattle.txt" #,cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv", cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"
 
 
 ###############################################################################################################################
@@ -46,15 +43,15 @@ rule all:
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
 rule split_accessions_orig:
     input: fastq = "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/ONT_human/SRR28970532.fastq"
-    output: original_reads_split_accessions =  outfolder_root + "data/split_accs.fq"
+    output: original_reads_split_accessions =  cluster_outfolder + "data/split_accs.fq"
 
     run:
         shell("python split_accessions.py {input.fastq} {output.original_reads_split_accessions}")
 
 ##Use pychopper so every tool has the same possibility to perform
 rule pychop:
-	input: outfolder_root + "data/split_accs.fq"
-	output: outfolder_root+'data/full_length_output.fastq'
+	input: cluster_outfolder + "data/split_accs.fq"
+	output: cluster_outfolder+'data/full_length_output.fastq'
 	shell: 'pychopper -t 20 {input} {output}'
 
 ###############################################################################################################################
@@ -64,22 +61,22 @@ rule pychop:
 
 ##Align the original reads to the reference via minimap2 (part of the stringtie pipeline)
 rule align_original_reads_minimap2:
-    input: original_reads = outfolder_root +'data/full_length_output.fastq' #outfolder_root+'/data/full_length_output.fastq'
-    output: original_reads_aligned =  outfolder_root+"stringtie/ont_human_aligned.sam"
+    input: original_reads = cluster_outfolder + 'data/full_length_output.fastq' #cluster_outfolder+'/data/full_length_output.fastq'
+    output: original_reads_aligned =  cluster_outfolder + "stringtie/ont_human_aligned.sam"
     run:
-            ref ="/cfs/klemming/projects/snic/snic2022-6-31/alex/Human/chm13v2.0.fa",
+            ref = config["REFERENCE"],
             shell("minimap2 --eqx -t 20 -ax splice -uf -k 13 -w 4 {ref} {input.original_reads} >  {output.original_reads_aligned} ")
 
 ##Sort the alignment(StringtiePipe)
 rule sort_alignment:
-	input: outfolder_root+"stringtie/ont_human_aligned.sam"
-	output: outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
+	input: cluster_outfolder + "stringtie/ont_human_aligned.sam"
+	output: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam"
 	shell: "samtools view -Su {input} | samtools sort -o {output}"
 
 ##Index the alignment(StringtiePipe)
 rule index_alignment:
-	input: outfolder_root+"stringtie/ont_human_aligned.sorted.bam"
-	output: outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+	input: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam"
+	output: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
 	shell: "samtools index  {input}"
 
 
@@ -90,9 +87,9 @@ rule index_alignment:
 
 
 #rule run_isONclust_py:
-#    input: fastq = outfolder_root+'data/full_length_output.fastq',
-#           alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-#           index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+#    input: fastq = cluster_outfolder+'data/full_length_output.fastq',
+#           alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+#           index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 #    output: cluster_outfolder + "result_py_isONclust.txt"
 #    run:
 #	    py_output_folder='/scratch/$SLURM_JOB_ID/py',
@@ -103,10 +100,10 @@ rule index_alignment:
 
 
 rule run_isONclust_rs:
-        input: fastq = outfolder_root+'data/full_length_output.fastq',
-               alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-               index= outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
-        output: cluster_outfolder+"result_rs_isONclust_denovo.txt"
+        input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
+               alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
+               index= cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
+        output: cluster_outfolder + "result_rs_isONclust_denovo.txt"
         run:
             this_folder = config["SCRATCH"]+ 'rs/'
             clusters_file = config["SCRATCH"] + "rs/clustering/final_clusters.tsv"
@@ -115,9 +112,9 @@ rule run_isONclust_rs:
 
 
 #rule run_GeLuster:
-#    input: fastq = outfolder_root + 'data/full_length_output.fastq',
-#           alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-#           index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+#    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
+#           alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+#           index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 #    output: cluster_outfolder + "result_GeLuster.txt" #cluster_outfolder +'GeLuster/GeLuster.tsv'
 #    run:
 #        shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 1 -r {input.fastq}  -f fq -s dRNA -o config["SCRATCH"] + "geluster/" ")
@@ -125,9 +122,9 @@ rule run_isONclust_rs:
      
 #rule rattle_cluster:
 #    input:
-#        outfolder_root+'data/full_length_output.fastq',
-#        alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-#        index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+#        cluster_outfolder+'data/full_length_output.fastq',
+#        alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+#        index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 #    output:
 #        cluster_outfolder + "result_rattle.txt"
 #    run:
