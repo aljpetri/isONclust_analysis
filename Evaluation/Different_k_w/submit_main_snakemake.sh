@@ -18,7 +18,6 @@ ml gcc/9.3.0
 ml samtools
 ml minimap2/2.28
 ml pysam/0.16.0.1-python3.8.7
-ml scikit-learn/0.22.1
 
 
 snakemake --keep-going -j 999999 --cluster "sbatch -A {cluster.account} -p {cluster.p} -n {cluster.n} -N {cluster.N}  -t {cluster.runtime} -J {cluster.jobname} --mail-type={cluster.mail_type} --mail-user={cluster.mail}" --cluster-config cluster.json --cluster-config cluster.json --configfile cluster_config.json --latency-wait 100 --verbose 

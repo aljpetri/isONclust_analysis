@@ -4,8 +4,6 @@
 #SBATCH -p shared
 #SBATCH -n 20
 #SBATCH -N 1
-# Memory per node specification is in MB. It is optional. 
-# The default limit is 3000MB per core.
 #SBATCH --job-name="ONT_human_analysis"
 #SBATCH --mail-user=alexander.petri@math.su.se
 #SBATCH --mail-type=ALL
