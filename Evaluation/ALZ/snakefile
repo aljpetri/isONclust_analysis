@@ -90,7 +90,7 @@ rule index_alignment:
 #	    outfolder='/scratch/$SLURM_JOB_ID'
 #           shell(" /usr/bin/time -v isONclust  --t 1 --isoseq --fastq {input.fastq} --outfolder {py_output_folder}"),
 #            shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --fastq {input.fastq} --outfolder {outfolder}")
-#            shell("python compute_cluster_quality.py --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --classes {input.alignment} --outfile {output} ")
+#            shell("python3 compute_cluster_quality.py --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --classes {input.alignment} --outfile {output} ")
 
 rule run_isONclust_rs:
         input: fastq = cluster_outfolder + "data/full_length_output.fastq",
@@ -126,7 +126,7 @@ rule run_isONclust_rs:
 #    run:
 #        outfolder = '/scratch/$SLURM_JOB_ID/GeLuster' # cluster_outfolder+'GeLuster'
 #        shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 1 -r {input.fastq}  -f fq -s Pacbio -o {outfolder}")
-#        shell("python compute_cluster_quality_geluster.py --clusters /scratch/$SLURM_JOB_ID/GeLuster/GeLuster.tsv --classes {input.alignment} --outfile {output}")
+#        shell("python3 compute_cluster_quality_geluster.py --clusters /scratch/$SLURM_JOB_ID/GeLuster/GeLuster.tsv --classes {input.alignment} --outfile {output}")
 
 
 #rule rattle_cluster:
@@ -143,7 +143,7 @@ rule run_isONclust_rs:
 #        shell("mkdir /scratch/$SLURM_JOB_ID/rattle")
 #        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 8 -o {rattle_out_folder} ")
 #        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
-#        shell("python compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
+#        shell("python3 compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
 
         
 

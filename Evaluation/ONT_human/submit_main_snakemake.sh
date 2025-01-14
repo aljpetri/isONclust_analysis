@@ -12,7 +12,9 @@
 set -o errexit
 
 # --forcerun minimap2_align minimap2_map bwa_mem_align strobemap_align strobemap_map accelalign_align accelalign_map bowtie2_align
+
 ml bioinfo-tools
+ml python3/3.12.1
 ml snakemake/5.32.2
 ml gcc/9.3.0
 ml samtools
