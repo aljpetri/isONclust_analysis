@@ -1,5 +1,4 @@
 {
-"DATASETS" : "ONT_original",
   "RATTLE_DIR" : "/proj/snic2022-6-31/nobackup/alexp/RATTLE/",
   "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/",
   "SCRATCH": "/cfs/klemming/scratch/a/apetri/ONT_human/",
