@@ -52,7 +52,7 @@ rule split_accessions_orig:
 rule pychop:
 	input: cluster_outfolder + "data/split_accs.fq"
 	output: cluster_outfolder+'data/full_length_output.fastq'
-	shell: 'pychopper -t 20 {input} {output}'
+	shell: 'cdna_classifier.py -t 20 {input} {output}'
 
 ###############################################################################################################################
 #                                                STRINGTIE PIPELINE                                                           #
@@ -103,13 +103,23 @@ rule run_isONclust_rs:
         input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
                alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
                index= cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
+        output: cluster_outfolder + "result_rs_isONclust_denovo.txt"
+        run:
+            this_folder = config["SCRATCH"]+ 'rs/'
+            clusters_file = config["SCRATCH"] + "rs/clustering/final_clusters.tsv"
+            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer")
+            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
+
+rule run_isONclust_rs_pc:
+        input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
+               alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
+               index= cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
         output: cluster_outfolder + "result_rs_isONclust_denovo_pc.txt"
         run:
             this_folder = config["SCRATCH"]+ 'rs_pc/'
             clusters_file = config["SCRATCH"] + "rs_pc/clustering/final_clusters.tsv"
             shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --post-cluster")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
-
 
 #rule run_GeLuster:
 #    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
