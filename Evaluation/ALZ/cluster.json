@@ -196,9 +196,9 @@
     {
      	"jobname" : "run_isONclust.rs",
         "p" : "shared",
-        "n" : "20",
+        "n" : "40",
         "N" : "1",
-        "runtime" : "6-00:00:00",
+        "runtime" : "1-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
