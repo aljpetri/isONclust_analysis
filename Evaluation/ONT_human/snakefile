@@ -33,7 +33,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input: cluster_outfolder+"result_rs_isONclust_denovo.txt",# cluster_outfolder + "result_GeLuster.txt",  , cluster_outfolder + "result_py_isONclust.txt",cluster_outfolder + "result_rattle.txt" #,cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv", cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"
+	input: cluster_outfolder+"result_rs_isONclust_denovo_pc.txt",# cluster_outfolder + "result_GeLuster.txt",  , cluster_outfolder + "result_py_isONclust.txt",cluster_outfolder + "result_rattle.txt" #,cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv", cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"
 
 
 ###############################################################################################################################
@@ -103,11 +103,11 @@ rule run_isONclust_rs:
         input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
                alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
                index= cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
-        output: cluster_outfolder + "result_rs_isONclust_denovo.txt"
+        output: cluster_outfolder + "result_rs_isONclust_denovo_pc.txt"
         run:
-            this_folder = config["SCRATCH"]+ 'rs/'
-            clusters_file = config["SCRATCH"] + "rs/clustering/final_clusters.tsv"
-            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer")
+            this_folder = config["SCRATCH"]+ 'rs_pc/'
+            clusters_file = config["SCRATCH"] + "rs_pc/clustering/final_clusters.tsv"
+            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --post-cluster")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
 
