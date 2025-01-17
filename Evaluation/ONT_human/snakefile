@@ -42,7 +42,7 @@ rule all:
 
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
 rule split_accessions_orig:
-    input: fastq = "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/ONT_human/SRR28970532.fastq"
+    input: fastq = "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/ONT_human/DRR540913.fastq"
     output: original_reads_split_accessions =  cluster_outfolder + "data/split_accs.fq"
 
     run:
@@ -52,7 +52,7 @@ rule split_accessions_orig:
 rule pychop:
 	input: cluster_outfolder + "data/split_accs.fq"
 	output: cluster_outfolder+'data/full_length_output.fastq'
-	shell: 'cdna_classifier.py -t 20 {input} {output}'
+	shell: 'pychopper -t 20 {input} {output}'
 
 ###############################################################################################################################
 #                                                STRINGTIE PIPELINE                                                           #
