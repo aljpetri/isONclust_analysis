@@ -2,13 +2,13 @@
 "DATASETS" : "drosophila",
   "SCRIPT_FOLDER": "/proj/snic2022-6-31/nobackup/alexp/isONf_eval_Drosophila",
   "ANNOTATION" : "/proj/snic2022-6-31/nobackup/alexp/References/Drosophila/Drosophila_melanogaster.BDGP6.32.104.gtf",
-  "ROOT_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/",
   "ISONFORM_LOCATION" : "/proj/snic2022-6-31/nobackup/alexp/isONform/",
   "ISONCORRECT_LOCATION" : "/proj/snic2022-6-31/nobackup/alexp/isONcorrect/",
   "ISO_ABUNDANCE": 5,
   "RATTLE_DIR" : "/proj/snic2022-6-31/nobackup/alexp/RATTLE/",
-  "drosophila97" : "/proj/snic2022-6-31/nobackup/alexp/References/Drosophila/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa",
-  "droso_gff" : "/proj/snic2022-6-31/nobackup/alexp/References/Drosophila/Drosophila_BDGP6.gff3",
+  "drosophila97" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/References/Drosophila/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa",
+  "droso_gff" : "/cfs/klemming/projects/snic/snic2022-6-31/alex//References/Drosophila/Drosophila_BDGP6.gff3",
   "drosophila_reads": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/Drosophila/ERR3588905_1.fastq",
-  "CLUSTER_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/"
+  "CLUSTER_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/",
+  "SCRATCH": "/cfs/klemming/scratch/a/apetri/Drosophila/",
 }
