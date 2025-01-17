@@ -121,7 +121,7 @@ rule ultra_mm2_align_st:
             ultra_index = cluster_outfolder + "/uLTRA_st/all_splice_sites_annotations.pickle"
 
     output: sam = cluster_outfolder + "/uLTRA_st/reads.sam",
-            time_and_mem =  config["ROOT_OUT"] + "/time_and_mem/aligning_time_and_mem_st.txt"
+            time_and_mem =  cluster_outfolder + "/time_and_mem/aligning_time_and_mem_st.txt"
     run:
         ref =  config["drosophila97"]
         outfolder = cluster_outfolder + "/uLTRA_st"
@@ -208,7 +208,7 @@ rule ultra_mm2_align_st:
 #            ultra_index = cluster_outfolder + "/uLTRA_rattle/all_splice_sites_annotations.pickle"
 #            
 #    output: sam = cluster_outfolder + "/uLTRA_rattle/reads.sam",
-#            time_and_mem =  config["ROOT_OUT"] + "/time_and_mem/aligning_time_and_mem_rattle.txt"
+#            time_and_mem =  cluster_outfolder + "/time_and_mem/aligning_time_and_mem_rattle.txt"
 #    run:
 #        ref =  config["drosophila97"]
 #        outfolder = cluster_outfolder + "/uLTRA_rattle"
@@ -224,7 +224,7 @@ rule ultra_mm2_align_st:
 #    output: csv_file =  cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"
 #    run:
 #        ref =  config["drosophila97"]
-#        #eval_dir = config["ROOT_IN"] + "/scripts/"
+#        #eval_dir = cluster_outfolder + "/scripts/"
 #        outfolder = cluster_outfolder+ "/evaluation_biological/RATTLE/"
 #        mkdir_p(outfolder)
 #        shell("/usr/bin/time -v python evaluate_real_reads_to_genome.py  {input.original_reads_aligned}  {input.corrected_reads_aligned} {input.original_reads}  \
