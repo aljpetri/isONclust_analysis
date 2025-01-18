@@ -1,11 +1,7 @@
 {
-"DATASETS" : "ONT_original",
-  "ROOT_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/SIM_500/",
-  "ISONFORM_LOCATION" : "/proj/snic2022-6-31/nobackup/alexp/isONform/",
-  "ISONCORRECT_LOCATION" : "/proj/snic2022-6-31/nobackup/alexp/isONcorrect/",
-  "ISO_ABUNDANCE": 5,
   "RATTLE_DIR" : "/proj/snic2022-6-31/nobackup/alexp/RATTLE/",
-  "drosophila97" : "/proj/snic2022-6-31/nobackup/alexp/References/Drosophila/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa",
-  "original_reads" : "/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/ccs.fastq",
-  "CLUSTER_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/SIM_500/"
+  "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/SIM500k_original/ccs.fastq",
+  "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/SIM_500/",
+  "SCRATCH": "/cfs/klemming/scratch/a/apetri/SIM_500/",
+  "REFERENCE" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/References/Human/chm13v2.0.fa"
 }
