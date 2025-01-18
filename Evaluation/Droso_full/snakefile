@@ -271,7 +271,7 @@ rule run_isONclust_rs:
         run:
             this_folder = config["SCRATCH"]+ 'rs/'
             clusters_file = config["SCRATCH"] + "rs/clustering/final_clusters.tsv"
-            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer")
+            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --post-cluster")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
  
 #rule run_isONclust_rs_analysis:
