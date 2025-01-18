@@ -7,8 +7,6 @@
 ###Script_input_folder: Equal to the folder the snakefile is located in. Should also contain all scripts needed for our analysis:
 #script_input_folder=config["SCRIPT_FOLDER"]
 cluster_outfolder=config["CLUSTER_OUT"]
-isonform_location=config["ISONFORM_LOCATION"]
-isoform_abundance=config["ISO_ABUNDANCE"]
 rattle_location=config["RATTLE_DIR"]
 shell.prefix("set -o pipefail; ")
 wildcard_constraints:
