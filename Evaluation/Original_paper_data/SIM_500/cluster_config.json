@@ -1,6 +1,6 @@
 {
   "RATTLE_DIR" : "/proj/snic2022-6-31/nobackup/alexp/RATTLE/",
-  "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/SIM500k_original/ccs.fastq",
+  "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/SIM_500/ccs.fastq",
   "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/SIM_500/",
   "SCRATCH": "/cfs/klemming/scratch/a/apetri/SIM_500/",
   "REFERENCE" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/References/Human/chm13v2.0.fa"
