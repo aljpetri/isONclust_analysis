@@ -97,7 +97,7 @@ rule run_isONclust_py:
             shell("python compute_cluster_quality.py --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --classes {input.alignment} --outfile {output} ")
             
 rule run_isONclust_rs:
-        input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
+        input: fastq = config["original_reads"],
                alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
                index= cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
         output: cluster_outfolder + "result_rs_isONclust_denovo.txt"
