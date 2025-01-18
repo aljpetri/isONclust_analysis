@@ -6,5 +6,6 @@
   "RATTLE_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/RATTLE/",
   "REFERENCE" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/References/SIRV/SIRV_reference.fasta",
   "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/SIRV/ERR3588903_1.fastq",
-  "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/SIRV/"
+  "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/SIRV/",
+  "SCRATCH": "/cfs/klemming/scratch/a/apetri/SIRV/",
 }
