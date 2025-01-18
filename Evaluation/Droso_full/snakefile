@@ -42,18 +42,18 @@ rule all:
 ###############################################################################################################################
 
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
-rule split_accessions_orig:
-    input: fastq = config["drosophila_reads"]
-    output: original_reads_split_accessions =  cluster_outfolder + "data/split_accs.fq"
-
-    run:
-        shell("python split_accessions.py {input} {output.original_reads_split_accessions}")
+#rule split_accessions_orig:
+#    input: fastq = config["drosophila_reads"]
+#    output: original_reads_split_accessions =  cluster_outfolder + "data/split_accs.fq"
+#
+#    run:
+#        shell("python split_accessions.py {input} {output.original_reads_split_accessions}")
 
 ##Use pychopper so every tool has the same possibility to perform
-rule pychop:
-	input: cluster_outfolder + "data/split_accs.fq"
-	output: cluster_outfolder+'data/full_length_output.fastq'
-	shell: 'pychopper -t 20 {input} {output}'
+#rule pychop:
+#	input: cluster_outfolder + "data/split_accs.fq"
+#	output: cluster_outfolder+'data/full_length_output.fastq'
+#	shell: 'pychopper -t 20 {input} {output}'
 
 ###############################################################################################################################
 #                                                STRINGTIE PIPELINE                                                           #
