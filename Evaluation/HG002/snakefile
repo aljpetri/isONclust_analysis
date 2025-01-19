@@ -41,11 +41,11 @@ rule all:
 ###############################################################################################################################
 #                                                PREPROCESSING                                                                #
 ###############################################################################################################################
-rule download_flnc_bam:
-    input:
-    output: "/proj/snic2022-6-31/nobackup/alexp/Rawdata/Hg002/flnc.bam"
-    run:
-        shell("curl -o /proj/snic2022-6-31/nobackup/alexp/Rawdata/Hg002/flnc.bam https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-Revio-HG002-1/2-FLNC/flnc.bam")
+#rule download_flnc_bam:
+#    input:
+#    output: "/proj/snic2022-6-31/nobackup/alexp/Rawdata/Hg002/flnc.bam"
+#    run:
+#        shell("curl -o /proj/snic2022-6-31/nobackup/alexp/Rawdata/Hg002/flnc.bam https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-Revio-HG002-1/2-FLNC/flnc.bam")
 
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
 #rule split_accessions_orig:
@@ -71,7 +71,7 @@ rule align_original_reads_minimap2:
     input: original_reads  = config["original_reads"] #outfolder_root+'/data/full_length_output.fastq'
     output: original_reads_aligned =  outfolder_root+"stringtie/ont_human_aligned.sam"
     run:
-            ref ="/proj/snic2022-6-31/nobackup/alexp/References/Human/HG002/hg002v1.0.1.fasta",
+            ref =config["REFERENCE"]
             shell("minimap2 --eqx --split-prefix prefix  -t 20 -ax splice:hq -uf  {ref} {input.original_reads} >  {output.original_reads_aligned} ")
 
 ##Sort the alignment(StringtiePipe)
@@ -111,22 +111,22 @@ rule run_isONclust_py:
 
 rule run_isONclust_rs:
         input: fastq = config["original_reads"],
-               alignment = outfolder_root+"stringtie/ont_human_aligned.sorted.bam",
-               index = outfolder_root+"stringtie/ont_human_aligned.sorted.bam.bai"
+               alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 
         output: cluster_outfolder+"result_rs_isONclust_denovo.txt" # cluster_outfolder+"rs/clustering/final_clusters.tsv"
         run:
-            outfolder='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs',
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {outfolder} --seeding minimizer  --noncanonical true ")
-            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment} --outfile {output}")
+            this_folder = config["SCRATCH"] + 'rs'
+            clusters_file = config["SCRATCH"] + "rs/clustering/final_clusters.tsv"
+            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer --post-cluster")
+            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
-
-rule run_isONclust_rs_ont:
-        input: fastq = outfolder_root+'data/full_length_output.fastq'
-        output: cluster_outfolder+"rs_ont/final_clusters.tsv"
-        run:
-            outfolder= cluster_outfolder+'rs_ont',
-            shell("time -p cargo run --release --manifest-path /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/Cargo.toml -- --fastq {input.fastq} --mode ont  --outfolder {outfolder} --seeding minimizer")
+#rule run_isONclust_rs_ont:
+#        input: fastq = outfolder_root+'data/full_length_output.fastq'
+#        output: cluster_outfolder+"rs_ont/final_clusters.tsv"
+#        run:
+#            outfolder= cluster_outfolder+'rs_ont',
+#            shell("time -p cargo run --release --manifest-path /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/Cargo.toml -- --fastq {input.fastq} --mode ont  --outfolder {outfolder} --seeding minimizer")
 
 
 ##Run the rust version of isONclust for annotation
