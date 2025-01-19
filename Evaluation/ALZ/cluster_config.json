@@ -3,5 +3,5 @@
   "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/ALZ/flnc.fastq",
   "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ALZ/",
   "SCRATCH" : "/cfs/klemming/scratch/a/apetri/ALZ/",
-  "REFERENCE" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Human/chm13v2.0.fa"
+  "REFERENCE" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/References/Human/chm13v2.0.fa"
 }
