@@ -1,6 +1,6 @@
 {
   "K" : ["11", "13", "15"],
-  "W": ["17", "19", "23", "25"],
+  "W": ["17", "19","21", "23", "25"],
   "ONT_FOLDER": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/",
   "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/diff_k_w_ONT_human/",
   "SCRATCH": "/cfs/klemming/scratch/a/apetri/ONT_human_diff_k_w/"
