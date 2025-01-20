@@ -1,4 +1,4 @@
-+#Run via submit_main_snakemake.sh
+#Run via submit_main_snakemake.sh
 #this snakemake pipeline is used to analyse the performance of isONform on Drosophila Data
 
 
