@@ -1,7 +1,10 @@
 {
-  "RATTLE_DIR" : "/proj/snic2022-6-31/nobackup/alexp/RATTLE/",
+  "NR_CORES" : ["1","8"],
+  "RATTLE_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/RATTLE/",
+  "GELUSTER_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/GeLuster/", 
+  "ISONCLUST3_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/",
   "original_reads" : "/proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/ONT_original/ONToriginal.fastq",
   "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_old/",
-  "SCRATCH" : "cfs/klemming/scratch/a/apetri/ONT_old/",
+  "SCRATCH" : "/cfs/klemming/scratch/a/apetri/ONT_old/",
   "REFERENCE" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/References/Human/chm13v2.0.fa"
 }
