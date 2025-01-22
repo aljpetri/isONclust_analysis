@@ -207,46 +207,46 @@
         "mail_type" : "FAIL"
     },
 
+
 "run_GeLuster" :
     {
         "jobname" : "run_GeLuster",
-     	"p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "1-00:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-"run_isONclust_rs" :
-    {
-     	"jobname" : "run_isONclust.rs",
         "p" : "shared",
         "n" : "20",
         "N" : "1",
-        "runtime" : "1-00:00:00",
+        "runtime" : "5-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
     
-    "run_isONclust_rs_analysis" :
+
+    "run_isONclust3" :
     {
-     	"jobname" : "run_isONclust.rs",
+        "jobname" : "run_isONclust.rs",
         "p" : "shared",
-        "n" : "20",
+        "n" : "40",
         "N" : "1",
-        "runtime" : "1-00:00:00",
+        "runtime" : "3-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
-
-"cluster_rs_annot" :
+    "run_isONclust3_pc" :
     {
-     	"jobname" : "cluster_rs_annot",
+        "jobname" : "run_isONclust.rs",
         "p" : "shared",
-        "n" : "20",
+        "n" : "40",
         "N" : "1",
-        "runtime" : "1-00:00:00",
+        "runtime" : "3-00:00:00",
+        "mail" : "alexander.petri@math.su.se",
+        "mail_type" : "FAIL"
+    },
+    "run_isONclust3_nc" :
+    {
+        "jobname" : "run_isONclust.rs",
+        "p" : "shared",
+        "n" : "40",
+        "N" : "1",
+        "runtime" : "3-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },

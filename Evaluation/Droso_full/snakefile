@@ -10,7 +10,10 @@ cluster_outfolder=config["CLUSTER_OUT"]
 reference = config["drosophila97"]
 isonform_location=config["ISONFORM_LOCATION"]
 isoform_abundance=config["ISO_ABUNDANCE"]
-rattle_location=config["RATTLE_DIR"]
+rattle_location = config["RATTLE_DIR"]
+isonclust3_location = config["ISONCLUST3_DIR"]
+geluster_location = config["GELUSTER_DIR"]
+scratch = config["SCRATCH"]
 shell.prefix("set -o pipefail; ")
 
 ####################################################
@@ -34,7 +37,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input: cluster_outfolder+"result_rs_isONclust_denovo.txt" #, cluster_outfolder + "result_GeLuster.txt",  cluster_outfolder + "result_py_isONclust.txt", cluster_outfolder + "result_rattle.txt"   #, cluster_outfolder+"py/isoforms/transcriptome.fastq"# , cluster_outfolder+"rs/isoforms/transcriptome.fastq",cluster_outfolder+ "rs/evaluation_biological/results_per_read.csv", cluster_outfolder+ "py/evaluation_biological/results_per_read.csv"   #  # cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv", cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"
+	input: cluster_outfolder+"result_rs_isONclust_denovo.txt", , cluster_outfolder + "result_rs_isONclust_denovo_nc.txt", cluster_outfolder + "result_rs_isONclust_denovo_pc.txt", expand(cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt', nr_cores = config["NR_CORES"]), expand(cluster_outfolder + "result_GeLuster_{nr_cores}.txt", nr_cores = config["NR_CORES"]), expand(cluster_outfolder + "result_rattle_{nr_cores}.txt", nr_cores = config["NR_CORES"]) #, cluster_outfolder+"py/isoforms/transcriptome.fastq"# , cluster_outfolder+"rs/isoforms/transcriptome.fastq",cluster_outfolder+ "rs/evaluation_biological/results_per_read.csv", cluster_outfolder+ "py/evaluation_biological/results_per_read.csv"   #  # cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv", cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"
 
 
 ###############################################################################################################################
@@ -254,65 +257,85 @@ rule run_isONclust_py:
     input: fastq = cluster_outfolder+'data/full_length_output.fastq',
            alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
            index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
-    output: cluster_outfolder + "result_py_isONclust.txt"
+    output: cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt'
+    params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'py_{wildcards.nr_cores}'
     run:
-	    py_output_folder='/scratch/$SLURM_JOB_ID/py',
-	    outfolder='/scratch/$SLURM_JOB_ID'
-            shell("/usr/bin/time -v isONclust  --t 1  --ont --fastq {input.fastq} --outfolder {py_output_folder}"),
-            shell("isONclust write_fastq --N 1 --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --fastq {input.fastq} --outfolder {outfolder}")
-            shell("python compute_cluster_quality.py --clusters /scratch/$SLURM_JOB_ID/py/final_clusters.tsv --classes {input.alignment} --outfile {output} ")
+            clusters_file = this_folder + '/clustering/final_clusters.tsv'
+            shell("mkdir {this_folder}")
+            shell("/usr/bin/time -v isONclust --t {wildcards.nr_cores} --ont --fastq {input.fastq} --outfolder {this_folder}")
+            shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters {clusters_file} --fastq {input.fastq} --outfolder {this_folder}")
+            shell("python3 compute_cluster_quality.py --clusters {clusters_file} --classes {input.alignment} --outfile {output} ")
 
 
-rule run_isONclust_rs:
-        input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
-               alignment = cluster_outfolder + "stringtie/drosophila_aligned.sorted.bam",
-               index= cluster_outfolder + "stringtie/drosophila_aligned.sorted.bam.bai"
-        output: cluster_outfolder + "result_rs_isONclust_denovo.txt"
+rule run_isONclust3:
+        input: fastq = cluster_outfolder+'data/full_length_output.fastq',
+           alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
+           index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
+        output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
         run:
-            this_folder = config["SCRATCH"]+ 'rs/'
-            clusters_file = config["SCRATCH"] + "rs/clustering/final_clusters.tsv"
-            shell("/usr/bin/time -v /cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --post-cluster")
+            this_folder = config["SCRATCH"] + 'rs',
+            clusters_file = config["SCRATCH"] + 'rs/clustering/final_clusters.tsv'
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
- 
-#rule run_isONclust_rs_analysis:
-#        input: fastq = cluster_outfolder + "data/full_length_output.fastq",
-#               alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
-#               index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
 
-#        output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
-#        run:
-#            outfolder='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs',
-#            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder} --seeding minimizer  --noncanonical true")
-#            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment} --outfile {output}")
+
+rule run_isONclust3_nc:
+        input: fastq = cluster_outfolder+'data/full_length_output.fastq',
+               alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
+               index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
+
+        output: cluster_outfolder+"result_rs_isONclust_denovo_nc.txt"
+        run:
+            this_folder = config["SCRATCH"] + 'rs_nc'
+            clusters_file = config["SCRATCH"] + 'rs_nc/clustering/final_clusters.tsv'
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --noncanonical")
+            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
+                        
+rule run_isONclust3_pc:
+        input: fastq = cluster_outfolder+'data/full_length_output.fastq',
+               alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
+               index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
+
+        output: cluster_outfolder+"result_rs_isONclust_denovo_pc.txt"
+        run:
+            this_folder = config["SCRATCH"] + 'rs_pc'
+            clusters_file = config["SCRATCH"] + 'rs_pc/clustering/final_clusters.tsv'
+            shell("mkdir {outfolder}")
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --post-cluster")
+            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
             
 
 
-#rule run_GeLuster:
-#    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
-#           alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
-#           index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
-#    output: cluster_outfolder + "result_GeLuster.txt" #cluster_outfolder +'GeLuster/GeLuster.tsv'
-#    run:
-#        outfolder = '/scratch/$SLURM_JOB_ID/GeLuster' # cluster_outfolder+'GeLuster'
-#        shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/GeLuster/GeLuster -t 1 -r {input.fastq}  -f fq -s cDNA -o {outfolder}")
-#        shell("python compute_cluster_quality_geluster.py --clusters /scratch/$SLURM_JOB_ID/GeLuster/GeLuster.tsv --classes {input.alignment} --outfile {output}")
+rule run_GeLuster:
+    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
+           alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
+           index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
+    output: cluster_outfolder + "result_GeLuster_{nr_cores}.txt"
+    params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
+    run:
+        clusters_file = {this_folder} + 'GeLuster.tsv'
+        shell("mkdir {this_folder}")
+        shell("/usr/bin/time -v {geluster_location}GeLuster -t {wildcards.nr_cores} -r {input.fastq}  -f fq -s cDNA -o {this_folder}")
+        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
           
 
-#rule rattle_cluster:
-#    input:
-#        fastq = cluster_outfolder+'data/full_length_output.fastq',
-#        alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
-#        index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
-#    output:
-#        cluster_outfolder + "result_rattle.txt"
-#    run:
-#        rattle_out_folder = '/scratch/$SLURM_JOB_ID/rattle',
-#        clusters_out = '/scratch/$SLURM_JOB_ID/rattle/clusters.out'
-#        cl_summary = '/scratch/$SLURM_JOB_ID/rattle/cluster_summary.tsv'
-#        shell("mkdir /scratch/$SLURM_JOB_ID/rattle")
-#        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t 1 -o {rattle_out_folder} ")
-#        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
-#        shell("python compute_cluster_quality_geluster.py --clusters {cl_summary} --classes {input.alignment} --outfile {output}")
+rule rattle_cluster:
+    input:
+        fastq = cluster_outfolder+'data/full_length_output.fastq',
+        alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
+        index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
+    output:
+        cluster_outfolder + "result_rattle_{nr_cores}.txt"
+    run:
+        this_folder = config["SCRATCH"] + 'RATTLE',
+        clusters_out = config["SCRATCH"] + 'RATTLE/clusters.out'
+        clusters_file = config["SCRATCH"] + 'RATTLE/cluster_summary.tsv'
+        shell("mkdir {this_folder}")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t {wildcards.nr_cores} -o {this_folder} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {cl_summary} ")
+        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}") 
 
 ##Run the remainder of the isONpipeline (isONcorrect, isONform on the isONclust1 and isONclust3 results
 rule run_isONcorrect_py:
