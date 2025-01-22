@@ -8,7 +8,7 @@
         "n" : "20",
         "N" : "1",
         "runtime" : "0-10:00:00",
-        "jobname" : "ONT_human_pipeline",
+        "jobname" : "ALZ",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
