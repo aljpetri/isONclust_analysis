@@ -157,7 +157,7 @@ rule run_GeLuster:
         
 rule rattle_cluster:
     input:
-        cluster_outfolder+'data/full_length_output.fastq',
+        fastq = cluster_outfolder+'data/full_length_output.fastq',
         alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
         index = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
     output:
@@ -167,8 +167,8 @@ rule rattle_cluster:
         clusters_out = config["SCRATCH"] + 'RATTLE/clusters.out'
         clusters_file = config["SCRATCH"] + 'RATTLE/cluster_summary.tsv'
         shell("mkdir {this_folder}")
-        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t {wildcards.nr_cores} -o {this_folder} ")
-        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t {wildcards.nr_cores} -o {this_folder} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {cl_summary} ")
         shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}") 
 
 
