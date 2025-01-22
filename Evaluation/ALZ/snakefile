@@ -85,7 +85,7 @@ rule index_alignment:
 rule run_isONclust_py:
     input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
            alignment = cluster_outfolder + 'stringtie/ont_human_aligned.sorted.bam',
-           index = cluster_outfolder + stringtie/ont_human_aligned.sorted.bam.bai'
+           index = cluster_outfolder + 'stringtie/ont_human_aligned.sorted.bam.bai'
     output: cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt'
     params:
             this_folder = lambda wildcards: config["SCRATCH"] + f'py_{wildcards.nr_cores}'
@@ -111,7 +111,7 @@ rule run_isONclust3:
 rule run_isONclust3_nc:
         input: fastq = config["original_reads"],
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
-               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"#
+               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 
         output: cluster_outfolder+"result_rs_isONclust_denovo_nc.txt"
         run:
