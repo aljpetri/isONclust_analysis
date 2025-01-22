@@ -68,39 +68,17 @@
         "mail_type" : "FAIL"
     },
 
-    "run_stringtie":
+    "run_isONclust_py" :
     {
-    	"jobname" :"stringtie",
-    	"p" : "shared",
-        "n" : "20",
-        "N" : "1",
-    	"runtime":"10:00:00",
-    	"mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "run_gffread":
-    {
-    	"jobname" :"gffread",
-    	"p" : "shared",
-        "n" : "1",
-        "N" : "1",
-    	"runtime":"10:00:00",
-    	"mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "align_stringtie_reads_minimap2":
-    {
-        "jobname" : "align_stringtie_reads_minimap2",
+        "jobname" : "run_isONclust.py",
         "p" : "shared",
         "n" : "20",
         "N" : "1",
-        "runtime" : "10:00:00",
+        "runtime" : "5-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
-
+    
     "rattle_cluster":
     {
     	"jobname" :"rattle_cluster",
@@ -112,75 +90,6 @@
         "mail_type" : "FAIL"
     },
 
-    "rattle_correct":
-    {
-    	"jobname" :"rattle_correct",
-    	"p" : "shared",
-        "n" : "20",
-        "N" : "1",
-    	"runtime":"10:00:00",
-    	"mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "rattle_polish":
-    {
-    	"jobname" :"rattle_polish",
-    	"p" : "shared",
-        "n" : "20",
-        "N" : "1",
-    	"runtime":"10:00:00",
-    	"mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "align_rattle_reference_minimap2":
-    {
-        "jobname" : "align_rattle_reference_minimap2",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "10:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "evaluate_rattle" :
-    {
-        "jobname" : "evaluate_rattle",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "0-02:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "run_isONclust_py" :
-    {
-        "jobname" : "run_isONclust.py",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "5-00:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-
-
-    "cluster_rs_annot" :
-    {
-     	"jobname" : "run_isONclust_rs_annot",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "5-00:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-
     "run_GeLuster" :
     {
         "jobname" : "run_GeLuster",
@@ -191,8 +100,9 @@
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
+    
 
-    "run_isONclust_rs" :
+    "run_isONclust3" :
     {
      	"jobname" : "run_isONclust.rs",
         "p" : "shared",
@@ -202,200 +112,29 @@
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
-    
-    "run_isONclust_rs_ont" :
+    "run_isONclust3_pc" :
     {
-     	"jobname" : "run_isONclust_rs_ont",
+     	"jobname" : "run_isONclust.rs",
         "p" : "shared",
-        "n" : "20",
+        "n" : "40",
         "N" : "1",
-        "runtime" : "1-00:00:00",
+        "runtime" : "3-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
-
-    "run_isONclust2" :
+    "run_isONclust3_nc" :
     {
-     	"jobname" : "run_isONclust2",
+     	"jobname" : "run_isONclust.rs",
         "p" : "shared",
-        "n" : "20",
+        "n" : "40",
         "N" : "1",
-        "runtime" : "1-00:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-    "compute_quality_isONclust2" :
-    {
-     	"jobname" : "compute_quality_isONclust2",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "02:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "compute_quality_py" :
-    {
-        "jobname" : "compute_quality_py",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "02:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "compute_quality_rs_denovo" :
-    {
-       	"jobname" : "compute_quality_rs_denovo",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "02:00:00",
-     	"mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-
-    "compute_quality_rs_denovo_ont" :
-    {
-        "jobname" : "compute_quality_rs_denovo_ont",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "02:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "compute_quality_rs_annot" :
-    {
-     	"jobname" : "compute_quality_rs_annot",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "02:00:00",
+        "runtime" : "3-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
 
 
-    "compute_quality_GeLuster" :
-    {
-     	"jobname" : "compute_quality_GeLuster",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "02:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-    "summarize_rattle" :
-    {
-     	"jobname" : "summarize_rattle",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "02:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
 
-   
-    "compute_quality_rattle" :
-    {
-     	"jobname" : "compute_quality_rattle",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "02:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "align_isONform_reference_minimap2":
-    {
-        "jobname" : "align_isONform_reference_minimap2",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "10:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-  "evaluate_isONform" :
-    {
-        "jobname" : "evaluate_isONform",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "10:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-   "ultra_mm2_prep_isON":
-    {
-        "jobname" : "ultra_prep_ison",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "1:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-  "ultra_mm2_prep_Rattle":
-    {
-     	"jobname" : "ultra_prep_rattle",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "1:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-
-    "ultra_mm2_align_isON": 
-    {
-        "jobname" : "ultra_align_isON",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "10:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-    "ultra_mm2_align_RATTLE":
-    {
-        "jobname" : "ultra_align_RATTLE",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "10:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-    "ultra_mm2_align_st":
-    {
-     	"jobname" : "ultra_align_st",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "10:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    },
-"ultra_mm2_prep_st":
-    {
-     	"jobname" : "ultra_prep_st",
-        "p" : "shared",
-        "n" : "20",
-        "N" : "1",
-        "runtime" : "1:00:00",
-        "mail" : "alexander.petri@math.su.se",
-        "mail_type" : "FAIL"
-    }
 
 
 
