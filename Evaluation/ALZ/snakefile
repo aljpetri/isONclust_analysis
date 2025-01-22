@@ -5,10 +5,10 @@
 #The following variables represent the paths to the files required to run this pipeline
 
 ###Script_input_folder: Equal to the folder the snakefile is located in. Should also contain all scripts needed for our analysis:
-#script_input_folder=config["SCRIPT_FOLDER"]
-cluster_outfolder=config["CLUSTER_OUT"]
-rattle_location=config["RATTLE_DIR"]
-isonclust3_location} = config["ISONCLUST3_DIR"]
+#script_input_folder = config["SCRIPT_FOLDER"]
+cluster_outfolder = config["CLUSTER_OUT"]
+rattle_location = config["RATTLE_DIR"]
+isonclust3_location = config["ISONCLUST3_DIR"]
 geluster_location = config["GELUSTER_DIR"]
 shell.prefix("set -o pipefail; ")
 
@@ -37,20 +37,20 @@ rule all:
 
 
 ###############################################################################################################################
-#                                                PREPROCESSING                                                                #
+                                                PREPROCESSING                                                                #
 ###############################################################################################################################
 
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
 #rule split_accessions_orig:
-#    input: fastq = config["original_reads"]
-#    output: original_reads_split_accessions =  cluster_outfolder + "data/full_length_output.fastq"
+    input: fastq = config["original_reads"]
+    output: original_reads_split_accessions =  cluster_outfolder + "data/full_length_output.fastq"
 
-#    run:
-#        shell("cp /proj/snic2022-6-31/nobackup/alexp/Rawdata/human_pacbio/flnc.fastq {output.original_reads_split_accessions}")
+    run:
+        shell("cp /proj/snic2022-6-31/nobackup/alexp/Rawdata/human_pacbio/flnc.fastq {output.original_reads_split_accessions}")
 
 
 ###############################################################################################################################
-#                                                STRINGTIE PIPELINE                                                           #
+                                                STRINGTIE PIPELINE                                                           #
 ###############################################################################################################################
 
 
@@ -76,91 +76,91 @@ rule index_alignment:
 
 
 ###############################################################################################################################
-#                                                     ISONFORM ANALYSIS                                                       #
+                                                     ISONFORM ANALYSIS                                                       #
 ###############################################################################################################################
 
 
 ##Run the isONpipeline
 #rule run_isONclust_py:
-#    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
-#           alignment = cluster_outfolder + 'stringtie/ont_human_aligned.sorted.bam',
-#           index = cluster_outfolder + stringtie/ont_human_aligned.sorted.bam.bai'
-#    output: cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt'
-#    params:
-#            this_folder = lambda wildcards: config["SCRATCH"] + f'py_{wildcards.nr_cores}'
-#    run:
-#            clusters_file = this_folder + '/clustering/final_clusters.tsv'
-#            shell("mkdir {this_folder}")
-#            shell("/usr/bin/time -v isONclust --t {wildcards.nr_cores} --isoseq --fastq {input.fastq} --outfolder {this_folder}")
-#            shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters {clusters_file} --fastq {input.fastq} --outfolder {this_folder}")
-#            shell("python3 compute_cluster_quality.py --clusters {clusters_file} --classes {input.alignment} --outfile {output} ")
+    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
+           alignment = cluster_outfolder + 'stringtie/ont_human_aligned.sorted.bam',
+           index = cluster_outfolder + stringtie/ont_human_aligned.sorted.bam.bai'
+    output: cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt'
+    params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'py_{wildcards.nr_cores}'
+    run:
+            clusters_file = this_folder + '/clustering/final_clusters.tsv'
+            shell("mkdir {this_folder}")
+            shell("/usr/bin/time -v isONclust --t {wildcards.nr_cores} --isoseq --fastq {input.fastq} --outfolder {this_folder}")
+            shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters {clusters_file} --fastq {input.fastq} --outfolder {this_folder}")
+            shell("python3 compute_cluster_quality.py --clusters {clusters_file} --classes {input.alignment} --outfile {output} ")
 
            
 #rule run_isONclust3:
-#        input: fastq = config["original_reads"],
-#               alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
-#               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
-#        output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
-#        run:
-#            this_folder = config["SCRATCH"] + 'rs',
-#            clusters_file = config["SCRATCH"] + 'rs/clustering/final_clusters.tsv'
-#            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer")
-#            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
+        input: fastq = config["original_reads"],
+               alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
+        output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
+        run:
+            this_folder = config["SCRATCH"] + 'rs',
+            clusters_file = config["SCRATCH"] + 'rs/clustering/final_clusters.tsv'
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer")
+            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
 #rule run_isONclust3_nc:
-#        input: fastq = config["original_reads"],
-#               alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
-#               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"#
+        input: fastq = config["original_reads"],
+               alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"#
 #
-#        output: cluster_outfolder+"result_rs_isONclust_denovo_nc.txt"
-#        run:
-#            this_folder = config["SCRATCH"] + 'rs_nc'
-#            clusters_file = config["SCRATCH"] + 'rs_nc/clustering/final_clusters.tsv'
-#            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer --noncanonical")
-#            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
+        output: cluster_outfolder+"result_rs_isONclust_denovo_nc.txt"
+        run:
+            this_folder = config["SCRATCH"] + 'rs_nc'
+            clusters_file = config["SCRATCH"] + 'rs_nc/clustering/final_clusters.tsv'
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer --noncanonical")
+            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
                         
 #rule run_isONclust3_pc:
-#        input: fastq = config["original_reads"],
-#               alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
-#               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
+        input: fastq = config["original_reads"],
+               alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+               index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 #
-#        output: cluster_outfolder+"result_rs_isONclust_denovo_pc.txt"
-#        run:
-#            this_folder = config["SCRATCH"] + 'rs_pc'
-#            clusters_file = config["SCRATCH"] + 'rs_pc/clustering/final_clusters.tsv'
-#            shell("mkdir {outfolder}")
-#            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer --post-cluster")
-#            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
+        output: cluster_outfolder+"result_rs_isONclust_denovo_pc.txt"
+        run:
+            this_folder = config["SCRATCH"] + 'rs_pc'
+            clusters_file = config["SCRATCH"] + 'rs_pc/clustering/final_clusters.tsv'
+            shell("mkdir {outfolder}")
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer --post-cluster")
+            shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
 
 
            
 #rule run_GeLuster:
-#    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
-#           alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
-#           index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
-#    output: cluster_outfolder + "result_GeLuster_{nr_cores}.txt"
-#    params:
-#            this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
-#    run:
-#        clusters_file = {this_folder} + 'GeLuster.tsv'
-#        shell("mkdir {this_folder}")
-#        shell("/usr/bin/time -v {geluster_location}GeLuster -t {wildcards.nr_cores} -r {input.fastq}  -f fq -s Pacbio -o {this_folder}")
-#        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
+    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
+           alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+           index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
+    output: cluster_outfolder + "result_GeLuster_{nr_cores}.txt"
+    params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
+    run:
+        clusters_file = {this_folder} + 'GeLuster.tsv'
+        shell("mkdir {this_folder}")
+        shell("/usr/bin/time -v {geluster_location}GeLuster -t {wildcards.nr_cores} -r {input.fastq}  -f fq -s Pacbio -o {this_folder}")
+        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
 
 #rule rattle_cluster:
-#    input:
-#        cluster_outfolder+'data/full_length_output.fastq',
-#        alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
-#        index = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
-#    output:
-#        cluster_outfolder + "result_rattle_{nr_cores}.txt"
-#    run:
-#        this_folder = config["SCRATCH"] + 'RATTLE',
-#        clusters_out = config["SCRATCH"] + 'RATTLE/clusters.out'
-#        clusters_file = config["SCRATCH"] + 'RATTLE/cluster_summary.tsv'
-#        shell("mkdir {this_folder}")
-#        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t {wildcards.nr_cores} -o {this_folder} ")
-#        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
-#        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
+    input:
+        cluster_outfolder+'data/full_length_output.fastq',
+        alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
+        index = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
+    output:
+        cluster_outfolder + "result_rattle_{nr_cores}.txt"
+    run:
+        this_folder = config["SCRATCH"] + 'RATTLE',
+        clusters_out = config["SCRATCH"] + 'RATTLE/clusters.out'
+        clusters_file = config["SCRATCH"] + 'RATTLE/cluster_summary.tsv'
+        shell("mkdir {this_folder}")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input} -t {wildcards.nr_cores} -o {this_folder} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input} -c {clusters_out} >  {cl_summary} ")
+        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
