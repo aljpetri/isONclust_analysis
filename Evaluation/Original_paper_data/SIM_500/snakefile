@@ -156,7 +156,7 @@ rule run_GeLuster:
 
 rule rattle_cluster:
     input:
-        fastq = config["original_reads"]',
+        fastq = config["original_reads"],
         alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
         index = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
     output:
