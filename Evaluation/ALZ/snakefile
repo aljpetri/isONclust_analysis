@@ -82,7 +82,7 @@ rule index_alignment:
 
 
 ##Run the isONpipeline
-#rule run_isONclust_py:
+rule run_isONclust_py:
     input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
            alignment = cluster_outfolder + 'stringtie/ont_human_aligned.sorted.bam',
            index = cluster_outfolder + stringtie/ont_human_aligned.sorted.bam.bai'
@@ -97,7 +97,7 @@ rule index_alignment:
             shell("python3 compute_cluster_quality.py --clusters {clusters_file} --classes {input.alignment} --outfile {output} ")
 
            
-#rule run_isONclust3:
+rule run_isONclust3:
         input: fastq = config["original_reads"],
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
@@ -108,11 +108,11 @@ rule index_alignment:
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
-#rule run_isONclust3_nc:
+rule run_isONclust3_nc:
         input: fastq = config["original_reads"],
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"#
-#
+
         output: cluster_outfolder+"result_rs_isONclust_denovo_nc.txt"
         run:
             this_folder = config["SCRATCH"] + 'rs_nc'
@@ -120,11 +120,11 @@ rule index_alignment:
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode pacbio  --outfolder {this_folder} --seeding minimizer --noncanonical")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
                         
-#rule run_isONclust3_pc:
+rule run_isONclust3_pc:
         input: fastq = config["original_reads"],
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
-#
+
         output: cluster_outfolder+"result_rs_isONclust_denovo_pc.txt"
         run:
             this_folder = config["SCRATCH"] + 'rs_pc'
@@ -135,7 +135,7 @@ rule index_alignment:
 
 
            
-#rule run_GeLuster:
+rule run_GeLuster:
     input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
            alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
            index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
@@ -149,7 +149,7 @@ rule index_alignment:
         shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
 
-#rule rattle_cluster:
+rule rattle_cluster:
     input:
         cluster_outfolder+'data/full_length_output.fastq',
         alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
