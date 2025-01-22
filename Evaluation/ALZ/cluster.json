@@ -15,23 +15,23 @@
 
     "split_accessions_orig":
     {
-    	"jobname" :"split_accessions",
-    	"p" : "shared",
+        "jobname" :"split_accessions",
+        "p" : "shared",
         "n" : "20",
         "N" : "1",
-    	"runtime":"10:00:00",
-    	"mail" : "alexander.petri@math.su.se",
+        "runtime":"10:00:00",
+        "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
 
     "pychop":
     {
-    	"jobname" :"pychopper",
-    	"p" : "shared",
+        "jobname" :"pychopper",
+        "p" : "shared",
         "n" : "20",
         "N" : "1",
-    	"runtime":"10:00:00",
-    	"mail" : "alexander.petri@math.su.se",
+        "runtime":"10:00:00",
+        "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
 
@@ -48,23 +48,23 @@
 
     "sort_alignment":
      {
-    	"jobname" :"sortalignment",
-    	"p" : "shared",
+        "jobname" :"sortalignment",
+        "p" : "shared",
         "n" : "1",
         "N" : "1",
-    	"runtime":"10:00:00",
-    	"mail" : "alexander.petri@math.su.se",
+        "runtime":"10:00:00",
+        "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
 
     "index_alignment":
     {
-    	"jobname" :"indexalignment",
-    	"p" : "shared",
+        "jobname" :"indexalignment",
+        "p" : "shared",
         "n" : "1",
         "N" : "1",
-    	"runtime":"10:00:00",
-    	"mail" : "alexander.petri@math.su.se",
+        "runtime":"10:00:00",
+        "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
 
@@ -81,19 +81,19 @@
     
     "rattle_cluster":
     {
-    	"jobname" :"rattle_cluster",
-    	"p" : "shared",
+        "jobname" :"rattle_cluster",
+        "p" : "shared",
         "n" : "20",
         "N" : "1",
-    	"runtime":"5-00:00:00",
-    	"mail" : "alexander.petri@math.su.se",
+        "runtime":"5-00:00:00",
+        "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
 
     "run_GeLuster" :
     {
         "jobname" : "run_GeLuster",
-     	"p" : "shared",
+        "p" : "shared",
         "n" : "20",
         "N" : "1",
         "runtime" : "5-00:00:00",
@@ -104,7 +104,7 @@
 
     "run_isONclust3" :
     {
-     	"jobname" : "run_isONclust.rs",
+        "jobname" : "run_isONclust.rs",
         "p" : "shared",
         "n" : "40",
         "N" : "1",
@@ -114,7 +114,7 @@
     },
     "run_isONclust3_pc" :
     {
-     	"jobname" : "run_isONclust.rs",
+        "jobname" : "run_isONclust.rs",
         "p" : "shared",
         "n" : "40",
         "N" : "1",
@@ -124,7 +124,7 @@
     },
     "run_isONclust3_nc" :
     {
-     	"jobname" : "run_isONclust.rs",
+        "jobname" : "run_isONclust.rs",
         "p" : "shared",
         "n" : "40",
         "N" : "1",
