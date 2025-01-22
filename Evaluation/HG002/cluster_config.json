@@ -1,4 +1,8 @@
 {
+  "NR_CORES" : ["8"],
+  "RATTLE_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/RATTLE/",
+  "GELUSTER_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/GeLuster/", 
+  "ISONCLUST3_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/",
   "RATTLE_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/RATTLE/",
   "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/HG002/flnc.fastq",
   "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/HG002/",
