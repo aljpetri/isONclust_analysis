@@ -8,7 +8,6 @@
 #script_input_folder=config["SCRIPT_FOLDER"]
 cluster_outfolder=config["CLUSTER_OUT"]
 
-isonform_location=config["ISONFORM_LOCATION"]
 isoform_abundance=config["ISO_ABUNDANCE"]
 rattle_location = config["RATTLE_DIR"]
 isonclust3_location = config["ISONCLUST3_DIR"]
