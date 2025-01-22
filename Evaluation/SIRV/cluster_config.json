@@ -1,9 +1,8 @@
 {
-"DATASETS" : "ONT_original",
-  "ISONFORM_LOCATION" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONform/",
-  "ISONCORRECT_LOCATION" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONcorrect/",
-  "ISO_ABUNDANCE": 5,
+  "NR_CORES" : ["1","8"],
   "RATTLE_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/RATTLE/",
+  "GELUSTER_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/GeLuster/", 
+  "ISONCLUST3_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/",
   "REFERENCE" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/References/SIRV/SIRV_reference.fasta",
   "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/SIRV/ERR3588903_1.fastq",
   "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/SIRV/",
