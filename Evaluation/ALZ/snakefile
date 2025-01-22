@@ -42,7 +42,8 @@ rule all:
 
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
 rule split_accessions_orig:
-    input: fastq = config["original_reads"]
+    input:
+        fastq = config["original_reads"]
     output: original_reads_split_accessions =  cluster_outfolder + "data/full_length_output.fastq"
 
     run:
