@@ -104,7 +104,7 @@ rule run_isONclust_py:
 
 
 rule run_isONclust3:
-        input: fastq = config["original_reads"],
+        input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
         output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
@@ -116,7 +116,7 @@ rule run_isONclust3:
 
 
 rule run_isONclust3_nc:
-        input: fastq = config["original_reads"],
+        input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 
@@ -128,7 +128,7 @@ rule run_isONclust3_nc:
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
                         
 rule run_isONclust3_pc:
-        input: fastq = config["original_reads"],
+        input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 
