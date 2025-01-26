@@ -47,7 +47,7 @@ rule split_accessions_orig:
     output: original_reads_split_accessions =  cluster_outfolder + "data/full_length_output.fastq"
 
     run:
-        shell("cp /proj/snic2022-6-31/nobackup/alexp/Rawdata/human_pacbio/flnc.fastq {output.original_reads_split_accessions}")
+        shell("cp {input.fastq} {output.original_reads_split_accessions}")
 
 
 ###############################################################################################################################
@@ -65,14 +65,14 @@ rule align_original_reads_minimap2:
 
 ##Sort the alignment(StringtiePipe)
 rule sort_alignment:
-        input: cluster_outfolder+"stringtie/ont_human_aligned.sam"
-        output: cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam"
+        input: cluster_outfolder + "stringtie/ont_human_aligned.sam"
+        output: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam"
         shell: "samtools view -Su {input} | samtools sort -o {output}"
 
 ##Index the alignment(StringtiePipe)
 rule index_alignment:
-    input: cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam"
-    output: cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
+    input: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam"
+    output: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
     shell: "samtools index  {input}"
 
 
