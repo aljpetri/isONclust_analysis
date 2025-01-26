@@ -261,7 +261,7 @@ rule run_isONclust_py:
     params:
             this_folder = lambda wildcards: config["SCRATCH"] + f'py_{wildcards.nr_cores}'
     run:
-            clusters_file = this_folder + '/clustering/final_clusters.tsv'
+            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
             shell("mkdir {this_folder}")
             shell("/usr/bin/time -v isONclust --t {wildcards.nr_cores} --ont --fastq {input.fastq} --outfolder {this_folder}")
             shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters {clusters_file} --fastq {input.fastq} --outfolder {this_folder}")
@@ -323,15 +323,16 @@ rule run_GeLuster:
 
 rule rattle_cluster:
     input:
-        fastq = cluster_outfolder+'data/full_length_output.fastq',
-        alignment = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam",
-        index = cluster_outfolder+"stringtie/drosophila_aligned.sorted.bam.bai"
+        fastq = cluster_outfolder + 'data/full_length_output.fastq',
+        alignment = cluster_outfolder + "stringtie/drosophila_aligned.sorted.bam",
+        index = cluster_outfolder + "stringtie/drosophila_aligned.sorted.bam.bai"
     output:
         cluster_outfolder + "result_rattle_{nr_cores}.txt"
+    params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'RATTLE_{wildcards.nr_cores}'
     run:
-        this_folder = config["SCRATCH"] + 'RATTLE',
-        clusters_out = config["SCRATCH"] + 'RATTLE/clusters.out'
-        clusters_file = config["SCRATCH"] + 'RATTLE/cluster_summary.tsv'
+        clusters_out = {this_folder} + '/clusters.out'
+        clusters_file = {this_folder} + '/cluster_summary.tsv'
         shell("mkdir {this_folder}")
         shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t {wildcards.nr_cores} -o {this_folder} ")
         shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {cl_summary} ")
