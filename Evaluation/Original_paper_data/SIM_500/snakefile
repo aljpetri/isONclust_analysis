@@ -110,7 +110,8 @@ rule run_isONclust3:
         output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
         run:
             this_folder = config["SCRATCH"] + 'rs',
-            clusters_file = config["SCRATCH"] + 'rs/clustering/final_clusters.tsv'
+            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
+            shell("mkdir {this_folder}")
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
@@ -123,7 +124,8 @@ rule run_isONclust3_nc:
         output: cluster_outfolder+"result_rs_isONclust_denovo_nc.txt"
         run:
             this_folder = config["SCRATCH"] + 'rs_nc'
-            clusters_file = config["SCRATCH"] + 'rs_nc/clustering/final_clusters.tsv'
+            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
+            shell("mkdir {this_folder}")
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --noncanonical")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
                         
@@ -135,8 +137,8 @@ rule run_isONclust3_pc:
         output: cluster_outfolder+"result_rs_isONclust_denovo_pc.txt"
         run:
             this_folder = config["SCRATCH"] + 'rs_pc'
-            clusters_file = config["SCRATCH"] + 'rs_pc/clustering/final_clusters.tsv'
-            shell("mkdir {outfolder}")
+            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
+            shell("mkdir {this_folder}")
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --post-cluster")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
 
@@ -164,7 +166,7 @@ rule rattle_cluster:
     output:
         cluster_outfolder + "result_rattle_{nr_cores}.txt"
     params:
-            this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
+            this_folder = lambda wildcards: config["SCRATCH"] + f'RATTLE_{wildcards.nr_cores}'
     run:
         this_folder = params.this_folder
         clusters_out = {this_folder} + '/clusters.out'

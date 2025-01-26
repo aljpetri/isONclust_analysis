@@ -97,7 +97,8 @@ rule run_isONclust_py:
     params:
             this_folder = lambda wildcards: config["SCRATCH"] + f'py_{wildcards.nr_cores}'
     run:
-            clusters_file = this_folder + '/clustering/final_clusters.tsv'
+            this_folder = params.this_folder
+            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
             shell("mkdir {this_folder}")
             shell("/usr/bin/time -v isONclust --t {wildcards.nr_cores} --ont --fastq {input.fastq} --outfolder {this_folder}")
             shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters {clusters_file} --fastq {input.fastq} --outfolder {this_folder}")
@@ -111,7 +112,8 @@ rule run_isONclust3:
         output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
         run:
             this_folder = config["SCRATCH"] + 'rs',
-            clusters_file = config["SCRATCH"] + 'rs/clustering/final_clusters.tsv'
+            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
+            shell("mkdir {this_folder}")
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
@@ -124,7 +126,8 @@ rule run_isONclust3_nc:
         output: cluster_outfolder+"result_rs_isONclust_denovo_nc.txt"
         run:
             this_folder = config["SCRATCH"] + 'rs_nc'
-            clusters_file = config["SCRATCH"] + 'rs_nc/clustering/final_clusters.tsv'
+            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
+            shell("mkdir {this_folder}")
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --noncanonical")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
                         
@@ -136,8 +139,8 @@ rule run_isONclust3_pc:
         output: cluster_outfolder+"result_rs_isONclust_denovo_pc.txt"
         run:
             this_folder = config["SCRATCH"] + 'rs_pc'
-            clusters_file = config["SCRATCH"] + 'rs_pc/clustering/final_clusters.tsv'
-            shell("mkdir {outfolder}")
+            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
+            shell("mkdir {this_folder}")
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --post-cluster")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
 
