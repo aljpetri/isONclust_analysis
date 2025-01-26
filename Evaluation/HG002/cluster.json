@@ -7,6 +7,7 @@
         "p" : "shared",
         "n" : "20",
         "N" : "1",
+        "mem" : "250GB",
         "runtime" : "0-10:00:00",
         "jobname" : "ONT_human_pipeline",
         "mail" : "alexander.petri@math.su.se",
@@ -19,6 +20,7 @@
         "p" : "shared",
         "n" : "20",
         "N" : "1",
+        "mem" : "250GB",
         "runtime":"10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -30,6 +32,7 @@
         "p" : "shared",
         "n" : "20",
         "N" : "1",
+        "mem" : "250GB",
         "runtime":"10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -41,6 +44,7 @@
         "p" : "shared",
         "n" : "20",
         "N" : "1",
+        "mem" : "250GB",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -52,6 +56,7 @@
         "p" : "shared",
         "n" : "1",
         "N" : "1",
+        "mem" : "250GB",
         "runtime":"10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -63,6 +68,7 @@
         "p" : "shared",
         "n" : "1",
         "N" : "1",
+        "mem" : "250GB",
         "runtime":"10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
