@@ -102,7 +102,7 @@ rule run_isONclust3:
         input: fastq = config["original_reads"],
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
-        output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
+        output: cluster_outfolder + "result_rs_isONclust_denovo.txt" 
         run:
             this_folder = config["SCRATCH"] + 'rs',
             clusters_file = config["SCRATCH"] + 'rs/clustering/final_clusters.tsv'
