@@ -319,7 +319,7 @@ rule run_GeLuster:
             this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
     run:
         this_folder = params.this_folder
-        clusters_file = {this_folder} + '/GeLuster.tsv'
+        clusters_file = this_folder + '/GeLuster.tsv'
         shell("mkdir this_folder")
         shell("/usr/bin/time -v {geluster_location}GeLuster -t {wildcards.nr_cores} -r {input.fastq}  -f fq -s cDNA -o {this_folder}")
         shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
