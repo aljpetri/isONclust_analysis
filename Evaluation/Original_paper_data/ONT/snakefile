@@ -109,7 +109,7 @@ rule run_isONclust3:
         input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
-        output: cluster_outfolder+"result_rs_isONclust_denovo.txt" 
+        output: cluster_outfolder + "result_rs_isONclust_denovo.txt" 
         run:
             this_folder = config["SCRATCH"] + 'rs',
             clusters_file = this_folder + '/clustering/final_clusters.tsv'
@@ -123,7 +123,7 @@ rule run_isONclust3_nc:
                alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
                index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
 
-        output: cluster_outfolder+"result_rs_isONclust_denovo_nc.txt"
+        output: cluster_outfolder + "result_rs_isONclust_denovo_nc.txt"
         run:
             this_folder = config["SCRATCH"] + 'rs_nc'
             clusters_file = this_folder + '/clustering/final_clusters.tsv'
@@ -154,7 +154,7 @@ rule run_GeLuster:
             this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
     run:
         this_folder = params.this_folder
-        clusters_file = this_folder + 'GeLuster.tsv'
+        clusters_file = this_folder + '/GeLuster.tsv'
         shell("mkdir {this_folder}")
         shell("/usr/bin/time -v {geluster_location}GeLuster -t {wildcards.nr_cores} -r {input.fastq}  -f fq -s cDNA -o {this_folder}")
         shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")  
