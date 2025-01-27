@@ -97,7 +97,7 @@ rule run_isONclust_py:
             this_folder = lambda wildcards: config["SCRATCH"] + f'py_{wildcards.nr_cores}'
     run:
             this_folder = params.this_folder
-            clusters_file = {this_folder} + '/clustering/final_clusters.tsv'
+            clusters_file = this_folder + '/clustering/final_clusters.tsv'
             shell("mkdir {this_folder}")
             shell("/usr/bin/time -v isONclust --t {wildcards.nr_cores} --ont --fastq {input.fastq} --outfolder {this_folder}")
             shell("/usr/bin/time -v isONclust write_fastq --N 1 --clusters {clusters_file} --fastq {input.fastq} --outfolder {this_folder}")
@@ -153,7 +153,7 @@ rule run_GeLuster:
             this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
     run:
         this_folder = params.this_folder
-        clusters_file = {this_folder} + 'GeLuster.tsv'
+        clusters_file = this_folder + '/GeLuster.tsv'
         shell("mkdir {this_folder}")
         shell("/usr/bin/time -v {geluster_location}GeLuster -t {wildcards.nr_cores} -r {input.fastq}  -f fq -s dRNA -o {this_folder}")
         shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")  
@@ -170,8 +170,8 @@ rule rattle_cluster:
             this_folder = lambda wildcards: config["SCRATCH"] + f'RATTLE_{wildcards.nr_cores}'
     run:
         this_folder = params.this_folder
-        clusters_out = {this_folder}+ '/clusters.out'
-        clusters_file = {this_folder}+ '/cluster_summary.tsv'
+        clusters_out = this_folder+ '/clusters.out'
+        clusters_file = this_folder+ '/cluster_summary.tsv'
         shell("mkdir {this_folder}")
         shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t {wildcards.nr_cores} -o {this_folder} ")
         shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {cl_summary} ")
