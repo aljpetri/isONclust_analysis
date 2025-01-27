@@ -164,6 +164,6 @@ rule rattle_cluster:
         clusters_file = this_folder + '/cluster_summary.tsv'
         shell("mkdir {this_folder}")
         shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t {wildcards.nr_cores} -o {this_folder} ")
-        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {cl_summary} ")
+        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {clusters_file} ")
         shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")
 
