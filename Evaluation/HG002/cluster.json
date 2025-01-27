@@ -5,7 +5,6 @@
         "account" : "naiss2024-5-55",
         "cpus-per-task" : "1",
         "p" : "shared",
-        "n" : "20",
         "N" : "1",
         "mem" : "250000",
         "runtime" : "0-10:00:00",
@@ -18,7 +17,6 @@
     {
         "jobname" :"split_accessions",
         "p" : "shared",
-        "n" : "20",
         "N" : "1",
         "mem" : "250000",
         "runtime":"10:00:00",
@@ -30,7 +28,6 @@
     {
         "jobname" :"pychopper",
         "p" : "shared",
-        "n" : "20",
         "N" : "1",
         "mem" : "250000",
         "runtime":"10:00:00",
@@ -42,7 +39,6 @@
     {
         "jobname" : "align_original_reads_minimap2",
         "p" : "shared",
-        "n" : "20",
         "N" : "1",
         "mem" : "250000",
         "runtime" : "10:00:00",
@@ -54,7 +50,6 @@
      {
         "jobname" :"sortalignment",
         "p" : "shared",
-        "n" : "1",
         "N" : "1",
         "mem" : "250000",
         "runtime":"10:00:00",
@@ -66,7 +61,6 @@
     {
         "jobname" :"indexalignment",
         "p" : "shared",
-        "n" : "1",
         "N" : "1",
         "mem" : "250000",
         "runtime":"10:00:00",
@@ -78,7 +72,6 @@
     {
         "jobname" : "run_isONclust.py",
         "p" : "shared",
-        "n" : "20",
         "N" : "1",
         "mem" : "250000",
         "runtime" : "5-00:00:00",
@@ -90,7 +83,6 @@
     {
         "jobname" :"rattle_cluster",
         "p" : "shared",
-        "n" : "20",
         "N" : "1",
         "mem" : "250000",
         "runtime":"5-00:00:00",
@@ -102,7 +94,6 @@
     {
         "jobname" : "run_GeLuster",
         "p" : "shared",
-        "n" : "20",
         "N" : "1",
         "mem" : "250000",
         "runtime" : "5-00:00:00",
@@ -115,7 +106,6 @@
     {
         "jobname" : "run_isONclust.rs",
         "p" : "shared",
-        "n" : "40",
         "N" : "1",
         "mem" : "250000",
         "runtime" : "3-00:00:00",
@@ -126,7 +116,6 @@
     {
         "jobname" : "run_isONclust.rs",
         "p" : "shared",
-        "n" : "40",
         "N" : "1",
         "mem" : "250000",
         "runtime" : "3-00:00:00",
@@ -137,7 +126,6 @@
     {
         "jobname" : "run_isONclust.rs",
         "p" : "shared",
-        "n" : "40",
         "N" : "1",
         "mem" : "250000",
         "runtime" : "3-00:00:00",
