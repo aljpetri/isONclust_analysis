@@ -41,13 +41,13 @@ rule all:
 ###############################################################################################################################
 
 ##Preprocessing:some of our tools have issues with the accessions- we shorten them here
-rule split_accessions_orig:
-    input:
-        fastq = config["original_reads"]
-    output: original_reads_split_accessions =  cluster_outfolder + "data/full_length_output.fastq"
+#rule split_accessions_orig:
+#    input:
+#        fastq = config["original_reads"]
+#    output: original_reads_split_accessions =  cluster_outfolder + "data/full_length_output.fastq"
 
-    run:
-        shell("cp {input.fastq} {output.original_reads_split_accessions}")
+#    run:
+#        shell("cp {input.fastq} {output.original_reads_split_accessions}")
 
 
 ###############################################################################################################################
@@ -56,24 +56,24 @@ rule split_accessions_orig:
 
 
 ##Align the original reads to the reference via minimap2 (part of the stringtie pipeline)
-rule align_original_reads_minimap2:
-    input: original_reads = config["original_reads"] #cluster_outfolder + 'data/full_length_output.fastq' #cluster_outfolder+'/data/full_length_output.fastq'
-    output: original_reads_aligned =  cluster_outfolder + "stringtie/ont_human_aligned.sam"
-    run:
-            ref =config["REFERENCE"],
-            shell("minimap2 --eqx -t 20 -ax splice:hq -uf -k 15 -w 5 {ref} {input.original_reads} >  {output.original_reads_aligned} ")
+#rule align_original_reads_minimap2:
+#    input: original_reads = config["original_reads"] #cluster_outfolder + 'data/full_length_output.fastq' #cluster_outfolder+'/data/full_length_output.fastq'
+#    output: original_reads_aligned =  cluster_outfolder + "stringtie/ont_human_aligned.sam"
+#    run:
+#            ref =config["REFERENCE"],
+#            shell("minimap2 --eqx -t 20 -ax splice:hq -uf -k 15 -w 5 {ref} {input.original_reads} >  {output.original_reads_aligned} ")
 
 ##Sort the alignment(StringtiePipe)
-rule sort_alignment:
-        input: cluster_outfolder + "stringtie/ont_human_aligned.sam"
-        output: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam"
-        shell: "samtools view -Su {input} | samtools sort -o {output}"
+#rule sort_alignment:
+#        input: cluster_outfolder + "stringtie/ont_human_aligned.sam"
+#        output: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam"
+#        shell: "samtools view -Su {input} | samtools sort -o {output}"
 
 ##Index the alignment(StringtiePipe)
-rule index_alignment:
-    input: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam"
-    output: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
-    shell: "samtools index  {input}"
+#rule index_alignment:
+#    input: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam"
+#    output: cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
+#    shell: "samtools index  {input}"
 
 
 ###############################################################################################################################
