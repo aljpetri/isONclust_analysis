@@ -40,7 +40,7 @@
         "jobname" : "align_original_reads_minimap2",
         "p" : "shared",
         "N" : "1",
-        "mem" : "250000",
+        "mem" : "200000",
         "runtime" : "10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -51,7 +51,7 @@
         "jobname" :"sortalignment",
         "p" : "shared",
         "N" : "1",
-        "mem" : "250000",
+        "mem" : "200000",
         "runtime":"10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -62,7 +62,7 @@
         "jobname" :"indexalignment",
         "p" : "shared",
         "N" : "1",
-        "mem" : "250000",
+        "mem" : "200000",
         "runtime":"10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -105,9 +105,9 @@
     "run_isONclust3" :
     {
         "jobname" : "run_isONclust.rs",
-        "p" : "main",
+        "p" : "shared",
         "N" : "1",
-        "mem" : "250000",
+        "mem" : "200000",
         "runtime" : "3-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -115,9 +115,9 @@
     "run_isONclust3_pc" :
     {
         "jobname" : "run_isONclust.rs",
-        "p" : "main",
+        "p" : "shared",
         "N" : "1",
-        "mem" : "250000",
+        "mem" : "200000",
         "runtime" : "3-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -125,9 +125,9 @@
     "run_isONclust3_nc" :
     {
         "jobname" : "run_isONclust.rs",
-        "p" : "main",
+        "p" : "shared",
         "N" : "1",
-        "mem" : "250000",
+        "mem" : "200000",
         "runtime" : "3-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
