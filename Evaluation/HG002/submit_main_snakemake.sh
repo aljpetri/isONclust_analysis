@@ -2,7 +2,6 @@
 #SBATCH -A naiss2024-5-55 
 #SBATCH --time=5-00:00:00
 #SBATCH -p shared
-#SBATCH -n 20
 #SBATCH -N 1
 #SBATCH --job-name="HG002_analysis"
 #SBATCH --mail-user=alexander.petri@math.su.se
