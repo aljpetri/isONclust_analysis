@@ -35,7 +35,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input: cluster_outfolder + "result_rs_isONclust_denovo.txt" , cluster_outfolder + "result_rs_isONclust_denovo_nc.txt", cluster_outfolder + "result_rs_isONclust_denovo_pc.txt", expand(cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt', nr_cores = config["NR_CORES"]), expand(cluster_outfolder + "result_GeLuster_{nr_cores}.txt", nr_cores = config["NR_CORES"]), expand(cluster_outfolder + "result_rattle_{nr_cores}.txt", nr_cores = config["NR_CORES"])
+	input: cluster_outfolder + "result_rs_isONclust_denovo.txt" , cluster_outfolder + "result_rs_isONclust_denovo_nc.txt", cluster_outfolder + "result_rs_isONclust_denovo_pc.txt", expand(cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt', nr_cores = config["NR_CORES"])#, expand(cluster_outfolder + "result_GeLuster_{nr_cores}.txt", nr_cores = config["NR_CORES"]), expand(cluster_outfolder + "result_rattle_{nr_cores}.txt", nr_cores = config["NR_CORES"])
 
 
 ###############################################################################################################################
@@ -145,38 +145,38 @@ rule run_isONclust3_pc:
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
 
  
-rule run_GeLuster:
-    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
-           alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
-           index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
-    output: cluster_outfolder + "result_GeLuster_{nr_cores}.txt"
-    params:
-            this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
-    run:
-        this_folder = params.this_folder
-        clusters_file = this_folder + '/GeLuster.tsv'
-        shell("mkdir {this_folder}")
-        shell("/usr/bin/time -v {geluster_location}GeLuster -t {wildcards.nr_cores} -r {input.fastq}  -f fq -s cDNA -o {this_folder}")
-        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")  
+#rule run_GeLuster:
+#    input: fastq = cluster_outfolder + 'data/full_length_output.fastq',
+#           alignment = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam",
+#           index = cluster_outfolder+"stringtie/ont_human_aligned.sorted.bam.bai"
+#    output: cluster_outfolder + "result_GeLuster_{nr_cores}.txt"
+#    params:
+#            this_folder = lambda wildcards: config["SCRATCH"] + f'GeLuster_{wildcards.nr_cores}'
+#    run:
+#        this_folder = params.this_folder
+#        clusters_file = this_folder + '/GeLuster.tsv'
+#        shell("mkdir {this_folder}")
+#        shell("/usr/bin/time -v {geluster_location}GeLuster -t {wildcards.nr_cores} -r {input.fastq}  -f fq -s cDNA -o {this_folder}")
+#        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}")  
         
         
-rule rattle_cluster:
-    input:
-        fastq = cluster_outfolder+'data/full_length_output.fastq',
-        alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
-        index = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
-    output:
-        cluster_outfolder + "result_rattle_{nr_cores}.txt"
-    params:
-            this_folder = lambda wildcards: config["SCRATCH"] + f'RATTLE_{wildcards.nr_cores}'
-    run:
-        this_folder = params.this_folder
-        clusters_out = this_folder + '/clusters.out'
-        clusters_file = this_folder + '/cluster_summary.tsv'
-        shell("mkdir {this_folder}")
-        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t {wildcards.nr_cores} -o {this_folder} ")
-        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {clusters_file} ")
-        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}") 
+#rule rattle_cluster:
+#    input:
+#        fastq = cluster_outfolder+'data/full_length_output.fastq',
+#        alignment = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam",
+#        index = cluster_outfolder + "stringtie/ont_human_aligned.sorted.bam.bai"
+#    output:
+#        cluster_outfolder + "result_rattle_{nr_cores}.txt"
+#    params:
+#            this_folder = lambda wildcards: config["SCRATCH"] + f'RATTLE_{wildcards.nr_cores}'
+#    run:
+#        this_folder = params.this_folder
+#        clusters_out = this_folder + '/clusters.out'
+#        clusters_file = this_folder + '/cluster_summary.tsv'
+#        shell("mkdir {this_folder}")
+#        shell("/usr/bin/time -v {rattle_location}rattle cluster -i {input.fastq} -t {wildcards.nr_cores} -o {this_folder} ")
+#        shell("/usr/bin/time -v {rattle_location}rattle cluster_summary -i {input.fastq} -c {clusters_out} >  {clusters_file} ")
+#        shell("python3 compute_cluster_quality_geluster.py --clusters {clusters_file} --classes {input.alignment} --outfile {output}") 
 
 
 
