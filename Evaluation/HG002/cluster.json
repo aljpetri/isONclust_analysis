@@ -107,7 +107,7 @@
         "jobname" : "run_isONclust.rs",
         "p" : "main",
         "N" : "1",
-        "mem" : "200000",
+        "mem" : "220000",
         "runtime" : "1-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -117,7 +117,7 @@
         "jobname" : "run_isONclust.rs",
         "p" : "main",
         "N" : "1",
-        "mem" : "200000",
+        "mem" : "220000",
         "runtime" : "1-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
@@ -127,7 +127,7 @@
         "jobname" : "run_isONclust.rs",
         "p" : "main",
         "N" : "1",
-        "mem" : "200000",
+        "mem" : "220000",
         "runtime" : "1-00:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
