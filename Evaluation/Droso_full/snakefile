@@ -37,7 +37,7 @@ def mkdir_p(path):
             raise
 
 rule all:
-	input: cluster_outfolder+"result_rs_isONclust_denovo.txt", cluster_outfolder + "result_rs_isONclust_denovo_nc.txt", cluster_outfolder + "result_rs_isONclust_denovo_pc.txt", expand(cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt', nr_cores = config["NR_CORES"]), expand(cluster_outfolder + "result_GeLuster_{nr_cores}.txt", nr_cores = config["NR_CORES"]), expand(cluster_outfolder + "result_rattle_{nr_cores}.txt", nr_cores = config["NR_CORES"]) #, cluster_outfolder+"py/isoforms/transcriptome.fastq"# , cluster_outfolder+"rs/isoforms/transcriptome.fastq",cluster_outfolder+ "rs/evaluation_biological/results_per_read.csv", cluster_outfolder+ "py/evaluation_biological/results_per_read.csv"   #  # cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv", cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"
+	input: cluster_outfolder+"result_rs_isONclust_denovo.txt", cluster_outfolder + "result_rs_isONclust_denovo_nc.txt", cluster_outfolder + "result_rs_isONclust_denovo_pc.txt",  expand(cluster_outfolder + "result_GeLuster_{nr_cores}.txt", nr_cores = config["NR_CORES"]), expand(cluster_outfolder + "result_rattle_{nr_cores}.txt", nr_cores = config["NR_CORES"]) #, expand(cluster_outfolder + 'result_py_isONclust_{nr_cores}.txt', nr_cores = config["NR_CORES"]), cluster_outfolder+"py/isoforms/transcriptome.fastq"# , cluster_outfolder+"rs/isoforms/transcriptome.fastq",cluster_outfolder+ "rs/evaluation_biological/results_per_read.csv", cluster_outfolder+ "py/evaluation_biological/results_per_read.csv"   #  # cluster_outfolder+"py/final_clusters.tsv",cluster_outfolder+"rs/final_clusters.tsv" #cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"#, cluster_outfolder+ "/evaluation_biological/isONform/results_per_read.csv", cluster_outfolder+ "/evaluation_biological/RATTLE/results_per_read.csv"
 
 
 ###############################################################################################################################
@@ -304,7 +304,7 @@ rule run_isONclust3_pc:
         run:
             this_folder = config["SCRATCH"] + 'rs_pc'
             clusters_file = this_folder + '/clustering/final_clusters.tsv'
-            shell("mkdir {outfolder}")
+            shell("mkdir {this_folder}")
             shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq} --mode ont  --outfolder {this_folder} --seeding minimizer --post-cluster")
             shell("python3 compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment} --outfile {output}")            
             
