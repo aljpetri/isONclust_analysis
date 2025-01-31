@@ -104,7 +104,7 @@
     {
     	"jobname" :"rattle_cluster",
     	"p" : "shared",
-        "n" : "40",
+        "n" : "80",
         "N" : "1",
     	"runtime":"2-00:00:00",
     	"mail" : "alexander.petri@math.su.se",
