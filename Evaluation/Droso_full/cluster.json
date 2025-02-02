@@ -113,9 +113,7 @@
     {
     	"jobname" :"rattle_cluster",
     	"p" : "shared",
-    	"cpus_per_task" : "2",
-        "n" : "80",
-        "cpus_per_task" : "2",
+        "mem" : "50000",
         "N" : "1",
     	"runtime":"2-00:00:00",
     	"mail" : "alexander.petri@math.su.se",
