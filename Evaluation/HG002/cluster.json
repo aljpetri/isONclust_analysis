@@ -38,7 +38,7 @@
     "align_original_reads_minimap2":
     {
         "jobname" : "align_original_reads_minimap2",
-        "p" : "shared",
+        "p" : "main",
         "N" : "1",
         "mem" : "200000",
         "runtime" : "10:00:00",
@@ -49,7 +49,7 @@
     "sort_alignment":
      {
         "jobname" :"sortalignment",
-        "p" : "shared",
+        "p" : "main",
         "N" : "1",
         "mem" : "200000",
         "runtime":"10:00:00",
