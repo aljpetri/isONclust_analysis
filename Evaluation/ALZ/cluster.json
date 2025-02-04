@@ -118,7 +118,7 @@
         "p" : "shared",
         "n" : "40",
         "N" : "1",
-        "runtime" : "3-00:00:00",
+        "runtime" : "0-10:00:00",
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
