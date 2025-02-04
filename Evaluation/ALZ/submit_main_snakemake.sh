@@ -1,8 +1,8 @@
 #!/bin/sh
 #SBATCH -A naiss2024-5-55 
-#SBATCH --time=3-00:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH -p shared
-#SBATCH -n 20
+#SBATCH -n 1
 #SBATCH -N 1
 #SBATCH --job-name="ALZ_analysis"
 #SBATCH --mail-user=alexander.petri@math.su.se
