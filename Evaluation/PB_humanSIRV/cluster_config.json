@@ -3,7 +3,7 @@
   "RATTLE_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/RATTLE/",
   "GELUSTER_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/GeLuster/", 
   "ISONCLUST3_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/",
-  "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/PB_humanSIRV/flnc.fastq",
+  "original_reads" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/PB_humanSIRV/first5mn.fastq",
   "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/PB_humanSIRV/",
   "SCRATCH" : "/cfs/klemming/scratch/a/apetri/PB_humanSIRV/",
   "REFERENCE" : "cfs/klemming/projects/snic/snic2022-6-31/alex/References/PB_human/ref.fa"
