@@ -83,7 +83,7 @@
     {
         "jobname" :"rattle_cluster",
         "p" : "shared",
-        "n" : "20",
+        "n" : "40",
         "N" : "1",
         "runtime":"5-00:00:00",
         "mail" : "alexander.petri@math.su.se",
@@ -94,7 +94,7 @@
     {
         "jobname" : "run_GeLuster",
         "p" : "shared",
-        "n" : "20",
+        "n" : "40",
         "N" : "1",
         "runtime" : "5-00:00:00",
         "mail" : "alexander.petri@math.su.se",
