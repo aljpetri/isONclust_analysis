@@ -83,7 +83,7 @@
     {
         "jobname" :"rattle_cluster",
         "p" : "shared",
-        "n" : "40",
+        "mem" : "250000",
         "N" : "1",
         "runtime":"5-00:00:00",
         "mail" : "alexander.petri@math.su.se",
