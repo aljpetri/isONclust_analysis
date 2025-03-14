@@ -71,7 +71,7 @@ rule droso_isonclust_rs:
         run:
             this_folder = params.this_folder
             clusters_file = this_folder + '/clustering/final_clusters.tsv'
-            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {this_folder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {wildcards.min_shared_minis}")
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {this_folder} --seeding minimizer --min-shared-minis {wildcards.min_shared_minis}")
             shell("python compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment_droso} --outfile {output}")
 
 rule human_isonclust_rs:
