@@ -11,6 +11,7 @@ infolder_alz = config["ALZ_IN"]
 infolder_droso = config ["DROSO_IN"]
 infolder_human_ont = config ["ONT_H_IN"]
 dataset = config["DATASET"]
+isonclust3_location = config["ISONCLUST3_DIR"]
 min_shared_minis =config["MIN_SHARED_MINIS"]
 shell.prefix("set -o pipefail; ")
 wildcard_constraints:
@@ -52,28 +53,37 @@ rule alz_isONclust_rs:
         input: fastq_alz = infolder_alz +'data/full_length_output.fastq',
                alignment_alz = infolder_alz +"stringtie/ont_human_aligned.sorted.bam",
         output: outfolder_analysis+"isONclust_denovo_{min_shared_minis}_ALZ.txt" 
+        params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'rs_{wildcards.min_shared_minis}_ALZ'
         run:
-            outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_alz} --mode pacbio --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {wildcards.min_shared_minis}")
-            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_alz} --outfile {output}")
+                this_folder = params.this_folder
+                clusters_file = this_folder + '/clustering/final_clusters.tsv'
+                shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq_alz} --mode pacbio --outfolder {this_folder} --seeding minimizer --min-shared-minis {wildcards.min_shared_minis}")
+                shell("python compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment_alz} --outfile {output}")
                 
                 
 rule droso_isonclust_rs:
         input: fastq_droso = infolder_droso +'data/full_length_output.fastq',
                alignment_droso = infolder_droso +"stringtie/drosophila_aligned.sorted.bam"
         output: outfolder_analysis+"isONclust_denovo_{min_shared_minis}_Droso.txt" 
+        params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'rs_{wildcards.min_shared_minis}_Droso'
         run:
-            outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {wildcards.min_shared_minis}")
-            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_droso} --outfile {output}")
+            this_folder = params.this_folder
+            clusters_file = this_folder + '/clustering/final_clusters.tsv'
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {this_folder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {wildcards.min_shared_minis}")
+            shell("python compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment_droso} --outfile {output}")
 
 rule human_isonclust_rs:
         input: fastq_human = infolder_human_ont +'data/full_length_output.fastq',
                alignment_human = infolder_human_ont +"stringtie/ont_human_aligned.sorted.bam"
         output: outfolder_analysis+"isONclust_denovo_{min_shared_minis}_ONTh.txt" 
+        params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'rs_{wildcards.min_shared_minis}_Droso'
         run:
-            outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_human} --mode ont  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --min-shared-minis {wildcards.min_shared_minis}")
-            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_human} --outfile {output}")
+            this_folder = params.this_folder
+            clusters_file = this_folder + '/clustering/final_clusters.tsv'
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq_human} --mode ont  --outfolder {this_folder} --seeding minimizer --min-shared-minis {wildcards.min_shared_minis}")
+            shell("python compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment_human} --outfile {output}")
 
 
