@@ -1,8 +1,10 @@
 {
-  "MIN_SHARED_MINIS" : ["0.1", "0.2", "0.3","0.4","0.5","0.6","0.7","0.8","0.9"],
-  "DATASET": ["ALZ","Droso","ONTh"],
-  "ALZ_IN": "/proj/snic2022-6-31/nobackup/alexp/Results/ALZ/",
-  "DROSO_IN": "/proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/",
-  "ONT_H_IN": "/proj/snic2022-6-31/nobackup/alexp/Results/ONT_human/",
-  "CLUSTER_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/Thresholds/"
+    "MIN_SHARED_MINIS" : ["0.1", "0.2", "0.3","0.4","0.5","0.6","0.7","0.8","0.9"],
+  "DATASET": ["ALZ","Droso"],
+  "ALZ_IN": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ALZ/",
+  "DROSO_IN": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/",
+  "ISONCLUST3_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/",
+  "ONT_H_IN": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/",
+  "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Thresholds/",
+  "SCRATCH": "/cfs/klemming/scratch/a/apetri/Thresholds/",
 }
