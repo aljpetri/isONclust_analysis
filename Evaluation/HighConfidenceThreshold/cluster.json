@@ -386,6 +386,26 @@
         "mail" : "alexander.petri@math.su.se",
         "mail_type" : "FAIL"
     },
+    "droso_isonclust_rs" :
+    {
+     	"jobname" : "droso_isonclust_rs",
+        "p" : "shared",
+        "n" : "40",
+        "N" : "1",
+        "runtime" : "1-00:00:00",
+        "mail" : "alexander.petri@math.su.se",
+        "mail_type" : "FAIL"
+    },
+    "alz_isONclust_rs" :
+    {
+     	"jobname" : "alz_isONclust_rs",
+        "p" : "shared",
+        "n" : "40",
+        "N" : "1",
+        "runtime" : "1-00:00:00",
+        "mail" : "alexander.petri@math.su.se",
+        "mail_type" : "FAIL"
+    },
 "ultra_mm2_prep_st":
     {
      	"jobname" : "ultra_prep_st",
