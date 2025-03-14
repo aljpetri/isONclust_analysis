@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH -A naiss2024-5-55 
+#SBATCH -A naiss2025-22-285 
 #SBATCH --time=1-00:00:00
 #SBATCH -p shared
 #SBATCH -n 20
