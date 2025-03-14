@@ -13,6 +13,7 @@ quality_threshold = config["QUALITY_THRESHOLDS"]
 #isonform_location=config["ISONFORM_LOCATION"]
 #isoform_abundance=config["ISO_ABUNDANCE"]
 #rattle_location=config["RATTLE_DIR"]
+isonclust3_location = config["ISONCLUST3_DIR"]
 shell.prefix("set -o pipefail; ")
 wildcard_constraints:
     nr_reads="[\d]+",
@@ -46,16 +47,22 @@ rule alz_isONclust_rs:
         input: fastq_alz = infolder_alz +'data/full_length_output.fastq',
                alignment_alz = infolder_alz +"stringtie/ont_human_aligned.sorted.bam",
         output: outfolder_analysis+"isONclust_denovo_{quality_threshold}_ALZ.txt"
+        params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'rs_{wildcards.quality_threshold}_ALZ'
         run:
-                outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
-                shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_alz} --mode pacbio  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --quality-threshold {wildcards.quality_threshold}")
-                shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_alz} --outfile {output}")
+                this_folder = params.this_folder
+                clusters_file = this_folder + '/clustering/final_clusters.tsv'
+                shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq_alz} --mode pacbio  --outfolder {this_folder} --seeding minimizer --quality-threshold {wildcards.quality_threshold}")
+                shell("python compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment_alz} --outfile {output}")
 
 rule droso_isonclust_rs:
         input: fastq_droso = infolder_droso +'data/full_length_output.fastq',
                alignment_droso = infolder_droso +"stringtie/drosophila_aligned.sorted.bam"
         output: outfolder_analysis+"isONclust_denovo_{quality_threshold}_Droso.txt"
+        params:
+            this_folder = lambda wildcards: config["SCRATCH"] + f'rs_{wildcards.quality_threshold}_Droso'
         run:
-            outfolder ='/scratch/$SLURM_JOB_ID' # cluster_outfolder+'rs'
-            shell("/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {outfolder} --seeding minimizer --no-fastq true --no-post-cluster true --quality-threshold {wildcards.quality_threshold}")
-            shell("python compute_cluster_quality.py  --clusters /scratch/$SLURM_JOB_ID/clustering/final_clusters.tsv --classes {input.alignment_droso} --outfile {output}")
+            this_folder = params.this_folder
+            clusters_file = this_folder + '/clustering/final_clusters.tsv'
+            shell("/usr/bin/time -v {isonclust3_location}isONclust3 --fastq {input.fastq_droso} --mode ont  --outfolder {this_folder} --seeding minimizer --quality-threshold {wildcards.quality_threshold}")
+            shell("python compute_cluster_quality.py  --clusters {clusters_file} --classes {input.alignment_droso} --outfile {output}")

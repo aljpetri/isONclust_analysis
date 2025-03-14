@@ -1,7 +1,9 @@
 {
   "QUALITY_THRESHOLDS" : ["0.0", "0.1", "0.5","0.75","0.90","0.95","0.97","0.98","0.99"],
   "DATASET": ["ALZ","Droso"],
-  "ALZ_IN": "/proj/snic2022-6-31/nobackup/alexp/Results/ALZ/",
-  "DROSO_IN": "/proj/snic2022-6-31/nobackup/alexp/Results/Drosophila/",
-  "CLUSTER_OUT": "/proj/snic2022-6-31/nobackup/alexp/Results/HCThresholds/"
+  "ALZ_IN": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ALZ/",
+  "ISONCLUST3_DIR" : "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/",
+  "DROSO_IN": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/",
+  "CLUSTER_OUT": "/cfs/klemming/projects/snic/snic2022-6-31/alex/Results/HCThresholds/",
+  "SCRATCH" : "/cfs/klemming/scratch/a/apetri/HC_threshold/",
 }
