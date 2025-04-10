@@ -3,9 +3,9 @@ This repository consists of the analysis scripts that were used during the isONc
 # Table of contents
 1. [Requirements](#requirements)
 2. [Availability of the data](#data_avail)
-3. [Rawdata](#raw)
-4. [References](#refs)
-5. [Running the pipeline on other systems](#run)
+      1. [Rawdata](#raw)
+      2. [References](#refs)
+3. [Running the pipeline on other systems](#run)
    
 ## Requirements<a name="requirements"></a>
 
@@ -25,14 +25,16 @@ Python libraries to be installed:
 2. `pysam`
 3. `scikit-learn`
 4. `networkx`
- While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
+
+   
+While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
 The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh,  to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile).  
 
 ## Availability of the data<a name="data_avail"></a>
 
 ### Raw data<a name="raw"></a>
 
-The datasets were downloaded using the following links:
+The datasets were downloaded using the following links:<br />
 [Drosophila](https://www.ebi.ac.uk/ena/browser/view/PRJEB34849), [SIRV](https://www.ebi.ac.uk/ena/browser/view/PRJEB34849), [ONT_human](https://www.ncbi.nlm.nih.gov/sra/DRX524696), [ALZ](https://downloads.pacbcloud.com/public/dataset/Alzheimer2019_IsoSeq/), [PB_human_SIRV](https://downloads.pacbcloud.com/public/dataset/UHRRisoseq2021/Intermediate-FullLengthReads/),[HG002](https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-Revio-HG002-1/2-FLNC/), [ONT_old](https://s3.amazonaws.com/nanopore-human-wgs/rna/fastq/Bham_Run1_20171115_1D.pass.dedup.fastq), [SIM](https://github.com/ksahlin/isONclust/blob/master/test/ccs.fastq.gz.part-ad)
 
 ### References<a name="refs"></a>
