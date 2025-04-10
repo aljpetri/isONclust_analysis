@@ -29,8 +29,8 @@ The datasets were downloaded using the following links:
 
 ##References
 We downloaded the references used for this study from the following links:
-[Human](https://github.com/marbl/CHM13), used for ONT_human, ALZ, HG002, SIM, merged with SIRV to yield the reference for PB_human_SIRV.
-[Drosophila](ftp://ftp.ensembl.org/pub/release-97/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa.gz)
+[Human](https://github.com/marbl/CHM13), used for ONT_human, ALZ, HG002, SIM, merged with SIRV to yield the reference for PB_human_SIRV.<br />
+[Drosophila](ftp://ftp.ensembl.org/pub/release-97/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa.gz)<br />
 [SIRV](https://www.lexogen.com/wp-content/uploads/2018/08/SIRV_Set1_Lot00141_Sequences_170612a-ZIP.zip)
 
 To be able to run the analysis pipelines on your machine please change the cluster related settings to according to your machines commands and change the input folders used by the snakemake pipeline (located in cluster_config.json) for each experimental pipeline you would like to run.
