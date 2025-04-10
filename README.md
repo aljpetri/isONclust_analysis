@@ -33,7 +33,7 @@ The structure of this repository is as follows: Evaluation consists of the actua
 ### Raw data<a name="raw"></a>
 
 The datasets were downloaded using the following links:
-[Drosophila](ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR358/005/ERR3588905/ERR3588905_1.fastq.gz), [SIRV](ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR358/003/ERR3588903/ERR3588903_1.fastq.gz), [ONT_human](https://www.ncbi.nlm.nih.gov/sra/DRX524696), [ALZ](https://downloads.pacbcloud.com/public/dataset/Alzheimer2019_IsoSeq/), [PB_human_SIRV](https://downloads.pacbcloud.com/public/dataset/UHRRisoseq2021/Intermediate-FullLengthReads/),[HG002](https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-Revio-HG002-1/2-FLNC/), [ONT_old](https://s3.amazonaws.com/nanopore-human-wgs/rna/fastq/Bham_Run1_20171115_1D.pass.dedup.fastq), [SIM](https://github.com/ksahlin/isONclust/blob/master/test/ccs.fastq.gz.part-ad)
+[Drosophila](https://www.ebi.ac.uk/ena/browser/view/PRJEB34849), [SIRV](https://www.ebi.ac.uk/ena/browser/view/PRJEB34849), [ONT_human](https://www.ncbi.nlm.nih.gov/sra/DRX524696), [ALZ](https://downloads.pacbcloud.com/public/dataset/Alzheimer2019_IsoSeq/), [PB_human_SIRV](https://downloads.pacbcloud.com/public/dataset/UHRRisoseq2021/Intermediate-FullLengthReads/),[HG002](https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-Revio-HG002-1/2-FLNC/), [ONT_old](https://s3.amazonaws.com/nanopore-human-wgs/rna/fastq/Bham_Run1_20171115_1D.pass.dedup.fastq), [SIM](https://github.com/ksahlin/isONclust/blob/master/test/ccs.fastq.gz.part-ad)
 
 ### References<a name="refs"></a>
 
