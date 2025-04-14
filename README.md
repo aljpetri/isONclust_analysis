@@ -38,9 +38,10 @@ Python libraries to be installed (using ``pip install X`` for package X):
 # Running the analysis scripts <a name="run_analyses"></a>
    
 While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
-The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh, to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile). 
+The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh, to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json, being the config file of the actual snakemake pipeline (located in snakefile). 
 
-We ran the pipeline as the following on our high performance cluster for each experiment: ``sbatch submit_main_snakemake.sh`` (in the respective evaluation folder). To run it on your cluster under a slurm environment, please update the cluster parameters as satisfied by your cluster.
+We ran the pipelines as the following on our high performance cluster for each experiment: ``sbatch submit_main_snakemake.sh`` (in the respective evaluation folder). <br />
+To run it on your cluster under a slurm environment, please update the cluster parameters as satisfied by your cluster.
 
 
 ## Availability of the data<a name="data_avail"></a>
