@@ -29,7 +29,9 @@ Python libraries to be installed (with ``pip install X`` for package X):
 To install the python libraries run 
    
 While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
-The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh,  to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile). We ran the pipeline as the following on our high performance cluster: ``sbatch submit_main_snakemake.sh`` for each experiment. 
+The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh,  to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile). 
+
+We ran the pipeline as the following on our high performance cluster: ``sbatch submit_main_snakemake.sh`` for each experiment. 
 
 ## Availability of the data<a name="data_avail"></a>
 
@@ -40,10 +42,11 @@ The datasets were downloaded using the following links:<br />
 
 ### References<a name="refs"></a>
 
-We downloaded the references used for this study from the following links:
-[Human](https://github.com/marbl/CHM13), used for ONT_human, ALZ, HG002, SIM, merged with SIRV to yield the reference for PB_human_SIRV.<br />
-[Drosophila](ftp://ftp.ensembl.org/pub/release-97/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa.gz)<br />
-[SIRV](https://www.lexogen.com/wp-content/uploads/2018/08/SIRV_Set1_Lot00141_Sequences_170612a-ZIP.zip)
+We downloaded the references used for this study from the following links: <br />
+-[Human](https://github.com/marbl/CHM13), used for ONT_human, ALZ, HG002 and SIM
+*[Drosophila](ftp://ftp.ensembl.org/pub/release-97/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa.gz) used for Droso
++[SIRV](https://www.lexogen.com/wp-content/uploads/2018/08/SIRV_Set1_Lot00141_Sequences_170612a-ZIP.zip) used for SIRV
+- For PB_human_SIRV we merged SIRV with Human as reference
 
 ## Making the pipelines runnable on other systems<a name="run"></a>
 To be able to run the analysis pipelines on your machine please change the cluster related settings to according to your machines commands and change the input folders used by the snakemake pipeline (located in cluster_config.json) for each experimental pipeline you would like to run.
