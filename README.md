@@ -18,17 +18,18 @@ Tools to be installed:
 5. `Rattle`[LINK](https://github.com/comprna/RATTLE)
 6. `GeLuster`[LINK](https://github.com/yutingsdu/GeLuster)
 
-We ran isONclust3 using the official wrapper pipeline issued by ONT (pipeline-nanopore-denovo-isoforms)[LINK](https://github.com/nanoporetech/pipeline-nanopore-denovo-isoforms)
+We ran isONclust2 using the official wrapper pipeline issued by ONT (pipeline-nanopore-denovo-isoforms)[LINK](https://github.com/nanoporetech/pipeline-nanopore-denovo-isoforms)
 
-Python libraries to be installed:
+Python libraries to be installed (with ``pip install X`` for package X):
 1. `snakemake`
 2. `pysam`
 3. `scikit-learn`
 4. `networkx`
 
+To install the python libraries run 
    
 While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
-The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh,  to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile).  
+The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh,  to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile). We ran the pipeline as the following on our high performance cluster: ``sbatch submit_main_snakemake.sh`` for each experiment. 
 
 ## Availability of the data<a name="data_avail"></a>
 
