@@ -19,9 +19,15 @@ Tools to be installed:
 6. `GeLuster`[LINK](https://github.com/yutingsdu/GeLuster)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 We ran isONclust2 using the official wrapper pipeline issued by ONT (pipeline-nanopore-denovo-isoforms)[LINK](https://github.com/nanoporetech/pipeline-nanopore-denovo-isoforms)
 
 Python libraries to be installed (with ``pip install X`` for package X):
+=======
+We ran isONclust3 using the official wrapper pipeline issued by ONT (pipeline-nanopore-denovo-isoforms)[LINK](https://github.com/nanoporetech/pipeline-nanopore-denovo-isoforms)
+
+Python libraries to be installed:
+>>>>>>> ed41fcd163582b785518e7b0923db83e8fca7c9a
 =======
 We ran isONclust3 using the official wrapper pipeline issued by ONT (pipeline-nanopore-denovo-isoforms)[LINK](https://github.com/nanoporetech/pipeline-nanopore-denovo-isoforms)
 
@@ -33,12 +39,18 @@ Python libraries to be installed:
 4. `networkx`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 To install the python libraries run 
    
 While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
 The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh,  to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile). 
 
 We ran the pipeline as the following on our high performance cluster: ``sbatch submit_main_snakemake.sh`` for each experiment. 
+=======
+   
+While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
+The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh,  to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile).  
+>>>>>>> ed41fcd163582b785518e7b0923db83e8fca7c9a
 =======
    
 While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
@@ -55,16 +67,22 @@ The datasets were downloaded using the following links:<br />
 ### References<a name="refs"></a>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 We downloaded the references used for this study from the following links: <br />
 -[Human](https://github.com/marbl/CHM13), used for ONT_human, ALZ, HG002 and SIM
 *[Drosophila](ftp://ftp.ensembl.org/pub/release-97/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa.gz) used for Droso
 +[SIRV](https://www.lexogen.com/wp-content/uploads/2018/08/SIRV_Set1_Lot00141_Sequences_170612a-ZIP.zip) used for SIRV
 - For PB_human_SIRV we merged SIRV with Human as reference
 =======
+=======
+>>>>>>> ed41fcd163582b785518e7b0923db83e8fca7c9a
 We downloaded the references used for this study from the following links:
 [Human](https://github.com/marbl/CHM13), used for ONT_human, ALZ, HG002, SIM, merged with SIRV to yield the reference for PB_human_SIRV.<br />
 [Drosophila](ftp://ftp.ensembl.org/pub/release-97/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa.gz)<br />
 [SIRV](https://www.lexogen.com/wp-content/uploads/2018/08/SIRV_Set1_Lot00141_Sequences_170612a-ZIP.zip)
+<<<<<<< HEAD
+>>>>>>> ed41fcd163582b785518e7b0923db83e8fca7c9a
+=======
 >>>>>>> ed41fcd163582b785518e7b0923db83e8fca7c9a
 
 ## Making the pipelines runnable on other systems<a name="run"></a>
