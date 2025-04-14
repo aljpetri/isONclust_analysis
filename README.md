@@ -1,11 +1,16 @@
 # isONclust_analysis
-This repository consists of the analysis scripts that were used during the isONclust3 study.
+This repository consists of the analysis scripts that were used during the isONclust3 study as well as the results we got during our study.
+The repository is has the following main folders:
++[Evaluation](Evaluation) contains the evaluation scripts used for each experiment 
++[Results_Submitted](Results_Submitted) contains the results we used for the publication of the study ( doi: https://doi.org/10.1101/2024.10.29.620862 )
++[isONclust2](isONclust2) contains the script run for the analysis of isONclust2 (seperate due to isONclust2 requiring its own wrapper script)
+
 # Table of contents
 1. [Requirements](#requirements)
-2. [Availability of the data](#data_avail)
+2. [Running the analysis scripts](#run_analyses)
+3. [Availability of the data](#data_avail)
       1. [Rawdata](#raw)
       2. [References](#refs)
-3. [Running the pipeline on other systems](#run)
    
 ## Requirements<a name="requirements"></a>
 
@@ -27,12 +32,12 @@ Python libraries to be installed:
 3. `scikit-learn`
 4. `networkx`
 
-To install the python libraries run 
+# Running the analysis scripts <a name="run_analyses"></a>
    
 While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
 The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh,  to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json being the config file of the actual snakemake pipeline (located in snakefile). 
 
-We ran the pipeline as the following on our high performance cluster for each experiment: ``sbatch submit_main_snakemake.sh`` (in the respective evaluation folder)
+We ran the pipeline as the following on our high performance cluster for each experiment: ``sbatch submit_main_snakemake.sh`` (in the respective evaluation folder). To run it on your cluster under a slurm environment, please update the cluster parameters as satisfied by your cluster.
 
    
 While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
@@ -55,5 +60,4 @@ We downloaded the references used for this study from the following links: <br /
 -For PB_human_SIRV we merged SIRV with Human as reference
 
 
-## Making the pipelines runnable on other systems<a name="run"></a>
-To be able to run the analysis pipelines on your machine please change the cluster related settings to according to your machines commands and change the input folders used by the snakemake pipeline (located in cluster_config.json) for each experimental pipeline you would like to run.
+
