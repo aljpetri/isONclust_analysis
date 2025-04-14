@@ -1,7 +1,0 @@
-FileNotFoundError in file /crex/proj/snic2022-6-31/nobackup/alexp/pipeline-nanopore-denovo-isoforms/Snakefile, line 128:
-[Errno 2] No such file or directory: 'processed_reads/full_length_reads.fq'
-  File "/crex/proj/snic2022-6-31/nobackup/alexp/pipeline-nanopore-denovo-isoforms/Snakefile", line 173, in <module>
-  File "/crex/proj/snic2022-6-31/nobackup/alexp/pipeline-nanopore-denovo-isoforms/Snakefile", line 128, in count_fastq_bases
-Preprocessing read in fastq file: /proj/snic2022-6-31/nobackup/alexp/isONclust_analysis/Data/SIM500k_original/full_length_output.fastq
-Counting records in input fastq: processed_reads/full_length_reads.fq
-
