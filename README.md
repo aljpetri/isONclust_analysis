@@ -28,7 +28,7 @@ Tools to be installed:
 
 We ran isONclust2 using the official wrapper pipeline issued by ONT (pipeline-nanopore-denovo-isoforms)[LINK](https://github.com/nanoporetech/pipeline-nanopore-denovo-isoforms)
 
-Python libraries to be installed (using ``pip install X`` for package X):
+In addition, the following Python packages to be installed with ``pip install X`` for package `X` are
 
 1. `snakemake`
 2. `pysam`
@@ -40,8 +40,9 @@ Python libraries to be installed (using ``pip install X`` for package X):
 While snakemake is required to run the overall analysis pipeline, pysam and scikit-learn are needed for running the analysis scripts `compute_cluster_quality*.py`.
 The structure of this repository is as follows: Evaluation consists of the actual analyses with each folder being one experiments. We used a wrapper bash script,submit_main_snakemake.sh, to start jobs on our cluster using cluster specific resources as set in (cluster.json). The input folders and certain variables (e.g. k,w for the Different_k_w experiment), were set in cluster_config.json, being the config file of the actual snakemake pipeline (located in snakefile). 
 
-We ran the pipelines as the following on our high performance cluster for each experiment: ``sbatch submit_main_snakemake.sh`` (in the respective evaluation folder). <br />
-To run it on your cluster under a slurm environment, please update the cluster parameters as satisfied by your cluster.
+The experiments in the paper are separated into different snakemake pipelines. We ran each experiment pipeline on our high-performance cluster as: ``sbatch submit_main_snakemake.sh`` ( where `submit_main_snakemake.sh` is a shell script found in the respective evaluation folder [here](https://github.com/aljpetri/isONclust_analysis/tree/main/Evaluation). <br />
+
+To run the `submit_main_snakemake.sh` shell script on your cluster in a slurm environment, please update the cluster parameters as satisfied by your cluster.
 
 
 ## Availability of the data<a name="data_avail"></a>
@@ -54,10 +55,11 @@ The datasets were downloaded using the following links:<br />
 ### References<a name="refs"></a>
 
 We downloaded the references used for this study from the following links: <br />
--[Human](https://github.com/marbl/CHM13) (used for ONT_human, ALZ, HG002 and SIM) <br />
--Drosophila_ref: ftp://ftp.ensembl.org/pub/release-97/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa.gz (used for Droso) <br />
--[SIRV](https://www.lexogen.com/wp-content/uploads/2018/08/SIRV_Set1_Lot00141_Sequences_170612a-ZIP.zip), (used for SIRV) <br />
--For PB_human_SIRV we merged SIRV with Human as reference
+-[Human reference (CHM13)](https://github.com/marbl/CHM13): Used for ONT_human, ALZ, HG002 and SIM. <br />
+-Drosophila reference: ftp://ftp.ensembl.org/pub/release-97/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa.gz <br />
+-[SIRV](https://www.lexogen.com/wp-content/uploads/2018/08/SIRV_Set1_Lot00141_Sequences_170612a-ZIP.zip): Used for SIRV. <br />
+
+For PB_human_SIRV we merged SIRV with Human as reference.
 
 
 
