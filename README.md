@@ -50,7 +50,7 @@ To run the `submit_main_snakemake.sh` shell script on your cluster in a slurm en
 ### Raw data<a name="raw"></a>
 
 The datasets were downloaded using the following links:<br />
-[Drosophila](https://www.ebi.ac.uk/ena/browser/view/PRJEB34849), [SIRV](https://www.ebi.ac.uk/ena/browser/view/PRJEB34849), [ONT_human](https://www.ncbi.nlm.nih.gov/sra/DRX524696), [ALZ](https://downloads.pacbcloud.com/public/dataset/Alzheimer2019_IsoSeq/), [PB_human_SIRV](https://downloads.pacbcloud.com/public/dataset/UHRRisoseq2021/Intermediate-FullLengthReads/),[HG002](https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-Revio-HG002-1/2-FLNC/), [ONT_old](https://s3.amazonaws.com/nanopore-human-wgs/rna/fastq/Bham_Run1_20171115_1D.pass.dedup.fastq), [SIM-500k (ccs.fastq.gz.part-aa-ad)](https://github.com/ksahlin/isONclust/tree/master/test)
+[Drosophila](https://www.ebi.ac.uk/ena/browser/view/PRJEB34849), [SIRV](https://www.ebi.ac.uk/ena/browser/view/PRJEB34849), [ONT_human](https://www.ncbi.nlm.nih.gov/sra/DRX524696), [ALZ](https://downloads.pacbcloud.com/public/dataset/Alzheimer2019_IsoSeq/), [PB_human_SIRV](https://downloads.pacbcloud.com/public/dataset/UHRRisoseq2021/Intermediate-FullLengthReads/), [HG002](https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-Revio-HG002-1/2-FLNC/), [ONT_old](https://s3.amazonaws.com/nanopore-human-wgs/rna/fastq/Bham_Run1_20171115_1D.pass.dedup.fastq), [SIM-500k (ccs.fastq.gz.part-aa-ad)](https://github.com/ksahlin/isONclust/tree/master/test)
 
 ### References<a name="refs"></a>
 
