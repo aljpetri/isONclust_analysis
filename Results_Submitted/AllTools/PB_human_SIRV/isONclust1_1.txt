@@ -1,0 +1,48 @@
+Command being timed: "isONclust --t 1 --isoseq --fastq /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/PB_humanSIRV/data/full_length_output.fastq --outfolder /cfs/klemming/scratch/a/apetri/PB_humanSIRV/py_1"
+	User time (seconds): 420105.17
+	System time (seconds): 3182.70
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 117:50:53
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 39924360
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 539975
+	Minor (reclaiming a frame) page faults: 587375673
+	Voluntary context switches: 546112
+	Involuntary context switches: 276562
+	Swaps: 0
+	File system inputs: 79243058
+	File system outputs: 70815568
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Wrote clusters to separate fastq files.
+	Command being timed: "isONclust write_fastq --N 1 --clusters /cfs/klemming/scratch/a/apetri/PB_humanSIRV/py_1/final_clusters.tsv --fastq /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/PB_humanSIRV/data/full_length_output.fastq --outfolder /cfs/klemming/scratch/a/apetri/PB_humanSIRV/py_1"
+	User time (seconds): 69.43
+	System time (seconds): 131.74
+	Percent of CPU this job got: 43%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:38.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 36302084
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1325
+	Minor (reclaiming a frame) page faults: 9043888
+	Voluntary context switches: 1611005
+	Involuntary context switches: 259
+	Swaps: 0
+	File system inputs: 3082950
+	File system outputs: 67434896
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+

@@ -1,0 +1,24 @@
+Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/GeLuster/GeLuster -t 1 -r /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_old/data/full_length_output.fastq -f fq -s cDNA -o /cfs/klemming/scratch/a/apetri/ONT_old/GeLuster_1"
+	User time (seconds): 394.23
+	System time (seconds): 20.98
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:48.38
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 564740
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 198
+	Minor (reclaiming a frame) page faults: 1231944
+	Voluntary context switches: 123307
+	Involuntary context switches: 1102
+	Swaps: 0
+	File system inputs: 521648
+	File system outputs: 3818856
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+

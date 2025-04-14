@@ -1,0 +1,16 @@
+125773 s for post-clustering
+Got 4 clusters from Post-clustering
+Current physical memory usage: 35473338368
+Current virtual memory usage: 41013145600
+134379 s for clustering and post_clustering
+4 different clusters identified
+8554570 reads added to tsv file
+Writing the fastq files
+8554570 reads written
+6140 s for file output
+Current physical memory usage: 52777508864
+Current virtual memory usage: 58317406208
+141872 overall runtime
+	Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq /cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/ALZ/flnc.fastq --mode pacbio --outfolder /cfs/klemming/scratch/a/apetri/ALZ/rs --seeding minimizer --post-cluster"
+
+

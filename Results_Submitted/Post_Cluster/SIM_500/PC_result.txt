@@ -1,0 +1,24 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+500000,0,13455,1881,34.0,10.0,221.153696,98
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.987,0.978,0.997,0.9449930145324289,97.1,0,13680,14527,12.0,1,208.395024,90
+
+
+
+309 s for post-clustering
+Got 28207 clusters from Post-clustering
+Current physical memory usage: 2998071296
+Current virtual memory usage: 5770092544
+441 s for clustering and post_clustering
+28207 different clusters identified
+500000 reads added to tsv file
+Writing the fastq files
+500000 reads written
+30 s for file output
+Current physical memory usage: 2622365696
+Current virtual memory usage: 5399203840
+550 overall runtime
+	Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq /cfs/klemming/projects/snic/snic2022-6-31/alex/Rawdata/SIM_500/ccs.fastq --mode ont --outfolder /cfs/klemming/scratch/a/apetri/SIM_500/rs/ --seeding minimizer --post-cluster"
+

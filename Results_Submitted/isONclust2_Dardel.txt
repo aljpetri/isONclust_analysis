@@ -1,0 +1,4 @@
+isONclust2 on Dardel:
+snakemake/7.25.0/ fails
+ml snakemake/5.32.2 works
+

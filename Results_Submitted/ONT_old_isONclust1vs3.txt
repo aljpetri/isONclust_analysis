@@ -1,0 +1,51 @@
+isONclust_py:
+
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+294799,23589,7037,7059,5.0,1.0,1261.6565908336713,372
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.942,0.908,0.979,0.7106624670960202,89.8,6754,10305,29995,2.0,1.0,805.7560945461537,199
+
+
+isONclust_rs:
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+294799,23589,7037,7059,5.0,1.0,1261.6565908336713,372
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.717,0.559,0.999,0.017015941965941857,5.6,5123,1436,278245,1,1,33.01038991361195,1
+
+isONclust_rs hc_threshold 0.6
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+294799,23589,7037,7059,5.0,1.0,1261.6565908336713,372
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.785,0.65,0.992,0.6512892966936213,30.1,9121,2262,205933,1.0,1,743.8329785334633,1
+
+isONclust_rs hc_threshold 0.3
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+294799,23589,7037,7059,5.0,1.0,1261.6565908336713,372
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,$
+0.785,0.649,0.992,0.6474814002665813,30.0,9117,2261,206424,1,1,737.7483759322081,1
+
+
+/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder} --quality-threshold 0.3 --seeding minimizer --min-shared-minis 0.3:
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+294799,23589,7037,7059,5.0,1.0,1261.6565908336713,372
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.923,0.878,0.973,0.8365901723654091,75.5,15095,3991,72205,1.0,1.0,1635.5862781722542,385
+
+
+/usr/bin/time -v /proj/snic2022-6-31/nobackup/alexp/isONclust_rs/target/release/isONclust3 --fastq {input.fastq} --mode ont  --outfolder {outfolder} --quality-threshold 0.3 --seeding minimizer --min-shared-minis 0.2:
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+294799,23589,7037,7059,5.0,1.0,1261.6565908336713,372
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.695,0.905,0.564,0.02787019906419696,92.8,19779,3114,21159,1,1,76185.12885415665,148300

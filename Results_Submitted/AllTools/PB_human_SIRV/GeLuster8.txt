@@ -1,0 +1,24 @@
+Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/GeLuster/GeLuster -t 8 -r /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/PB_humanSIRV/data/full_length_output.fastq -f fq -s Pacbio -o /cfs/klemming/scratch/a/apetri/PB_humanSIRV/GeLuster_8"
+	User time (seconds): 198686.19
+	System time (seconds): 975.07
+	Percent of CPU this job got: 689%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:02:17
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 35483240
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 360411
+	Minor (reclaiming a frame) page faults: 28296385
+	Voluntary context switches: 3016900
+	Involuntary context switches: 56016
+	Swaps: 0
+	File system inputs: 108074396
+	File system outputs: 249865648
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+

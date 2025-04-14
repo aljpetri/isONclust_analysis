@@ -1,0 +1,20 @@
+bioinfo-tools: NOTE: The modules made available by loding this module are all UPPMAX legacy, please consider loading PDC installed modules when available, as they are optimized for working on Dardel
+isONclust2 version: v2.3-e9da596
+Batches output directory: sorted
+Minimum batch size: 19487158 kilobases
+Kmer size: 13
+Window size: 20
+Consensus period: -1
+Minimum cluster size for consensus: 50
+Maximum cluster size for consensus: -150
+Minimum average quality: 7
+Minimum shared minimizers: 5
+Minimum fraction of top minimizer hit: 0.8
+Mapping threshold: 0.7
+Alignment threshold: 0.4
+Minimum probability no hit: 0.1
+Minimum cluster size in left batches: 2
+Debug output: off
+Warning: reusing existing output directory: sorted
+slurmstepd: error: Detected 1 oom_kill event in StepId=7113016.batch. Some of the step tasks have been OOM Killed.
+

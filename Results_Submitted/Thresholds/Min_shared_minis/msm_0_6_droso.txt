@@ -1,0 +1,24 @@
+Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/data/full_length_output.fastq --mode ont --outfolder /cfs/klemming/scratch/a/apetri/Thresholds/rs_0.6_Droso --seeding minimizer --min-shared-minis 0.6"
+	User time (seconds): 3977.12
+	System time (seconds): 129.48
+	Percent of CPU this job got: 94%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:12:42
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6883396
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 70
+	Minor (reclaiming a frame) page faults: 1516746
+	Voluntary context switches: 1999745
+	Involuntary context switches: 5960
+	Swaps: 0
+	File system inputs: 528720
+	File system outputs: 23029344
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+

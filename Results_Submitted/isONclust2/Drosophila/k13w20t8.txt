@@ -1,0 +1,13 @@
+2024-12-20 21:36:07 jobid=52319251 jobstate=COMPLETED username=alpetri account=naiss2024-5-55 nodes=r56 procs=20 partition=node qos=normal jobname=IsONclust2_ONT_human maxmemory_in_GiB=49.1 maxmemory_node=r56 timelimit=5-00:00:00 submit_time=2024-12-20T20:59:04 start_time=2024-12-20T20:59:12 end_time=2024-12-20T21:36:07 runtime=00:36:55 margin=4-23:23:05 queuetime=00:00:0
+
+
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+3764978,492248,5488,2153,70,7,31645.625296923365,13733
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.877,0.785,0.992,0.42373616661379404,98.9,126381,26151,42797,3.0,1.0,9446.007993551262,3326
+
+
+
+

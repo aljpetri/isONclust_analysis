@@ -1,0 +1,129 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+3764977,492252,5495,2157,70.0,7.0,31604.293740842877,13733
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.88,0.803,0.972,0.4113181720437296,98.4,366503,19397,58869,1.0,1.0,31874.010906618278,5149
+
+
+
+
+
+
+
+
+
+input: /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/data/full_length_output.fastq, /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/stringtie/drosophila_aligned.sorted.bam, /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/stringtie/drosophila_aligned.sorted.bam.bai
+    output: /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/result_rs_isONclust_denovo.txt
+    jobid: 0
+
+n: 1
+outfolder "/cfs/klemming/scratch/a/apetri/Drosophila/rs/"
+k: 13
+w: 21
+s: 9
+t: 2
+quality_threshold 0.2541865828329001
+Min shared minis: 0.5
+Using minimizers as seeds
+/cfs/klemming/scratch/a/apetri/Drosophila/rs//clustering/sorted.fastq
+Sorting the fastq_file
+3657700 reads accepted
+Elapsed: 165.21s
+Wrote the sorted fastq file
+Generated 257501 clusters from clustering
+Finished clustering
+3657700 reads used for clustering
+Current physical memory usage: 6109368320
+Current virtual memory usage: 8882806784
+Starting post-clustering to refine clusters
+min_shared_minis_pc: 0.5
+MI []
+4 s for creating the pc ds
+Post_clustering_ds generated
+100 s for detection of overlaps
+7 s for merging of clusters
+0 s for retaining merge_into
+107 s since create ds
+MI []
+3 s for creating the pc ds
+Post_clustering_ds generated
+45 s for detection of overlaps
+1 s for merging of clusters
+0 s for retaining merge_into
+46 s since create ds
+MI []
+3 s for creating the pc ds
+Post_clustering_ds generated
+35 s for detection of overlaps
+0 s for merging of clusters
+0 s for retaining merge_into
+35 s since create ds
+MI []
+3 s for creating the pc ds
+Post_clustering_ds generated
+33 s for detection of overlaps
+0 s for merging of clusters
+0 s for retaining merge_into
+33 s since create ds
+MI []
+2 s for creating the pc ds
+Post_clustering_ds generated
+33 s for detection of overlaps
+0 s for merging of clusters
+0 s for retaining merge_into
+33 s since create ds
+MI []
+2 s for creating the pc ds
+Post_clustering_ds generated
+33 s for detection of overlaps
+0 s for merging of clusters
+0 s for retaining merge_into
+33 s since create ds
+MI []
+2 s for creating the pc ds
+Post_clustering_ds generated
+33 s for detection of overlaps
+0 s for merging of clusters
+0 s for retaining merge_into
+33 s since create ds
+MI []
+2 s for creating the pc ds
+Post_clustering_ds generated
+33 s for detection of overlaps
+0 s for merging of clusters
+0 s for retaining merge_into
+33 s since create ds
+min_shared_minis_pc: 0.5
+382 s for post-clustering
+Got 74062 clusters from Post-clustering
+Current physical memory usage: 6109388800
+Current virtual memory usage: 8882806784
+1771 s for clustering and post_clustering
+74062 different clusters identified
+3657700 reads added to tsv file
+Writing the fastq files
+3657700 reads written
+164 s for file output
+Current physical memory usage: 6246543360
+Current virtual memory usage: 9064071168
+2134 overall runtime
+Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/data/full_length_output.fastq --mode ont --outfolder /cfs/klemming/scratch/a/apetri/Drosophila/rs/ --seeding minimizer --post-cluster"
+	User time (seconds): 1971.03
+	System time (seconds): 98.35
+	Percent of CPU this job got: 96%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 35:35.34
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6878380
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 303
+	Minor (reclaiming a frame) page faults: 1509123
+	Voluntary context switches: 446044
+	Involuntary context switches: 47968
+	Swaps: 0
+	File system inputs: 507696
+	File system outputs: 20225224
+

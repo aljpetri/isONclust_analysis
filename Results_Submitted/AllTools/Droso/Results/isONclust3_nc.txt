@@ -1,0 +1,6 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+3764977,492252,5495,2157,70.0,7.0,31604.293740842877,13733
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.868,0.776,0.986,0.476254051921679,93.3,325425,26539,253407,1.0,1.0,15089.621256422544,4229

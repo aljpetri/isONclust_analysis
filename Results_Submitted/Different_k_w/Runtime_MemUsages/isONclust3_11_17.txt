@@ -1,0 +1,18 @@
+/cfs/klemming/scratch/a/apetri/ONT_human_diff_k_w/rs_11_17/clustering/sorted.fastq
+Sorting the fastq_file
+1403583 reads accepted
+Elapsed: 40.01s
+Wrote the sorted fastq file
+Generated 79443 clusters from clustering
+Finished clustering
+1403583 reads used for clustering
+Current physical memory usage: 1486340096
+Current virtual memory usage: 4255797248
+310 s for clustering and post_clustering
+79443 different clusters identified
+1403583 reads added to tsv file
+1 s for file output
+Current physical memory usage: 1347932160
+Current virtual memory usage: 4117377024
+361 overall runtime
+

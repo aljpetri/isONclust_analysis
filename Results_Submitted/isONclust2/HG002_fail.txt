@@ -1,0 +1,48 @@
+Minimum fraction of top minimizer hit: 0.8
+Mapping threshold: 0.7
+Alignment threshold: 0.4
+Minimum probability no hit: 0.1
+Minimum cluster size in left batches: 2
+Debug output: off
+Warning: reusing existing output directory: sorted
+/usr/bin/bash: line 2: 29819 Killed                  isONclust2 sort --batch-size 77948634 --kmer-size 13 --window-size 20 --min-shared 5 --min-qual 7.0 --mapped-threshold 0.7 --aligned-threshold 0.4 --$
+CalledProcessError in file /crex/proj/snic2022-6-31/nobackup/alexp/pipeline-nanopore-denovo-isoforms/Snakefile, line 186:
+Command 'set -euo pipefail;
+            rm -fr clusters sorted
+            mkdir -p sorted; isONclust2 sort  --batch-size 77948634 --kmer-size 13 --window-size 20 --min-shared 5 --min-qual 7.0                         --mapped-threshold 0.7 --aligned-threshold 0.4 -$
+            mkdir -p clusters;' returned non-zero exit status 137.
+  File "/crex/proj/snic2022-6-31/nobackup/alexp/pipeline-nanopore-denovo-isoforms/Snakefile", line 186, in <module>
+Preprocessing read in fastq file: /proj/snic2022-6-31/nobackup/alexp/Rawdata/HG002/flnc.fastq
+Concatenating reads under directory: /proj/snic2022-6-31/nobackup/alexp/Rawdata/HG002/flnc.fastq
+Counting records in input fastq: processed_reads/full_length_reads.fq
+Bases in input: 77948 megabases
+Batch size is: 77948634
+
+
+
+
+2024-12-31 23:19:23 jobid=52398052 jobstate=CANCELLED username=alpetri account=naiss2024-5-55 nodes=r25 procs=20 partition=node qos=normal jobname=IsONclust2_SIM_1 maxmemory_in_GiB=153.6 maxmemory_node=r25 timelimit=5-00:00:00 submit_time=2024-12-31T17:55:34 start_time=2024-12-31T17:55:34 end_time=2024-12-31T23:19:22 runtime=05:23:48 margin=4-18:36:12 queuetime=00:00:00
+
+
+isONclust2 version: v2.3-e9da596
+Batches output directory: sorted
+Minimum batch size: 77948634 kilobases
+Kmer size: 13
+Window size: 20
+Consensus period: -1
+Minimum cluster size for consensus: 50
+Maximum cluster size for consensus: -150
+Minimum average quality: 7
+Minimum shared minimizers: 5
+Minimum fraction of top minimizer hit: 0.8
+Mapping threshold: 0.7
+Alignment threshold: 0.4
+Minimum probability no hit: 0.1
+Minimum cluster size in left batches: 2
+Debug output: off
+Warning: reusing existing output directory: sorted
+Parsed 37200651 sequences.
+Finished sorting sequences.
+Sorted sequences written to: sorted/sorted_reads.fastq
+slurmstepd: error: *** JOB 52398052 ON r25 CANCELLED AT 2024-12-31T23:19:23 ***
+

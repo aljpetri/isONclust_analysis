@@ -1,0 +1,20 @@
+Job ID: 7936680
+Cluster: dardel
+User/Group: apetri/apetri
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 256
+CPU Utilized: 00:07:49
+CPU Efficiency: 0.76% of 17:12:32 core-walltime
+Job Wall-clock time: 00:04:02
+Memory Utilized: 8.85 GB
+Memory Efficiency: 3.82% of 231.62 GB
+
+
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+283300,17853,6808,6660,5.0,2.0,1288.4439417284807,389
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.71,0.551,1.0,0.0,5.4,248090,6475,267991,1.0,1.0,700.5051280709811,1
+

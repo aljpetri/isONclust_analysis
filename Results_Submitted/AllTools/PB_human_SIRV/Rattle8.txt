@@ -1,0 +1,12 @@
+rule rattle_cluster:
+    input: /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/PB_humanSIRV/data/full_length_output.fastq, /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/PB_humanSIRV/stringtie/ont_human_aligned.sorted.bam, /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/PB_humanSIRV/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/PB_humanSIRV/result_rattle_8.txt
+    jobid: 0
+    wildcards: nr_cores=8
+
+RNA mode: false
+Reading fasta file... 
+Reads: 4997715
+Done
+slurmstepd: error: Detected 1 oom_kill event in StepId=8248888.batch. Some of the step tasks have been OOM Killed.
+

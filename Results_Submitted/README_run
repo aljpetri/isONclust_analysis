@@ -1,0 +1,1 @@
+/usr/bin/time -v /home/alexanderpetri/Rust/isONclust_rs/target/release/isONclust3 --fastq /home/alexanderpetri/Desktop/RAWDATA_PhD1/100kSIRVSubsampling/first_10kSIRV.fastq --mode ont  --outfolder /home/alexanderpetri/isONclust_analysis/Additional_results --seeding minimizer  --post-cluster

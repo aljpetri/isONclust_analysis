@@ -1,0 +1,22 @@
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+1473632,403049,13838,15299,5,1,10509.03695369719,1242
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.938,0.92,0.957,0.9011589067407412,92.9,302314,23220,103945,1,1,12772.78948673939,1511
+
+
+min_shared_minis_pc: 0.5
+12921 s for post-clustering
+Got 120614 clusters from Post-clustering
+Current physical memory usage: 1692954624
+Current virtual memory usage: 4463190016
+13205 s for clustering and post_clustering
+120614 different clusters identified
+1396401 reads added to tsv file
+Writing the fastq files
+1396401 reads written
+114 s for file output
+Current physical memory usage: 1521352704
+Current virtual memory usage: 4314267648
+13366 overall runtime

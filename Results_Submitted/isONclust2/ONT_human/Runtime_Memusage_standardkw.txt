@@ -1,0 +1,2 @@
+2024-12-20 11:52:23 jobid=52309680 jobstate=FAILED username=alpetri account=naiss2024-5-55 nodes=r211 procs=20 partition=node qos=normal jobname=IsONclust2_ONT_human maxmemory_in_GiB=18.3 maxmemory_node=r211 timelimit=5-00:00:00 submit_time=2024-12-20T09:22:02 start_time=2024-12-20T09:22:08 end_time=2024-12-20T11:52:23 runtime=02:30:15 margin=4-21:29:45 queuetime=00:00:06
+

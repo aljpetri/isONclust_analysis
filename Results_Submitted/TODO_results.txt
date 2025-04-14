@@ -1,0 +1,16 @@
+TODO:
+ALZ: geluster1 running
+HG002: rerun ic3 ic3_pc, ic3_nc remove folders in scratch and result files in Results
+Droso: DONE
+  
+  
+  
+SIM. DONE
+ONT_old: ic2_1&8, ic1&8
+SIRV:  ic1_1&8
+ONT_human: ic1_1&8  
+
+
+
+Redo Postcluster ALZ
+GeLuster, Rattle results for ONT_old are missing

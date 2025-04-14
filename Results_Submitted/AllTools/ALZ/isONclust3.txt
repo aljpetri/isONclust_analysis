@@ -1,0 +1,22 @@
+	Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ALZ/data/full_length_output.fastq --mode pacbio --outfolder /cfs/klemming/scratch/a/apetri/ALZ/rs --seeding minimizer"
+	User time (seconds): 4812.33
+	System time (seconds): 312.84
+	Percent of CPU this job got: 94%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:30:08
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 38754204
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 140241
+	Minor (reclaiming a frame) page faults: 7125308
+	Voluntary context switches: 1914389
+	Involuntary context switches: 50025
+	Swaps: 0
+	File system inputs: 6004952
+	File system outputs: 102696920
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+

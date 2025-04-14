@@ -1,0 +1,35 @@
+rule rattle_cluster:
+    input: /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/data/full_length_output.fastq, /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/stringtie/drosophila_aligned.sorted.bam, /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/stringtie/drosophila_aligned.sorted.bam.bai
+    output: /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/result_rattle_1.txt
+    jobid: 0
+    wildcards: nr_cores=1
+
+RNA mode: false
+Reading fasta file... 
+Reads: 3206857
+Done
+Command terminated by signal 11
+	Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/RATTLE/rattle cluster -i /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/Drosophila/data/full_length_output.fastq -t 1 -o /cfs/klemming/scratch/a/apetri/Drosophila/RATTLE_1"
+	User time (seconds): 227.99
+	System time (seconds): 9.75
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:57.83
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 15692320
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 25
+	Minor (reclaiming a frame) page faults: 3428443
+	Voluntary context switches: 26
+	Involuntary context switches: 241
+	Swaps: 0
+	File system inputs: 500696
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+

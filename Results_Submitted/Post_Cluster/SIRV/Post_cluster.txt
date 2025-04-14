@@ -1,0 +1,31 @@
+501 s for post-clustering
+Got 362 clusters from Post-clustering
+Current physical memory usage: 2103709696
+Current virtual memory usage: 4875198464
+912 s for clustering and post_clustering
+362 different clusters identified
+1396497 reads added to tsv file
+Writing the fastq files
+1396497 reads written
+11 s for file output
+Current physical memory usage: 2217447424
+Current virtual memory usage: 4989100032
+997 overall runtime
+        Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/i\
+sONclust3/target/release/isONclust3 --fastq /cfs/klemming/projects/snic/snic20\
+22-6-31/alex/Results/SIRV/data/full_length_output.fastq --mode ont --outfolder\
+ /cfs/klemming/scratch/a/apetri/SIRV/rs/ --seeding minimizer --post-cluster"
+        User time (seconds): 975.27
+        System time (seconds): 21.77
+        Percent of CPU this job got: 99%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 16:37.24
+
+
+
+
+CLASSES
+tot_nr_reads,unclassified,nr_non_singleton_classes,singleton_classes,upper_75_class_size,median_class_size,e_class_size,n50_class_size
+1409565,15787,7,0,179443.5,114622,463541.5383339384,742438
+CLUSTERS
+V,c,h,ARI,Reads_nontrivially_clustered_percent,Reads_Nontrivially_clustered_but_unaligned,non_singleton_clusters,singleton_clusters,upper_75_cluster_size,median,e_cluster_size,n50_cluster_size
+0.904,0.825,1.0,0.9618780409768418,99.6,7323,24,5265,1,1,441772.6934575118,742960

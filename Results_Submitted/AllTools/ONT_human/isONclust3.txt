@@ -1,0 +1,50 @@
+rule run_isONclust_rs:
+    input: /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/data/full_length_output.fastq, /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/stringtie/ont_human_aligned.sorted.bam, /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/stringtie/ont_human_aligned.sorted.bam.bai
+    output: /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/result_rs_isONclust_denovo.txt
+    jobid: 0
+
+n: 1
+outfolder "/cfs/klemming/scratch/a/apetri/ONT_human/rs/"
+k: 13
+w: 21
+s: 9
+t: 2
+quality_threshold 0.2541865828329001
+Min shared minis: 0.5
+Using minimizers as seeds
+/cfs/klemming/scratch/a/apetri/ONT_human/rs//clustering/sorted.fastq
+Sorting the fastq_file
+1396401 reads accepted
+Elapsed: 36.57s
+Wrote the sorted fastq file
+Generated 279345 clusters from clustering
+Finished clustering
+1396401 reads used for clustering
+Current physical memory usage: 1691680768
+Current virtual memory usage: 4463149056
+284 s for clustering and post_clustering
+279345 different clusters identified
+1396401 reads added to tsv file
+Writing the fastq files
+1396401 reads written
+375 s for file output
+Current physical memory usage: 1527955456
+Current virtual memory usage: 4321144832
+707 overall runtime
+	Command being timed: "/cfs/klemming/projects/snic/snic2022-6-31/alex/isONclust3/target/release/isONclust3 --fastq /cfs/klemming/projects/snic/snic2022-6-31/alex/Results/ONT_human/data/full_length_output.fastq --mode ont --outfolder /cfs/klemming/scratch/a/apetri/ONT_human/rs/ --seeding minimizer"
+	User time (seconds): 334.01
+	System time (seconds): 201.99
+	Percent of CPU this job got: 75%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 11:47.47
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1746580
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 103
+	Minor (reclaiming a frame) page faults: 358308
+	Voluntary context switches: 1166267
+	Involuntary context switches: 11281
+	Swaps: 0
+
